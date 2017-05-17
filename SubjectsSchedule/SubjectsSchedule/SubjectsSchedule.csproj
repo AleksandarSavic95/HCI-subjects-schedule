@@ -86,6 +86,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Classroom.cs" />
+    <Compile Include="Model\FieldOfStudy.cs" />
+    <Compile Include="Model\OS.cs" />
+    <Compile Include="Model\Software.cs" />
+    <Compile Include="Model\Subject.cs" />
     <Compile Include="MyCommands\CustomCommands.cs" />
     <Compile Include="MyCommands\RoutedCommands.cs" />
     <Compile Include="MyCommands\UgradjeneKomande.xaml.cs" />
