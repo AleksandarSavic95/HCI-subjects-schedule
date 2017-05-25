@@ -62,7 +62,7 @@ namespace SubjectsSchedule
 
         private void Enable_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            // pogledati MenuItem za komandu "RoutedCommands.Enable"
         }
 
         private void Komanda_Executed(object sender, ExecutedRoutedEventArgs e)
