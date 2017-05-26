@@ -50,6 +50,7 @@ namespace SubjectsSchedule
         public MainWindow()
         {
             InitializeComponent();
+
             newClassroom = new FormaClassroom.FormaClassroom();
             this.DataContext = this;
         }
@@ -105,6 +106,8 @@ namespace SubjectsSchedule
             }
         }
 
+        #region Menu item click actions
+
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             //var w = new Grafika.CustomRender();
@@ -140,7 +143,13 @@ namespace SubjectsSchedule
             //var w = new Kontrole.ToolbarTreeContext();
             //w.ShowDialog();
         }
+        #endregion
 
+        /// <summary>
+        /// Help command event handler.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[0]);
@@ -164,14 +173,52 @@ namespace SubjectsSchedule
             Title = param;
         }
 
-        private void New_Classroom_Click(object sender, RoutedEventArgs e)
+        private void New_Classroom_Click(object sender, RoutedEventArgs e) { }
+
+        private void New_Subject_Click(object sender, RoutedEventArgs e) { }
+
+        private void New_FoS_Click(object sender, RoutedEventArgs e) { }
+
+        private void New_Software_Click(object sender, RoutedEventArgs e) { }
+
+        private void NovaUcionica_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void NovaUcionica_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             newClassroom.ShowDialog(); // ..returns ONLY when the new window is closed
         }
 
-        private void New_Subject_Click(object sender, RoutedEventArgs e)
+        private void NoviPredmet_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            
+            e.CanExecute = true;
+        }
+
+        private void NoviPredmet_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("Novi predmet!");
+        }
+
+        private void NoviSmjer_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void NoviSmjer_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("Novi smjer!");
+        }
+
+        private void NoviSoftver_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void NoviSoftver_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("Novi softver!");
         }
     }
 }

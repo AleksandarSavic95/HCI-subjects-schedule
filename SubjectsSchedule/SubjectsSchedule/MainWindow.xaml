@@ -16,6 +16,11 @@
         <CommandBinding Command="cmd:RoutedCommands.Enable" CanExecute="Enable_CanExecute" Executed="Enable_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Komanda" CanExecute="Komanda_CanExecute" Executed="Komanda_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Ugradjene" CanExecute="Ugradjene_CanExecute" Executed="Ugradjene_Executed"></CommandBinding>
+        
+        <CommandBinding Command="cmd:RoutedCommands.NovaUcionica" CanExecute="NovaUcionica_CanExecute" Executed="NovaUcionica_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.NoviPredmet" CanExecute="NoviPredmet_CanExecute" Executed="NoviPredmet_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.NoviSmjer" CanExecute="NoviSmjer_CanExecute" Executed="NoviSmjer_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.NoviSoftver" CanExecute="NoviSoftver_CanExecute" Executed="NoviSoftver_Executed"></CommandBinding>
     </Window.CommandBindings>
     <DockPanel>
         <Menu DockPanel.Dock ="Top">
@@ -145,17 +150,37 @@
         <!-- /forma za ???? -->
 
         <StackPanel DockPanel.Dock="Right">
-            <Button Margin="5" Padding="5" Click="New_Classroom_Click">
+            <!-- icon: http://www.iconarchive.com/show/ios7-icons-by-icons8/Science-Classroom-icon.html -->
+            <Button Command="cmd:RoutedCommands.NovaUcionica" Margin="5" Padding="5">
+                <!-- Click="New_Classroom_Click" -->
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">Dodaj</TextBlock>
-                    <TextBlock HorizontalAlignment="Center">Učionicu</TextBlock>
+                    <TextBlock HorizontalAlignment="Center"><Bold>U</Bold>čionicu</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="9">[ALT + SHIFT + <Bold>U</Bold>]</TextBlock>
                 </StackPanel>
             </Button>
 
-            <Button Margin="5" Padding="5" Click="New_Subject_Click">
+            <Button Command="cmd:RoutedCommands.NoviPredmet" Margin="5" Padding="5">
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">Dodaj</TextBlock>
-                    <TextBlock HorizontalAlignment="Center">Predmet</TextBlock>
+                    <TextBlock HorizontalAlignment="Center"><Bold>P</Bold>redmet</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="9">[ALT + SHIFT + <Bold>P</Bold>]</TextBlock>
+                </StackPanel>
+            </Button>
+
+            <Button Command="cmd:RoutedCommands.NoviSmjer" Margin="5" Padding="5" Click="New_FoS_Click">
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center">Dodaj</TextBlock>
+                    <TextBlock HorizontalAlignment="Center"><Bold>S</Bold>mjer</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="9">[ALT + SHIFT + <Bold>S</Bold>]</TextBlock>
+                </StackPanel>
+            </Button>
+
+            <Button Command="cmd:RoutedCommands.NoviSoftver" Margin="5" Padding="5" Click="New_Software_Click">
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center">Dodaj</TextBlock>
+                    <TextBlock HorizontalAlignment="Center">S<Bold>o</Bold>ftver</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="9">[ALT + SHIFT + <Bold>O</Bold>]</TextBlock>
                 </StackPanel>
             </Button>
         </StackPanel>

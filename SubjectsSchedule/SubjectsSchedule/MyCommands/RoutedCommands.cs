@@ -44,5 +44,45 @@ namespace SubjectsSchedule.MyCommands
                 new KeyGesture(Key.U, ModifierKeys.Control),
             }
             );
+
+        public static readonly RoutedUICommand NovaUcionica = new RoutedUICommand(
+            "Nova ucionica",
+            "NovaUcionica",
+            typeof(RoutedCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.U, ModifierKeys.Shift | ModifierKeys.Alt),
+            }
+            );
+
+        public static readonly RoutedUICommand NoviPredmet = new RoutedUICommand(
+            "Novi Predmet",
+            "NoviPredmet",
+            typeof(RoutedCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.P, ModifierKeys.Shift | ModifierKeys.Alt),
+            }
+            );
+
+        public static readonly RoutedUICommand NoviSmjer = new RoutedUICommand(
+            "Novi Smjer",
+            "NoviSmjer",
+            typeof(RoutedCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.S, ModifierKeys.Shift | ModifierKeys.Alt),
+            }
+            );
+
+        public static readonly RoutedUICommand NoviSoftver = new RoutedUICommand(
+            "Novi Softver",
+            "NoviSoftver",
+            typeof(RoutedCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.O, ModifierKeys.Shift | ModifierKeys.Alt),
+            }
+            );
     }
 }

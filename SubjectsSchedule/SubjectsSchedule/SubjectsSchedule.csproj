@@ -87,6 +87,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="FormaSubject\FormaSubject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="HelpViewer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -101,6 +105,9 @@
     </Compile>
     <Compile Include="FormaClassroom\FormaClassroom.xaml.cs">
       <DependentUpon>FormaClassroom.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormaSubject\FormaSubject.xaml.cs">
+      <DependentUpon>FormaSubject.xaml</DependentUpon>
     </Compile>
     <Compile Include="HelpProvider.cs" />
     <Compile Include="HelpViewer.xaml.cs">
@@ -125,6 +132,7 @@
     <Compile Include="MyCommands\CustomCommands.cs" />
     <Compile Include="MyCommands\RoutedCommands.cs" />
     <Compile Include="MyCommands\UgradjeneKomande.xaml.cs" />
+    <Compile Include="MyWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
