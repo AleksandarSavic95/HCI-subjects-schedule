@@ -21,6 +21,13 @@ namespace SubjectsSchedule
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        private FormaClassroom.FormaClassroom newClassroom { get; set; }
+        //private FormaSubject.FormaSubject newSubject { get; set; }
+        //private FormaSubject.FormaSubject newSubject { get; set; }
+        //private FormaSubject.FormaSubject newSubject { get; set; }
+
+        #region Enable_komande
+
         private bool _enable;
 
         public bool MenuEnabled
@@ -38,10 +45,12 @@ namespace SubjectsSchedule
                 }
             }
         }
+        #endregion
 
         public MainWindow()
         {
             InitializeComponent();
+            newClassroom = new FormaClassroom.FormaClassroom();
             this.DataContext = this;
         }
 
@@ -153,6 +162,16 @@ namespace SubjectsSchedule
         {
             //btnOK.Background = new SolidColorBrush(Color.FromRgb(32, 64, 128));
             Title = param;
+        }
+
+        private void New_Classroom_Click(object sender, RoutedEventArgs e)
+        {
+            newClassroom.ShowDialog(); // ..returns ONLY when the new window is closed
+        }
+
+        private void New_Subject_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

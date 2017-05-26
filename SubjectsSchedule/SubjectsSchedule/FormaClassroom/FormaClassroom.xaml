@@ -1,0 +1,121 @@
+﻿<Window x:Class="SubjectsSchedule.FormaClassroom.FormaClassroom"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:l="clr-namespace:SubjectsSchedule"
+        mc:Ignorable="d"
+        xmlns:cmd="clr-namespace:SubjectsSchedule.MyCommands"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="Dodavanje učionice" Height="350" Width="500"
+        l:HelpProvider.HelpKey="Forma"
+        xmlns:local="clr-namespace:SubjectsSchedule.FormaClassroom">
+    <!-- Global commands: https://stackoverflow.com/a/4710197 -->
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed"/>
+    </Window.CommandBindings>
+    
+    <!-- forma za učionicu -->
+    <Grid DockPanel.Dock="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <!-- jer su nazivi tu -->
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="0" Text="Opis"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="1" Text="Broj radnih mijesta"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="2" Text="Operativni sistem(i)"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="3" Text="Instalirani softver" VerticalAlignment="Center"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="4" Text="Dodatni elementi"/>
+
+        <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True"/>
+        <!-- AcceptsReturn="True" ? -->
+        <xctk:IntegerUpDown Margin="10, 5" Grid.Column="1" Grid.Row="1" Minimum="1" x:Name="brojMijestaUpDown" l:HelpProvider.HelpKey="Prezime"/>
+        <!-- ???? Margin="5" Grid.Column="1" Grid.Row="2" ... -->
+        <ComboBox Margin="10, 5" Grid.Column="1" Grid.Row="2" SelectedIndex="0">
+            <ComboBoxItem Content="Windows"></ComboBoxItem>
+            <ComboBoxItem Content="Linux"></ComboBoxItem>
+            <ComboBoxItem Content="Oba"></ComboBoxItem>
+        </ComboBox>
+
+        <!-- "Odaberite iz liste  =>" -->
+        <TextBlock Margin="0,5,10,5" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" Width="146">
+            	<StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0, 0, 20, 0" VerticalAlignment="Center">
+                        Odaberite iz liste
+                    </TextBlock>
+                    <Image Margin="0" Source="/arrow_black.png" Width="10"/>
+                </StackPanel>
+            </TextBlock>
+
+        <!-- SVE ZA ODABIR JEZIKA
+            Osnovni primjer listBox-a: https://msdn.microsoft.com/en-us/library/system.windows.forms.listbox.items(v=vs.110).aspx
+            ListBox + DataBase + prikaz odabranog u TextBoxu: https://www.youtube.com/watch?v=I5qvyyhUKfY
+            IMA U KODU S VJEŽBI: Move items between to ListBoxes: http://csharphelper.com/blog/2015/11/move-items-between-two-listboxes-in-c/
+            -->
+        <ListBox Margin="10, 5" Grid.Column="2" Grid.Row="1" Grid.RowSpan="4"
+                     Height="104" SelectionMode="Multiple">
+            <!-- APSOLUTNA VISINA.. ne valja..
+                OnLoad nakačiti nešto: https://stackoverflow.com/a/16084207
+                Postaviti visinu itema na (ListBox.Height/brojItema): https://stackoverflow.com/a/26558478
+                Treći pokušaj: https://stackoverflow.com/a/841618
+                -->
+            <ListBoxItem>Jedan</ListBoxItem>
+            <ListBoxItem>Dva</ListBoxItem>
+            <ListBoxItem>Tri</ListBoxItem>
+            <ListBoxItem>Četiri</ListBoxItem>
+            <ListBoxItem>Sedam</ListBoxItem>
+            <ListBoxItem>Deset</ListBoxItem>
+            <ListBoxItem>Osam</ListBoxItem>
+        </ListBox>
+
+        <!-- Stavljeno kao posljednje, jer se može preskočiti Enter-om -->
+        <!-- TODO: da li ćemo praviti da se pamte posljednje selektovani CB-ovi i nakon zatvaranja forme -->
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+            <CheckBox Margin="10, 5, 5, 5" Content="Tabla" IsChecked="True"/>
+            <CheckBox Margin="5" Content="Projektor"/>
+            <!-- pamtiti čekiranost u promjenljivoj? Binding? -->
+            <CheckBox Margin="5" Content="Pametna tabla"/>
+        </StackPanel>
+
+        <!-- reset dugme, bez upisa u bazu? -->
+        <Button Grid.Column="0" Grid.Row="7" Name="Reset" Padding="10" Margin="10" 
+                    MaxWidth="330" HorizontalAlignment="Center">
+            <StackPanel>
+                <TextBlock FontSize="14">Isprazni polja</TextBlock>
+                <!-- <TextBlock FontSize="9" HorizontalAlignment="Center">bez potvrde unosa</TextBlock> -->
+                <TextBlock FontSize="10" HorizontalAlignment="Center">[ALT + ENTER]</TextBlock>
+            </StackPanel>
+        </Button>
+
+        <StackPanel Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="1" Orientation="Horizontal">
+            <Button Name="Potvrda" Padding="10" Margin="10" 
+                    MaxWidth="330" HorizontalAlignment="Center">
+                <StackPanel>
+                    <TextBlock FontSize="14" HorizontalAlignment="Center">Potvrdi [ENTER]</TextBlock>
+
+                    <!-- <TextBlock FontSize="9" HorizontalAlignment="Center">[CTRL + ENTER] ili [CTRL + klik]</TextBlock>
+                        <TextBlock FontSize="9" HorizontalAlignment="Center">za potvrdu i nastavak unošenja</TextBlock> -->
+
+                    <TextBlock FontSize="10" HorizontalAlignment="Center">[CTRL] uz potvrdu unosa za</TextBlock>
+                    <TextBlock FontSize="10" HorizontalAlignment="Center">potvrdu i nastavak unošenja</TextBlock>
+                </StackPanel>
+            </Button>
+            <!-- <StackPanel Margin="0, 0, 0, 0" VerticalAlignment="Center">
+                    <TextBlock Text="Ctrl + ENTER/klik za" />
+                    <TextBlock Text="potvrdu i nastavak unošenja" />
+                </StackPanel> -->
+        </StackPanel>
+    </Grid>
+    <!-- /forma za učionicu -->
+</Window>
