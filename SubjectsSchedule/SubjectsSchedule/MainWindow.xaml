@@ -149,6 +149,7 @@
         </Grid>
         <!-- /forma za ???? -->
 
+        <!-- Dugmad za dodavanje entiteta -->
         <StackPanel DockPanel.Dock="Right">
             <!-- icon: http://www.iconarchive.com/show/ios7-icons-by-icons8/Science-Classroom-icon.html -->
             <Button Command="cmd:RoutedCommands.NovaUcionica" Margin="5" Padding="5">

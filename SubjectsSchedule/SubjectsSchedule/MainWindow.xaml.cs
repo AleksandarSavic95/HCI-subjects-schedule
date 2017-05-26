@@ -51,7 +51,8 @@ namespace SubjectsSchedule
         {
             InitializeComponent();
 
-            newClassroom = new FormaClassroom.FormaClassroom();
+            //newClassroom = new FormaClassroom.FormaClassroom();
+
             this.DataContext = this;
         }
 
@@ -188,6 +189,7 @@ namespace SubjectsSchedule
 
         private void NovaUcionica_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            newClassroom = new FormaClassroom.FormaClassroom();
             newClassroom.ShowDialog(); // ..returns ONLY when the new window is closed
         }
 
