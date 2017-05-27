@@ -24,19 +24,6 @@ namespace SubjectsSchedule.StudentHelpOld
             InitializeComponent();
         }
 
-        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[0]);
-            // da radi za sve kontrole
-            // DependencyObject focusedControl = FocusManager.GetFocusScope(Application.Current.Windows[0]);
-            if (focusedControl is DependencyObject)
-            {
-                Console.WriteLine("focusedControl je DependencyObject");
-                string str = HelpProvider.GetHelpKey((DependencyObject)focusedControl);
-                HelpProvider.ShowHelp(str, this);
-            }
-        }
-
         public void ShowDialog(string[] fields)
         {
             throw new NotImplementedException();
@@ -45,6 +32,11 @@ namespace SubjectsSchedule.StudentHelpOld
         public void doThings(string param)
         {
             throw new NotImplementedException();
+        }
+
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
         }
     }
 }

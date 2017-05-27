@@ -149,6 +149,8 @@
         </Grid>
         <!-- /forma za ???? -->
 
+        <l:FormaSoftver DockPanel.Dock="Left" Width="400"/>
+
         <!-- Dugmad za dodavanje entiteta -->
         <StackPanel DockPanel.Dock="Right">
             <!-- icon: http://www.iconarchive.com/show/ios7-icons-by-icons8/Science-Classroom-icon.html -->

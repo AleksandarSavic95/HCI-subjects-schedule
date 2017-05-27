@@ -26,6 +26,12 @@ namespace SubjectsSchedule.FormaClassroom
 
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+
+        }
+
+        /*
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
             // isti kood u mainWindow.cs
             IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[0]);
             // da radi za sve kontrole
@@ -34,11 +40,11 @@ namespace SubjectsSchedule.FormaClassroom
             {
                 Console.WriteLine("focusedControl je DependencyObject");
                 string str = HelpProvider.GetHelpKey((DependencyObject)focusedControl);
-                // HelpProvider.ShowHelp(str, this);
+                HelpProvider.ShowHelp(str, this);
                 // TODO: Riješiti nasljeđivanje MainWindow-a, preko interfejsa sa doThings()
                 // ili preko neke klase koja naslj. Window, a koja ima samo doThings()
                 
             }
-        }
+        } // */
     }
 }

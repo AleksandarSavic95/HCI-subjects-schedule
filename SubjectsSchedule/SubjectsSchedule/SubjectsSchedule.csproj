@@ -83,7 +83,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="InterfaceWindow.cs" />
+    <Compile Include="FormaSoftver\FormaSoftver.xaml.cs">
+      <DependentUpon>FormaSoftver.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StudentHelpOld\StudentHelpOld.xaml.cs">
       <DependentUpon>StudentHelpOld.xaml</DependentUpon>
     </Compile>
@@ -91,11 +93,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="FormaSoftver\FormaSoftver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="FormaSubject\FormaSubject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="HelpViewer.xaml">
+    <Page Include="HelpSystem\HelpViewer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -113,11 +119,11 @@
     <Compile Include="FormaSubject\FormaSubject.xaml.cs">
       <DependentUpon>FormaSubject.xaml</DependentUpon>
     </Compile>
-    <Compile Include="HelpProvider.cs" />
-    <Compile Include="HelpViewer.xaml.cs">
+    <Compile Include="HelpSystem\HelpProvider.cs" />
+    <Compile Include="HelpSystem\HelpViewer.xaml.cs">
       <DependentUpon>HelpViewer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="JavaScriptControlHelper.cs" />
+    <Compile Include="HelpSystem\JavaScriptControlHelper.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -140,7 +146,6 @@
     <Compile Include="MyCommands\CustomCommands.cs" />
     <Compile Include="MyCommands\RoutedCommands.cs" />
     <Compile Include="MyCommands\UgradjeneKomande.xaml.cs" />
-    <Compile Include="MyWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -170,25 +175,25 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="MyIcons\arrow_black.png" />
-    <Content Include="Help\error.htm">
+    <Content Include="HelpSystem\HelpContent\error.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="ttimg.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Help\graph2.png">
+    <Resource Include="HelpSystem\HelpContent\graph2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="Help\Ime.htm">
+    <Content Include="HelpSystem\HelpContent\Ime.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Help\Indeks.htm">
+    <Content Include="HelpSystem\HelpContent\Indeks.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Help\index.htm">
+    <Content Include="HelpSystem\HelpContent\index.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Help\Prezime.htm">
+    <Content Include="HelpSystem\HelpContent\Prezime.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

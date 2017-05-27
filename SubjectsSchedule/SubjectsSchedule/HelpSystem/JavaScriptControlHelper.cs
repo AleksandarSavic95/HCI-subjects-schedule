@@ -17,6 +17,11 @@ namespace SubjectsSchedule
             prozor = w;
         }
 
+        /// <summary>
+        /// Metoda se poziva iz Prezime.htm fajla, kao
+        /// reakcija na klik na dugme "Press me".
+        /// </summary>
+        /// <param name="param">tekst koji postaje naslov prozora</param>
         public void RunFromJavascript(string param)
         {
             prozor.doThings(param);

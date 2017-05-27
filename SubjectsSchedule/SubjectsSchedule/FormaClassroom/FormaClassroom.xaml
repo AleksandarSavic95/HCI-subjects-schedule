@@ -9,7 +9,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="Dodavanje učionice" Height="350" Width="500"
         l:HelpProvider.HelpKey="Forma"
-        xmlns:local="clr-namespace:SubjectsSchedule.FormaClassroom">
+        xmlns:lFormaClassroom="clr-namespace:SubjectsSchedule.FormaClassroom">
     <!-- Global commands: https://stackoverflow.com/a/4710197 -->
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed"/>
