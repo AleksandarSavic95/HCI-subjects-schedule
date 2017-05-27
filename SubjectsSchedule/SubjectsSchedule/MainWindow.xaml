@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:l="clr-namespace:SubjectsSchedule"
+        xmlns:f="clr-namespace:SubjectsSchedule.Forme"
         mc:Ignorable="d"
         xmlns:cmd="clr-namespace:SubjectsSchedule.MyCommands"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -15,7 +16,7 @@
         <CommandBinding Command="cmd:RoutedCommands.HelloWorld" CanExecute="HelloWorld_CanExecute" Executed="HelloWorld_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Enable" CanExecute="Enable_CanExecute" Executed="Enable_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Komanda" CanExecute="Komanda_CanExecute" Executed="Komanda_Executed"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommands.Ugradjene" CanExecute="Ugradjene_CanExecute" Executed="Ugradjene_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Ugradjene" CanExecute="Ugradjene_CanExecute"  Executed="Ugradjene_Executed"></CommandBinding>
         
         <CommandBinding Command="cmd:RoutedCommands.NovaUcionica" CanExecute="NovaUcionica_CanExecute" Executed="NovaUcionica_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.NoviPredmet" CanExecute="NoviPredmet_CanExecute" Executed="NoviPredmet_Executed"></CommandBinding>
@@ -149,10 +150,13 @@
         </Grid>
         <!-- /forma za ???? -->
 
-        <l:FormaSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverForma"/>
+        <f:FormaClassroom DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="ClassroomForma"/>
+        <f:FormaSubject DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SubjectForma"/>
+        <f:FormaFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyForma"/>
+        <f:FormaSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverForma"/>
 
         <!-- Dugmad za dodavanje entiteta -->
-        <StackPanel DockPanel.Dock="Right" MinWidth="100">
+        <StackPanel DockPanel.Dock="Right" MinWidth="100" Width="150" HorizontalAlignment="Right">
             <!-- icon: http://www.iconarchive.com/show/ios7-icons-by-icons8/Science-Classroom-icon.html -->
             <Button Command="cmd:RoutedCommands.NovaUcionica" Margin="5" Padding="5">
                 <!-- Click="New_Classroom_Click" -->

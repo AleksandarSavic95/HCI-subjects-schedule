@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SubjectsSchedule
+namespace SubjectsSchedule.Forme
 {
     /// <summary>
-    /// Interaction logic for FormaSoftver.xaml
+    /// Interaction logic for FormaSubject.xaml
     /// </summary>
-    public partial class FormaSoftver : UserControl
+    public partial class FormaSubject : UserControl
     {
-        public FormaSoftver()
+        public FormaSubject()
         {
             InitializeComponent();
         }

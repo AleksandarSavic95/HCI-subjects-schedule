@@ -83,8 +83,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="FormaSoftver\FormaSoftver.xaml.cs">
+    <Compile Include="Forme\FormaClassroom.xaml.cs">
+      <DependentUpon>FormaClassroom.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FormaFieldOfStudy.xaml.cs">
+      <DependentUpon>FormaFieldOfStudy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FormaSoftver.xaml.cs">
       <DependentUpon>FormaSoftver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FormaSubject.xaml.cs">
+      <DependentUpon>FormaSubject.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -94,15 +103,19 @@
     <Compile Include="StudentHelpOld\StudentHelpOld.xaml.cs">
       <DependentUpon>StudentHelpOld.xaml</DependentUpon>
     </Compile>
-    <Page Include="FormaClassroom\FormaClassroom.xaml">
+    <Page Include="Forme\FormaClassroom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FormaSoftver\FormaSoftver.xaml">
+    <Page Include="Forme\FormaFieldOfStudy.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FormaSubject\FormaSubject.xaml">
+    <Page Include="Forme\FormaSoftver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forme\FormaSubject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -117,12 +130,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormaClassroom\FormaClassroom.xaml.cs">
-      <DependentUpon>FormaClassroom.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="FormaSubject\FormaSubject.xaml.cs">
-      <DependentUpon>FormaSubject.xaml</DependentUpon>
     </Compile>
     <Compile Include="HelpSystem\HelpProvider.cs" />
     <Compile Include="HelpSystem\HelpViewer.xaml.cs">

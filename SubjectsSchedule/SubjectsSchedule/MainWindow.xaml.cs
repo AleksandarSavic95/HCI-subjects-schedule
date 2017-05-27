@@ -21,10 +21,6 @@ namespace SubjectsSchedule
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private FormaClassroom.FormaClassroom newClassroom { get; set; }
-        //private FormaSubject.FormaSubject newSubject { get; set; }
-        //private FormaSubject.FormaSubject newSubject { get; set; }
-        //private FormaSubject.FormaSubject newSubject { get; set; }
 
         #region Enable_komande
 
@@ -192,10 +188,21 @@ namespace SubjectsSchedule
             e.CanExecute = true;
         }
 
+        /// <summary>
+        /// Sakriva sve (četiri) forme za dodavanje entiteta.
+        /// </summary>
+        private void HideAllForms()
+        {
+            ClassroomForma.Visibility = Visibility.Collapsed;
+            SubjectForma.Visibility = Visibility.Collapsed;
+            SoftverForma.Visibility = Visibility.Collapsed;
+            FieldOfStudyForma.Visibility = Visibility.Collapsed;
+        }
+
         private void NovaUcionica_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            newClassroom = new FormaClassroom.FormaClassroom();
-            newClassroom.ShowDialog(); // ..returns ONLY when the new window is closed
+            HideAllForms();
+            ClassroomForma.Visibility = Visibility.Visible;
         }
 
         private void NoviPredmet_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -205,7 +212,8 @@ namespace SubjectsSchedule
 
         private void NoviPredmet_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            MessageBox.Show("Novi predmet!");
+            HideAllForms();
+            SubjectForma.Visibility = Visibility.Visible;
         }
 
         private void NoviSmjer_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -215,7 +223,8 @@ namespace SubjectsSchedule
 
         private void NoviSmjer_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            MessageBox.Show("Novi smjer!");
+            HideAllForms();
+            FieldOfStudyForma.Visibility = Visibility.Visible;
         }
 
         private void NoviSoftver_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -225,7 +234,7 @@ namespace SubjectsSchedule
 
         private void NoviSoftver_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            //MessageBox.Show("Novi softver!");
+            HideAllForms();
             SoftverForma.Visibility = Visibility.Visible;
         }
     }

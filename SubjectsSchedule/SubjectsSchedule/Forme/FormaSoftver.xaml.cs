@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SubjectsSchedule.FormaSubject
+namespace SubjectsSchedule.Forme
 {
     /// <summary>
-    /// Interaction logic for FormaSubject.xaml
+    /// Interaction logic for FormaSoftver.xaml
     /// </summary>
-    public partial class FormaSubject : Window
+    public partial class FormaSoftver : UserControl
     {
-        public FormaSubject()
+        public FormaSoftver()
         {
             InitializeComponent();
         }
