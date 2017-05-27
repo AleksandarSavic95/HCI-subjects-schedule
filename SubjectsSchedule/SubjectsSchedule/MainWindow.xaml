@@ -149,10 +149,10 @@
         </Grid>
         <!-- /forma za ???? -->
 
-        <l:FormaSoftver DockPanel.Dock="Left" Width="400"/>
+        <l:FormaSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverForma"/>
 
         <!-- Dugmad za dodavanje entiteta -->
-        <StackPanel DockPanel.Dock="Right">
+        <StackPanel DockPanel.Dock="Right" MinWidth="100">
             <!-- icon: http://www.iconarchive.com/show/ios7-icons-by-icons8/Science-Classroom-icon.html -->
             <Button Command="cmd:RoutedCommands.NovaUcionica" Margin="5" Padding="5">
                 <!-- Click="New_Classroom_Click" -->

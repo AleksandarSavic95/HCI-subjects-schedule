@@ -46,6 +46,6 @@ namespace SubjectsSchedule.Model
         /// <summary>
         /// Neophodni softver za nastavu. Lista, jer može biti više od jednog.
         /// </summary>
-        List<string> needsSoftware;
+        List<string> needsSoftware { get; set; }
     }
 }

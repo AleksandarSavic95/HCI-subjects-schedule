@@ -61,12 +61,105 @@ namespace SubjectsSchedule.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
+        ///&lt;html&gt;
+        ///	&lt;head&gt;
+        ///		&lt;title&gt;STRANICA NIJE PRONAĐENA&lt;/title&gt;
+        ///	&lt;/head&gt;
+        ///	&lt;body&gt;
+        ///	    &lt;h1&gt;Tražena stranica nije pronađena&lt;/h1&gt;
+        ///	&lt;/body&gt;
+        ///&lt;/html&gt;.
+        /// </summary>
+        public static string error {
+            get {
+                return ResourceManager.GetString("error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap graph2 {
             get {
                 object obj = ResourceManager.GetObject("graph2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
+        ///&lt;html&gt;
+        ///	&lt;head&gt;
+        ///		&lt;title&gt;Ime&lt;/title&gt;
+        ///	&lt;/head&gt;
+        ///	&lt;body&gt;
+        ///	    &lt;h1&gt;Ime&lt;/h1&gt;
+        ///	&lt;/body&gt;
+        ///&lt;/html&gt;.
+        /// </summary>
+        public static string Ime {
+            get {
+                return ResourceManager.GetString("Ime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
+        ///&lt;html&gt;
+        ///	&lt;head&gt;
+        ///		&lt;title&gt;Indeks&lt;/title&gt;
+        ///	&lt;/head&gt;
+        ///	&lt;body&gt;
+        ///	    &lt;h1&gt;Indeks&lt;/h1&gt;
+        ///	&lt;/body&gt;
+        ///&lt;/html&gt;.
+        /// </summary>
+        public static string Indeks {
+            get {
+                return ResourceManager.GetString("Indeks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
+        ///&lt;html&gt;
+        ///	&lt;head&gt;
+        ///		&lt;title&gt;Start&lt;/title&gt;
+        ///	&lt;/head&gt;
+        ///	&lt;body&gt;
+        ///	    &lt;h1&gt;Podrazumevana stranica pomoći&lt;/h1&gt;
+        ///	&lt;/body&gt;
+        ///&lt;/html&gt;.
+        /// </summary>
+        public static string index {
+            get {
+                return ResourceManager.GetString("index", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
+        ///&lt;!-- saved from url=(0016)http://localhost --&gt;
+        ///&lt;html&gt;
+        ///	&lt;head&gt;
+        ///		&lt;title&gt;Prezime&lt;/title&gt;
+        ///	&lt;/head&gt;
+        ///	&lt;body&gt;
+        ///	    &lt;h1&gt;Prezime&lt;/h1&gt;
+        ///        &lt;p&gt;
+        ///            Test &lt;a href=&quot;Ime.htm&quot;&gt;link.&lt;/a&gt;
+        ///        &lt;/p&gt;
+        ///        &lt;p&gt;
+        ///            &lt;img src=&quot;graph2.png&quot; alt=&quot;graph2&quot;/&gt;
+        ///        &lt;/p&gt;
+        ///        &lt;p&gt;
+        ///            &lt;input type=&quot;text&quot; id=&quot;txtMessage&quot; /&gt;
+        ///            &lt;input type=&quot;button&quot; value=&quot;Press Me!&quot; onclick=&quot;javascript:window.external.RunFromJavascr [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Prezime {
+            get {
+                return ResourceManager.GetString("Prezime", resourceCulture);
             }
         }
     }

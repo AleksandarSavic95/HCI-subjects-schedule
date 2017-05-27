@@ -225,7 +225,8 @@ namespace SubjectsSchedule
 
         private void NoviSoftver_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            MessageBox.Show("Novi softver!");
+            //MessageBox.Show("Novi softver!");
+            SoftverForma.Visibility = Visibility.Visible;
         }
     }
 }

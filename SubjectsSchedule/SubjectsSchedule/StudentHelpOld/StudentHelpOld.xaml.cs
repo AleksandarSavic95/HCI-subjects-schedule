@@ -17,7 +17,7 @@ namespace SubjectsSchedule.StudentHelpOld
     /// <summary>
     /// Interaction logic for StudentHelpOld.xaml
     /// </summary>
-    public partial class StudentHelpOld : InterfaceWindow
+    public partial class StudentHelpOld : Window
     {
         public StudentHelpOld()
         {
