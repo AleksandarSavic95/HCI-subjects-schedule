@@ -83,6 +83,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="InterfaceWindow.cs" />
+    <Compile Include="StudentHelpOld\StudentHelpOld.xaml.cs">
+      <DependentUpon>StudentHelpOld.xaml</DependentUpon>
+    </Compile>
     <Page Include="FormaClassroom\FormaClassroom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -121,6 +125,10 @@
     <Page Include="MyCommands\UgradjeneKomande.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StudentHelpOld\StudentHelpOld.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

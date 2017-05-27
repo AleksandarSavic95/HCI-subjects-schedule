@@ -43,8 +43,8 @@
                 <MenuItem Header="_Custom Renderer 2D Grafika" Click="MenuItem_Click"></MenuItem>
                 <MenuItem Header="3D Grafika" Click="MenuItem_Click_2"></MenuItem>
             </MenuItem> -->
-            <MenuItem Header="_Stil">
-                <MenuItem Header="_Stilovi i triggeri" Click="MenuItem_Click_3"></MenuItem>
+            <MenuItem Header="_Staro">
+                <MenuItem Header="_Student forma" Click="MenuItem_Click_3"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Kontrole">
                 <MenuItem Header="_Tabela" Click="MenuItem_Click_1"></MenuItem>
@@ -185,42 +185,6 @@
                 </StackPanel>
             </Button>
         </StackPanel>
-
-        <!-- Student forma -->
-        <Grid DockPanel.Dock="Bottom" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <TextBlock Margin="5" Grid.Column="0" Grid.Row="0" Text="Indeks"/>
-            <TextBlock Margin="5" Grid.Column="0" Grid.Row="1" Text="Ime"/>
-            <TextBlock Margin="5" Grid.Column="0" Grid.Row="2" Text="Prezime"/>
-
-            <TextBox Margin="5" Grid.Column="1" Grid.Row="0" l:HelpProvider.HelpKey="Indeks"/>
-            <TextBox Margin="5" Grid.Column="1" Grid.Row="1" l:HelpProvider.HelpKey="Ime"/>
-            <TextBox Margin="5" Grid.Column="1" Grid.Row="2" l:HelpProvider.HelpKey="Prezime"/>
-
-            <Button Name="btnOK" Padding="5" Margin="5" Grid.Row="3" Grid.Column="1"  MaxWidth="50" HorizontalAlignment="Right">
-                <Button.ToolTip>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Margin="5" Source="/ttimg.png"></Image>
-                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
-                        Ovo je kompleksan Tooltip koji može da u sebi ima razne
-                        kompleksne stvari uključujući veoma, veoma, veoma dugačak tekst.
-                        Naravno, može i nešto drugo da se stavi.
-                        </TextBlock>
-                    </StackPanel>
-                </Button.ToolTip>
-                OK
-            </Button>
-        </Grid>
-        <!-- /Student forma -->
     </DockPanel>
 </Window>
 

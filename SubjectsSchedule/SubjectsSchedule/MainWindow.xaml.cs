@@ -129,8 +129,13 @@ namespace SubjectsSchedule
 
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
         {
+            // prije bilo reakcija za Stilovi -> Stilovi i triggeri
             //var w = new Stil.StilPrimer();
             //w.ShowDialog();
+
+            // stara forma za unos studenta - radi Help
+            var w = new StudentHelpOld.StudentHelpOld();
+            w.ShowDialog();
         }
 
         private void MenuItem_Click_4(object sender, RoutedEventArgs e)

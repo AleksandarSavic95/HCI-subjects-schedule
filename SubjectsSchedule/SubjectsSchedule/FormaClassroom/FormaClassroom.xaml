@@ -27,8 +27,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <!-- Auto, jer su nazivi u prvoj koloni -->
             <ColumnDefinition Width="Auto" />
-            <!-- jer su nazivi tu -->
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
@@ -54,7 +54,7 @@
                     <TextBlock Margin="0, 0, 20, 0" VerticalAlignment="Center">
                         Odaberite iz liste
                     </TextBlock>
-                    <Image Margin="0" Source="/arrow_black.png" Width="10"/>
+                    <Image Margin="0" Source="/MyIcons/arrow_black.png" Width="10"/>
                 </StackPanel>
             </TextBlock>
 

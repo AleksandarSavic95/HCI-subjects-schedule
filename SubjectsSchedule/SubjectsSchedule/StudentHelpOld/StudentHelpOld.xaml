@@ -1,0 +1,51 @@
+﻿<Window x:Class="SubjectsSchedule.StudentHelpOld.StudentHelpOld"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:l="clr-namespace:SubjectsSchedule"
+        mc:Ignorable="d"
+        xmlns:cmd="clr-namespace:SubjectsSchedule.MyCommands"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="Dodavanje studenta - stara forMa - sa help-om" Height="350" Width="500"
+        l:HelpProvider.HelpKey="Forma"
+        xmlns:local="clr-namespace:SubjectsSchedule.StudentHelpOld">
+    <!-- Student forma -->
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed"/>
+    </Window.CommandBindings>
+    <Grid DockPanel.Dock="Bottom" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="0" Text="Indeks"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="1" Text="Ime"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="2" Text="Prezime"/>
+
+        <TextBox Margin="5" Grid.Column="1" Grid.Row="0" l:HelpProvider.HelpKey="Indeks"/>
+        <TextBox Margin="5" Grid.Column="1" Grid.Row="1" l:HelpProvider.HelpKey="Ime"/>
+        <TextBox Margin="5" Grid.Column="1" Grid.Row="2" l:HelpProvider.HelpKey="Prezime"/>
+
+        <Button Name="btnOK" Padding="5" Margin="5" Grid.Row="3" Grid.Column="1"  MaxWidth="50" HorizontalAlignment="Right">
+            <Button.ToolTip>
+                <StackPanel Orientation="Horizontal">
+                    <Image Margin="5" Source="/ttimg.png"></Image>
+                    <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                        Ovo je kompleksan Tooltip koji može da u sebi ima razne
+                        kompleksne stvari uključujući veoma, veoma, veoma dugačak tekst.
+                        Naravno, može i nešto drugo da se stavi.
+                    </TextBlock>
+                </StackPanel>
+            </Button.ToolTip>
+            OK
+        </Button>
+    </Grid>
+    <!-- /Student forma -->
+</Window>
