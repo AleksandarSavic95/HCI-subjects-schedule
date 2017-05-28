@@ -11,9 +11,11 @@
 
 using SubjectsSchedule;
 using SubjectsSchedule.MyCommands;
+using SubjectsSchedule.Schedules;
 using SubjectsSchedule.StudentHelpOld;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Controls;
