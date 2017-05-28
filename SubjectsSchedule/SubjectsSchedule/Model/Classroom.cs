@@ -21,6 +21,7 @@ namespace SubjectsSchedule.Model
     /// od 07:00 do 22:00, a termin nastave može biti zakazan
     /// u bilo kom trenutku u tom periodu.
     /// </summary>
+    [Serializable()]
     class Classroom
     {
         #region private fields

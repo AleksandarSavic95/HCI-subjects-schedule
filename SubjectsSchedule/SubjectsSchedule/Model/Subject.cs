@@ -21,6 +21,7 @@ namespace SubjectsSchedule.Model
     /// neophodnog operativnog sistema za nastavu {windows, linux, svejedno},
     /// neophodnog softvera za nastavu.
     /// </summary>
+    [Serializable()]
     class Subject
     {
 

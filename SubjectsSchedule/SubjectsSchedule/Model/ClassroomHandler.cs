@@ -8,33 +8,33 @@ using System.Threading.Tasks;
 
 namespace SubjectsSchedule.Model
 {
-    class FieldOfStudyHanlder
+    class ClassroomHandler
     {
-        private static FieldOfStudyHanlder instance;
+        private static ClassroomHandler instance = null;
 
-        public static FieldOfStudyHanlder Instance
+        public static ClassroomHandler Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new FieldOfStudyHanlder();
+                    instance = new ClassroomHandler();
                 return instance;
             }
         }
 
-        private Dictionary<string, FieldOfStudy> fieldsOfStudy;
+        private Dictionary<string, Classroom> classrooms;
 
-        public List<FieldOfStudy> FieldsOfStudy
+        public List<Classroom> Classrooms
         {
             get
             {
-                return fieldsOfStudy.Values.ToList();
+                return classrooms.Values.ToList();
             }
         }
 
-        private FieldOfStudyHanlder()
+        private ClassroomHandler()
         {
-            fieldsOfStudy = new Dictionary<string, FieldOfStudy>();
+            classrooms = new Dictionary<string, Classroom>();
         }
 
         public void Serialize(string fileName)
@@ -42,7 +42,7 @@ namespace SubjectsSchedule.Model
             using (Stream file = File.Open(fileName, FileMode.Create))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                formatter.Serialize(file, fieldsOfStudy);
+                formatter.Serialize(file, classrooms);
             }
         }
 
@@ -51,24 +51,23 @@ namespace SubjectsSchedule.Model
             using (Stream file = File.Open(fileName, FileMode.Open))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                fieldsOfStudy = ( Dictionary<string, FieldOfStudy> ) formatter.Deserialize(file);
+                classrooms = ( Dictionary<string, Classroom> ) formatter.Deserialize(file);
             }
         }
 
-        public void Add(string id, string name, DateTime since, string description)
+        public void Add(string id, string description, int seats, bool projector, bool board, bool smartBoard, OS operatingSystem)
         {
-            fieldsOfStudy.Add(id, new FieldOfStudy(id, name, since, description));
+            classrooms.Add(id, new Classroom(id, description, seats, projector, board, smartBoard, operatingSystem));
         }
 
-        public FieldOfStudy FindById(string id)
+        public Classroom FindById(string id)
         {
-            return fieldsOfStudy[id];
+            return classrooms[id];
         }
 
         public void Remove(string id)
         {
-            fieldsOfStudy.Remove(id);
+            classrooms.Remove(id);
         }
-        
     }
 }

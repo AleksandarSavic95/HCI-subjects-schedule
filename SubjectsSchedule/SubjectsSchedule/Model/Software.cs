@@ -17,6 +17,7 @@ namespace SubjectsSchedule.Model
 	/// cene softvera, i
 	/// opisa softvera.
     /// </summary>
+    [Serializable()]
     class Software
     {
 

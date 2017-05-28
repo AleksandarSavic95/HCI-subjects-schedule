@@ -95,7 +95,10 @@
     <Compile Include="Forme\FormaSubject.xaml.cs">
       <DependentUpon>FormaSubject.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\ClassroomHandler.cs" />
     <Compile Include="Model\FieldOfStudyHanlder.cs" />
+    <Compile Include="Model\SoftwareHandler.cs" />
+    <Compile Include="Model\SubjectHandler.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

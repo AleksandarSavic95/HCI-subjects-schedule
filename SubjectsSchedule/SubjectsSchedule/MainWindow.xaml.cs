@@ -51,7 +51,7 @@ namespace SubjectsSchedule
             //newClassroom = new FormaClassroom.FormaClassroom();
 
             // Serialize();
-            Deserialize();
+            // Deserialize();
 
             this.DataContext = this;
         }
@@ -59,12 +59,18 @@ namespace SubjectsSchedule
         private void Serialize()
         {
             Console.WriteLine("Serializing data...");
-            FieldOfStudyHanlder.Instance.fieldsOfStudy.Add(new FieldOfStudy("id1", "name", new DateTime(), "desc"));
-            FieldOfStudyHanlder.Instance.fieldsOfStudy.Add(new FieldOfStudy("id2", "name2", new DateTime(), "desc2"));
 
-            Console.WriteLine(new DateTime());
-
-            FieldOfStudyHanlder.Instance.Serialize("testfile.bin");
+            // Testing
+            // FieldOfStudyHanlder.Instance.Add("f1", "name1", new DateTime(), "This is dummy description 1");
+            // ClassroomHandler.Instance.Add("c1", "This is dummy description 2", 20, true, true, true, OS.CROSS_PLATFORM);
+            // SoftwareHandler.Instance.Add("s1", "name2", OS.LINUX, "producer", "http://www.org.com", "2012", 300.00, "This is dummy description 3");
+            // SubjectHandler.Instance.Add("s2", "name3", "f1", "This is dummy description 4", 21, 60, 3, true, false, false, OS.LINUX);
+            
+            // TODO: maybe pull file paths to some global config file?
+            FieldOfStudyHanlder.Instance.Serialize("study-fields.bin");
+            ClassroomHandler.Instance.Serialize("classrooms.bin");
+            SoftwareHandler.Instance.Serialize("softwares.bin");
+            SubjectHandler.Instance.Serialize("subjects.bin");
 
             Console.WriteLine("Serialization finished");
         }
@@ -72,10 +78,17 @@ namespace SubjectsSchedule
         private void Deserialize()
         {
             Console.WriteLine("Deserializing data...");
-            FieldOfStudyHanlder.Instance.Deserialize("testfile.bin");
 
-            Console.WriteLine(FieldOfStudyHanlder.Instance.fieldsOfStudy[0]);
-            Console.WriteLine(FieldOfStudyHanlder.Instance.fieldsOfStudy[1]);
+            FieldOfStudyHanlder.Instance.Deserialize("study-fields.bin");
+            ClassroomHandler.Instance.Deserialize("classrooms.bin");
+            SoftwareHandler.Instance.Deserialize("softwares.bin");
+            SubjectHandler.Instance.Deserialize("subjects.bin");
+
+            // Testing
+            // Console.WriteLine(FieldOfStudyHanlder.Instance.FieldsOfStudy[0]);
+            // Console.WriteLine(ClassroomHandler.Instance.Classrooms[0]);
+            // Console.WriteLine(SoftwareHandler.Instance.Softwares[0]);
+            // Console.WriteLine(SubjectHandler.Instance.Subjects[0]);
 
             Console.WriteLine("Deserialization finished");
         }

@@ -8,33 +8,33 @@ using System.Threading.Tasks;
 
 namespace SubjectsSchedule.Model
 {
-    class FieldOfStudyHanlder
+    class SoftwareHandler
     {
-        private static FieldOfStudyHanlder instance;
+        private static SoftwareHandler instance = null;
 
-        public static FieldOfStudyHanlder Instance
+        public static SoftwareHandler Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new FieldOfStudyHanlder();
+                    instance = new SoftwareHandler();
                 return instance;
             }
         }
 
-        private Dictionary<string, FieldOfStudy> fieldsOfStudy;
+        private Dictionary<string, Software> softwares;
 
-        public List<FieldOfStudy> FieldsOfStudy
+        public List<Software> Softwares
         {
             get
             {
-                return fieldsOfStudy.Values.ToList();
+                return softwares.Values.ToList();
             }
         }
 
-        private FieldOfStudyHanlder()
+        private SoftwareHandler()
         {
-            fieldsOfStudy = new Dictionary<string, FieldOfStudy>();
+            softwares = new Dictionary<string, Software>();
         }
 
         public void Serialize(string fileName)
@@ -42,7 +42,7 @@ namespace SubjectsSchedule.Model
             using (Stream file = File.Open(fileName, FileMode.Create))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                formatter.Serialize(file, fieldsOfStudy);
+                formatter.Serialize(file, softwares);
             }
         }
 
@@ -51,24 +51,23 @@ namespace SubjectsSchedule.Model
             using (Stream file = File.Open(fileName, FileMode.Open))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                fieldsOfStudy = ( Dictionary<string, FieldOfStudy> ) formatter.Deserialize(file);
+                softwares = ( Dictionary<string, Software> ) formatter.Deserialize(file);
             }
         }
 
-        public void Add(string id, string name, DateTime since, string description)
+        public void Add(string id, string name, OS operatingSystem, string producer, string webSite, string year, double price, string description)
         {
-            fieldsOfStudy.Add(id, new FieldOfStudy(id, name, since, description));
+            softwares.Add(id, new Software(id, name, operatingSystem, producer, webSite, year, price, description));
         }
 
-        public FieldOfStudy FindById(string id)
+        public Software FindById(string id)
         {
-            return fieldsOfStudy[id];
+            return softwares[id];
         }
 
         public void Remove(string id)
         {
-            fieldsOfStudy.Remove(id);
+            softwares.Remove(id);
         }
-        
     }
 }
