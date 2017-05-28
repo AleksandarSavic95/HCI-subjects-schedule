@@ -60,6 +60,11 @@ namespace SubjectsSchedule.Model
             classrooms.Add(id, new Classroom(id, description, seats, projector, board, smartBoard, operatingSystem));
         }
 
+        public bool Has(string id)
+        {
+            return true ? classrooms[id] != null : false;
+        }
+
         public Classroom FindById(string id)
         {
             return classrooms[id];

@@ -59,6 +59,11 @@ namespace SubjectsSchedule.Model
         {
             softwares.Add(id, new Software(id, name, operatingSystem, producer, webSite, year, price, description));
         }
+        
+        public bool Has(string id)
+        {
+            return true ? softwares[id] != null : false;
+        }
 
         public Software FindById(string id)
         {

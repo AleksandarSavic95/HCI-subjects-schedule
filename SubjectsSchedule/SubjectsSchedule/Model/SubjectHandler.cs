@@ -60,6 +60,11 @@ namespace SubjectsSchedule.Model
         {
             subjects.Add(id, new Subject(id, name, fieldOfStudy, description, groupSize, classLength, terminNumber, needsProjector, needsBoard, needsSmartBoard, needsOS));
         }
+        
+        public bool Has(string id)
+        {
+            return true ? subjects[id] != null : false;
+        }
 
         public Subject FindById(string id)
         {

@@ -101,6 +101,16 @@ namespace SubjectsSchedule
         private void HelloWorld_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             MessageBox.Show("Hello world!");
+            FieldOfStudyHanlder.Instance.Add("id1", "asd", DateTime.Now, "opis1");
+            Console.WriteLine("ASD: " + FieldOfStudyHanlder.Instance.FieldsOfStudy.Count);
+
+            foreach (FieldOfStudy fos in FieldOfStudyHanlder.Instance.FieldsOfStudy)
+            {
+                MessageBox.Show(fos.ToString());
+            }
+            MessageBox.Show(FieldOfStudyHanlder.Instance.Has("id1").ToString());
+            MessageBox.Show(FieldOfStudyHanlder.Instance.Has("id2").ToString());
+            MessageBox.Show("Hello world2!");
         }
 
         private void Enable_CanExecute(object sender, CanExecuteRoutedEventArgs e)

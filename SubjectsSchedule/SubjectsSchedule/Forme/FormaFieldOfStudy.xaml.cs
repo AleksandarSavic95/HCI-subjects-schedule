@@ -24,5 +24,15 @@ namespace SubjectsSchedule.Forme
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("aco");
+            Console.WriteLine(Naziv_Input.Text);
+            Console.WriteLine(Opis_Input.Text);
+            Console.WriteLine(Datum_Input.Text);
+            Console.WriteLine(Dugme_Button.ClickMode);
+            Console.WriteLine("aco");
+        }
     }
 }
