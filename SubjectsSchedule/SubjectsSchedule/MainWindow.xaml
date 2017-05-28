@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:l="clr-namespace:SubjectsSchedule"
         xmlns:f="clr-namespace:SubjectsSchedule.Forme"
+        xmlns:s="clr-namespace:SubjectsSchedule.Schedules"
         mc:Ignorable="d"
         xmlns:cmd="clr-namespace:SubjectsSchedule.MyCommands"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        Title="MainWindow" Height="350" Width="525"
+        Title="MainWindow" Height="400" Width="800"
         l:HelpProvider.HelpKey="Forma">
     <!-- Global commands: https://stackoverflow.com/a/4710197 -->
     <Window.CommandBindings>
@@ -22,6 +23,7 @@
         <CommandBinding Command="cmd:RoutedCommands.NoviPredmet" CanExecute="NoviPredmet_CanExecute" Executed="NoviPredmet_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.NoviSmjer" CanExecute="NoviSmjer_CanExecute" Executed="NoviSmjer_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.NoviSoftver" CanExecute="NoviSoftver_CanExecute" Executed="NoviSoftver_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.PregledSheme" CanExecute="PregledSheme_CanExecute" Executed="PregledSheme_Executed"></CommandBinding>
     </Window.CommandBindings>
     <DockPanel>
         <Menu DockPanel.Dock ="Top">
@@ -155,6 +157,8 @@
         <f:FormaFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyForma"/>
         <f:FormaSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverForma"/>
 
+        <s:ScheduleScheme DockPanel.Dock="Left" Width="800" Visibility="Collapsed" x:Name="ShemaRasporeda"/>
+
         <!-- Dugmad za dodavanje entiteta -->
         <StackPanel DockPanel.Dock="Right" MinWidth="100" Width="150" HorizontalAlignment="Right">
             <!-- icon: http://www.iconarchive.com/show/ios7-icons-by-icons8/Science-Classroom-icon.html -->
@@ -188,6 +192,14 @@
                     <TextBlock HorizontalAlignment="Center">Dodaj</TextBlock>
                     <TextBlock HorizontalAlignment="Center">S<Bold>o</Bold>ftver</TextBlock>
                     <TextBlock HorizontalAlignment="Center" FontSize="9">[ALT + SHIFT + <Bold>O</Bold>]</TextBlock>
+                </StackPanel>
+            </Button>
+
+            <Button Command="cmd:RoutedCommands.PregledSheme" Margin="5" Padding="5" Click="New_Software_Click">
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center">Shema</TextBlock>
+                    <TextBlock HorizontalAlignment="Center"><Bold>R</Bold>asporeda</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="9">[ALT + SHIFT + <Bold>R</Bold>]</TextBlock>
                 </StackPanel>
             </Button>
         </StackPanel>

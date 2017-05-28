@@ -84,5 +84,14 @@ namespace SubjectsSchedule.MyCommands
                 new KeyGesture(Key.O, ModifierKeys.Shift | ModifierKeys.Alt),
             }
             );
+        public static readonly RoutedUICommand PregledSheme = new RoutedUICommand(
+            "Pregled Sheme",
+            "PregledSheme",
+            typeof(RoutedCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.R, ModifierKeys.Shift | ModifierKeys.Alt),
+            }
+            );
     }
 }
