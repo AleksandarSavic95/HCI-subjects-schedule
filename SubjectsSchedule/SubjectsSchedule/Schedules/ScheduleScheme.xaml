@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:SubjectsSchedule.Schedules"
              xmlns:planner="http://mindfusion.eu/scheduling/wpf" xmlns:Globalization="clr-namespace:System.Globalization;assembly=mscorlib" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="SubjectsSchedule.Schedules.ScheduleScheme"
              mc:Ignorable="d" 
-             d:DesignHeight="350" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800">
     <Grid Loaded="ScheduleSchemeLoaded">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -18,8 +18,18 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <planner:Calendar x:Name="kalendar" Height="248" Margin="0" Grid.Row="2" Grid.ColumnSpan="2"
-                          CurrentView="Timetable" Theme="Light" Culture="sr" ItemClick="Calendar_ItemClick">
+        <Grid Grid.Column="0" Grid.Row="0">
+            <TextBlock>
+                INFO INFO
+                <LineBreak/>
+                kfisdfisdfo sefija keofrk
+            </TextBlock>
+        </Grid>
+
+        <planner:Calendar x:Name="kalendar" Margin="0" Height="400" Culture="sr"
+                          AllowDrop="True" DragOver="kalendar_DragOver" Drop="kalendar_Drop"
+            Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2"
+            CurrentView="Timetable" Theme="Light" ItemClick="kalendar_ItemClick">
             <planner:Calendar.WeekRangeSettings>
                 <planner:WeekRangeSettings/>
             </planner:Calendar.WeekRangeSettings>
@@ -27,5 +37,14 @@
                 <planner:TimetableSettings CellSize="20" MinItemSize="10" ShowWorkTime="True" WorkTimeStart="7:0:0" WorkTimeEnd="22:0:0" StartTime="420" ShowAM="True" SnapUnit="Minute" TwelveHourFormat="False" HeaderDateFormat="dddd"/>
             </planner:Calendar.TimetableSettings>
         </planner:Calendar>
+
+        <ListBox x:Name="taskList" Grid.Column="0" Grid.Row="1" PreviewMouseDown="taskList_PreviewMouseDown" MouseMove="taskList_MouseMove">
+            <ListBoxItem>Task #1</ListBoxItem>
+            <ListBoxItem>Task #2</ListBoxItem>
+            <ListBoxItem>Task #3</ListBoxItem>
+            <ListBoxItem>Task #4</ListBoxItem>
+            <ListBoxItem>Task #5</ListBoxItem>
+            <ListBoxItem>Task #6</ListBoxItem>
+        </ListBox>
     </Grid>
 </UserControl>

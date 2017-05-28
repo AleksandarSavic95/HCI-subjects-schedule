@@ -22,6 +22,8 @@ namespace SubjectsSchedule.Schedules
     /// </summary>
     public partial class ScheduleScheme : UserControl
     {
+        private bool mouseDown;
+
         public ScheduleScheme()
         {
             InitializeComponent();
@@ -38,7 +40,7 @@ namespace SubjectsSchedule.Schedules
             /// Popunjavanje kalendara danima u sedmici <see cref="ScheduleDays"/>
             for (int i = 0; i < 6; i++)
                 kalendar.TimetableSettings.Dates.Add(ScheduleDays.workDays[i]);
-            
+
             // Da na kalendaru pravimo termine tipa MyTermin, a ne Appointment
             kalendar.InteractiveItemType = typeof(MyTermin);
 
@@ -63,12 +65,93 @@ namespace SubjectsSchedule.Schedules
             kalendar.Schedule.Items.Add(app);
         }
 
-        private void Calendar_ItemClick(object sender, MindFusion.Scheduling.Wpf.ItemMouseEventArgs e)
+        private void kalendar_ItemClick(object sender, MindFusion.Scheduling.Wpf.ItemMouseEventArgs e)
         {
             if (e.Item is MyTermin)
             {
                 kalendar.ResetDrag();
                 MessageBox.Show("This is our item.");
+            }
+        }
+
+        private void taskList_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            mouseDown = e.LeftButton == MouseButtonState.Pressed;
+        }
+
+        private void taskList_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (taskList.SelectedItem != null && mouseDown)
+            {
+                mouseDown = false;
+                // Za d&d bitan je tip DATA parametra
+                string data = ((ListBoxItem)taskList.SelectedItem).Content.ToString();
+                Console.WriteLine("mouseMOve: " + data);
+                DragDrop.DoDragDrop(taskList, data, DragDropEffects.Copy);
+            }
+        }
+
+        /// <summary>
+        /// Gives visual feedback to the user when the mouse moves
+        /// over the kalendar control during drag & drop operation.
+        /// Checks if the dragged data matches the expected type and
+        /// if the location under the mouse cursor represents a valid date.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void kalendar_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effects = DragDropEffects.None;
+            string gotData = (string)e.Data.GetData(DataFormats.StringFormat);
+            if (e.Data.GetDataPresent(typeof(string)))
+            {
+                Console.WriteLine("\nStigao string(data): " + gotData);
+
+                DateTime? date = kalendar.GetDateAt(e.GetPosition(kalendar));
+
+                Console.WriteLine("\nsupsteno na datum: " + date);
+
+                if (date != null)
+                    e.Effects = DragDropEffects.Copy;
+            }
+        }
+
+        private void kalendar_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(string)))
+            {
+                Point point = e.GetPosition(kalendar);
+                DateTime? date = kalendar.GetDateAt(point);
+                Appointment existing = (Appointment)kalendar.GetItemAt(point);
+                if (date != null)
+                {
+                    MessageBoxResult messageBoxResult = MessageBoxResult.Yes;
+                    if (existing != null) // postoji termin
+                    {
+                        messageBoxResult = MessageBox
+                            .Show("Da li želite da obrišete postojeći termin?",
+                            "Zauzet termin", MessageBoxButton.YesNo);
+                        if (messageBoxResult == MessageBoxResult.Yes)
+                        {
+                            // čišćenje polja sa taskovima
+                            kalendar.GetItemAt(point).Task = null;
+
+                            // nije dovoljno..
+                            //existing = (Appointment)kalendar.GetItemAt(point);
+
+                            existing = null;
+                        }
+                    }
+                    if (existing == null)
+                    {
+                        string task = (string)e.Data.GetData(typeof(string));
+                        Appointment appointment = new Appointment();
+                        appointment.HeaderText = task;
+                        appointment.StartTime = date.Value;
+                        appointment.EndTime = appointment.StartTime.AddMinutes(30);
+                        kalendar.Schedule.Items.Add(appointment);
+                    }
+                }
             }
         }
     }

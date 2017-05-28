@@ -24,5 +24,10 @@ namespace SubjectsSchedule.Schedules
         {
             InitializeComponent();
         }
+
+        private void Calendar_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

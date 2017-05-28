@@ -27,8 +27,7 @@ namespace SubjectsSchedule.Model
         private bool _kept;
 
         /** Override the SaveTo and LoadFrom methods of the Appointment class
-        * in order to serialize the custom property Kept.
-        */
+        * in order to serialize the custom property Kept. */
         public override void SaveTo(XmlElement element, XmlSerializationContext context)
         {
             base.SaveTo(element, context);

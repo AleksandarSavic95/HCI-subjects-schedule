@@ -48,7 +48,7 @@ namespace SubjectsSchedule
             InitializeComponent();
 
             //newClassroom = new FormaClassroom.FormaClassroom();
-
+            
             this.DataContext = this;
         }
 
