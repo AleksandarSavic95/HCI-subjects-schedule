@@ -27,6 +27,23 @@ namespace SubjectsSchedule.Schedules
         public ScheduleScheme()
         {
             InitializeComponent();
+
+            // Da na kalendaru pravimo termine tipa MyTermin, a ne Appointment
+            kalendar.InteractiveItemType = typeof(MyTermin);
+
+            // Serialization support
+            Schedule.RegisterItemClass(typeof(MyTermin), "mytermin", 1);
+        }
+
+        private void kalendar_ItemClick(object sender, MindFusion.Scheduling.Wpf.ItemMouseEventArgs e)
+        {
+            if (e.Item is MyTermin)
+            {
+                //kalendar.ResetDrag();
+                Console.WriteLine("Moj termin: " +
+                    (e.Item as MyTermin).StartTime.ToShortTimeString() +
+                    " - " + (e.Item as MyTermin).EndTime.ToShortTimeString());
+            }
         }
 
         private void ScheduleSchemeLoaded(object sender, RoutedEventArgs e)
@@ -41,37 +58,22 @@ namespace SubjectsSchedule.Schedules
             for (int i = 0; i < 6; i++)
                 kalendar.TimetableSettings.Dates.Add(ScheduleDays.workDays[i]);
 
-            // Da na kalendaru pravimo termine tipa MyTermin, a ne Appointment
-            kalendar.InteractiveItemType = typeof(MyTermin);
-
             kalendar.EndInit();
 
-            // Serialization support
-            //Schedule.RegisterItemClass(typeof(MyTermin), "mytermin", 1);
-
-            // Create an appointment
+            /** Create an appointment *
             Appointment app = new Appointment();
             app.HeaderText = "Meet George";
             app.DescriptionText = "This is a sample appointment";
 
-            /* *
+            / * *
             app.StartTime = ScheduleDays.workDays[0].Add(new TimeSpan(9, 15, 0));
-            app.EndTime = app.StartTime.Add(new TimeSpan(0, 65, 0)); // */
+            app.EndTime = app.StartTime.Add(new TimeSpan(0, 65, 0)); // * /
 
-            /* */
+            / * *
             app.StartTime = new DateTime(2017, 5, 25, 14, 0, 0);
-            app.EndTime = new DateTime(2017, 5, 25, 16, 30, 0); // */
+            app.EndTime = new DateTime(2017, 5, 25, 16, 30, 0); // * /
 
-            kalendar.Schedule.Items.Add(app);
-        }
-
-        private void kalendar_ItemClick(object sender, MindFusion.Scheduling.Wpf.ItemMouseEventArgs e)
-        {
-            if (e.Item is MyTermin)
-            {
-                kalendar.ResetDrag();
-                MessageBox.Show("This is our item.");
-            }
+            kalendar.Schedule.Items.Add(app); // */
         }
 
         private void taskList_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -122,7 +124,7 @@ namespace SubjectsSchedule.Schedules
             {
                 Point point = e.GetPosition(kalendar);
                 DateTime? date = kalendar.GetDateAt(point);
-                Appointment existing = (Appointment)kalendar.GetItemAt(point);
+                MyTermin existing = (MyTermin)kalendar.GetItemAt(point);
                 if (date != null)
                 {
                     MessageBoxResult messageBoxResult = MessageBoxResult.Yes;
@@ -145,14 +147,21 @@ namespace SubjectsSchedule.Schedules
                     if (existing == null)
                     {
                         string task = (string)e.Data.GetData(typeof(string));
-                        Appointment appointment = new Appointment();
-                        appointment.HeaderText = task;
-                        appointment.StartTime = date.Value;
-                        appointment.EndTime = appointment.StartTime.AddMinutes(30);
-                        kalendar.Schedule.Items.Add(appointment);
+                        MyTermin termin = new MyTermin();
+                        termin.HeaderText = task;
+                        termin.StartTime = date.Value;
+                        termin.EndTime = termin.StartTime.AddMinutes(30);
+                        kalendar.Schedule.Items.Add(termin);
                     }
                 }
             }
+        }
+
+        private void ItemSettings_Drop(object sender, DragEventArgs e)
+        {
+            Console.WriteLine("\n sta ce sad biti?");
+            if (e.Data.GetDataPresent(typeof(MyTermin)))
+                Console.WriteLine("Termin drop! PUF!");
         }
     }
 }
