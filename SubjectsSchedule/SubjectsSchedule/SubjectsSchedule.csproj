@@ -95,6 +95,7 @@
     <Compile Include="Forme\FormaSubject.xaml.cs">
       <DependentUpon>FormaSubject.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\FieldOfStudyHanlder.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

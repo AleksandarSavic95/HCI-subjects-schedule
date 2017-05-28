@@ -13,15 +13,29 @@ namespace SubjectsSchedule.Model
     /// datuma uvođenja smera, i
     /// opisa smera
     /// </summary>
+    [Serializable()]
     class FieldOfStudy
     {
-        string id;
-        string name;
+        #region private fields
+
+        private string id;
+        private string name;
         /// <summary>
         /// Datum uvođenja smjera
         /// </summary>
-        DateTime since;
-        string description;
+        private DateTime since;
+        private string description;
+        
+        #endregion
+
+        #region public properties
+
+        public string Id { get { return id; } set { id = value; } }
+        public string Name { get { return name; } set { name = value; } }
+        public DateTime Since { get { return since; } set { since = value; } }
+        public string Description { get { return description; } set { description = value; } }
+        
+        #endregion
 
         public FieldOfStudy() { }
 

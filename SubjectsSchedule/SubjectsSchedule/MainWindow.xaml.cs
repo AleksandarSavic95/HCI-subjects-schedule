@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SubjectsSchedule.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -49,7 +50,34 @@ namespace SubjectsSchedule
 
             //newClassroom = new FormaClassroom.FormaClassroom();
 
+            // Serialize();
+            Deserialize();
+
             this.DataContext = this;
+        }
+
+        private void Serialize()
+        {
+            Console.WriteLine("Serializing data...");
+            FieldOfStudyHanlder.Instance.fieldsOfStudy.Add(new FieldOfStudy("id1", "name", new DateTime(), "desc"));
+            FieldOfStudyHanlder.Instance.fieldsOfStudy.Add(new FieldOfStudy("id2", "name2", new DateTime(), "desc2"));
+
+            Console.WriteLine(new DateTime());
+
+            FieldOfStudyHanlder.Instance.Serialize("testfile.bin");
+
+            Console.WriteLine("Serialization finished");
+        }
+
+        private void Deserialize()
+        {
+            Console.WriteLine("Deserializing data...");
+            FieldOfStudyHanlder.Instance.Deserialize("testfile.bin");
+
+            Console.WriteLine(FieldOfStudyHanlder.Instance.fieldsOfStudy[0]);
+            Console.WriteLine(FieldOfStudyHanlder.Instance.fieldsOfStudy[1]);
+
+            Console.WriteLine("Deserialization finished");
         }
 
         private void HelloWorld_CanExecute(object sender, CanExecuteRoutedEventArgs e)

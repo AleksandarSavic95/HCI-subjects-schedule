@@ -19,20 +19,38 @@ namespace SubjectsSchedule.Model
     /// </summary>
     class Software
     {
-        string id;
-        string name;
-        OS operatingSystem;
-        string producer;
+
+        #region private fields
+
+        private string id;
+        private string name;
+        private OS operatingSystem;
+        private string producer;
         /// <summary>
         /// Sajt softvera. Da li je bolji tip "Uri"?
         /// </summary>
-        string webSite;
+        private string webSite;
         /// <summary>
         /// Godina izdavanja.
         /// </summary>
-        string year;
-        double price;
-        string description;
+        private string year;
+        private double price;
+        private string description;
+
+        #endregion
+
+        #region public properties
+
+        public string Id { get { return id; } set { id = value; } }
+        public string Name { get { return name; } set { name = value; } }
+        public OS OperatingSystem { get { return operatingSystem; } set { operatingSystem = value; } }
+        public string Producer { get { return producer; } set { producer = value; } }
+        public string WebSite { get { return webSite; } set { webSite = value; } }
+        public string Year { get { return year; } set { year = value; } }
+        public double Price { get { return price; } set { price = value; } }
+        public string Description { get { return description; } set { description = value; } }
+
+        #endregion
 
         public Software() { }
 
