@@ -17,10 +17,9 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        
+
         <planner:Calendar x:Name="kalendar" Height="248" Margin="0" Grid.Row="2" Grid.ColumnSpan="2"
-                          CurrentView="Timetable" Theme="Light" Culture="hr-HR">
-            <!-- ne radi "Lt-sr-SP", pa mora hrvatski ;( -->
+                          CurrentView="Timetable" Theme="Light" Culture="sr">
             <planner:Calendar.WeekRangeSettings>
                 <planner:WeekRangeSettings/>
             </planner:Calendar.WeekRangeSettings>
