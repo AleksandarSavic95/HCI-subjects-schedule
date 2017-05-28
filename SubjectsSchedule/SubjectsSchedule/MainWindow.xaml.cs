@@ -237,5 +237,16 @@ namespace SubjectsSchedule
             HideAllForms();
             SoftverForma.Visibility = Visibility.Visible;
         }
+
+        private void PregledSheme_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void PregledSheme_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            HideAllForms();
+            ShemaRasporeda.Visibility = Visibility.Visible;
+        }
     }
 }

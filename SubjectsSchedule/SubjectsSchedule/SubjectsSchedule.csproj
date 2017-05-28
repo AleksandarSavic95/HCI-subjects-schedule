@@ -38,6 +38,12 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MindFusion.Licensing">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MindFusion\MindFusion.Scheduling for WPF\CLR4 (.NET 4.0 and .NET 4.5)\MindFusion.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="MindFusion.Scheduling.Wpf">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MindFusion\MindFusion.Scheduling for WPF\CLR4 (.NET 4.0 and .NET 4.5)\MindFusion.Scheduling.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -95,10 +101,15 @@
     <Compile Include="Forme\FormaSubject.xaml.cs">
       <DependentUpon>FormaSubject.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\ScheduleDays.cs" />
+    <Compile Include="Model\Termin.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Schedules\ScheduleScheme.xaml.cs">
+      <DependentUpon>ScheduleScheme.xaml</DependentUpon>
     </Compile>
     <Compile Include="StudentHelpOld\StudentHelpOld.xaml.cs">
       <DependentUpon>StudentHelpOld.xaml</DependentUpon>
@@ -143,6 +154,10 @@
     <Page Include="MyCommands\UgradjeneKomande.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Schedules\ScheduleScheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StudentHelpOld\StudentHelpOld.xaml">
       <SubType>Designer</SubType>

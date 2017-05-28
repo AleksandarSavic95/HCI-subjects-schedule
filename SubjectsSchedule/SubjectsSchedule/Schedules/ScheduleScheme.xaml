@@ -1,0 +1,32 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SubjectsSchedule.Schedules"
+             xmlns:planner="http://mindfusion.eu/scheduling/wpf" xmlns:Globalization="clr-namespace:System.Globalization;assembly=mscorlib" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="SubjectsSchedule.Schedules.ScheduleScheme"
+             mc:Ignorable="d" 
+             d:DesignHeight="250" d:DesignWidth="400">
+    <Grid Loaded="ScheduleSchemeLoaded">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        
+        <planner:Calendar x:Name="kalendar" Height="248" Margin="0" Grid.Row="2" Grid.ColumnSpan="2"
+                          CurrentView="Timetable" Theme="Light" Culture="hr-HR">
+            <!-- ne radi "Lt-sr-SP", pa mora hrvatski ;( -->
+            <planner:Calendar.WeekRangeSettings>
+                <planner:WeekRangeSettings/>
+            </planner:Calendar.WeekRangeSettings>
+            <planner:Calendar.TimetableSettings>
+                <planner:TimetableSettings CellSize="20" MinItemSize="10" ShowWorkTime="True" WorkTimeStart="7:0:0" WorkTimeEnd="22:0:0" StartTime="420" ShowAM="True" SnapUnit="Minute" TwelveHourFormat="False" HeaderDateFormat="dddd"/>
+            </planner:Calendar.TimetableSettings>
+        </planner:Calendar>
+    </Grid>
+</UserControl>
