@@ -26,6 +26,13 @@
             </TextBlock>
         </Grid>
 
+        <!-- Drag & Drop:
+        ~ Performing a Drag-and-Drop Operation in Windows Forms:
+        https://msdn.microsoft.com/en-us/library/za0zx9y0(v=vs.110).aspx
+        
+        ~ Drag and Drop - e.Data.GetData using a base class
+        https://stackoverflow.com/a/2731674/2101117
+        -->
         <planner:Calendar x:Name="kalendar" Margin="0" Height="400" Culture="sr"
                           AllowDrop="True" DragOver="kalendar_DragOver" Drop="kalendar_Drop"
             Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2"
@@ -38,7 +45,10 @@
             </planner:Calendar.TimetableSettings>
         </planner:Calendar>
 
-        <ListBox x:Name="taskList" Grid.Column="0" Grid.Row="1" PreviewMouseDown="taskList_PreviewMouseDown" MouseMove="taskList_MouseMove">
+        <!-- difference between ListBox and ListView
+        https://stackoverflow.com/a/4703658/2101117 -->
+        <ListBox x:Name="taskList" Grid.Column="0" Grid.Row="1"
+            PreviewMouseDown="taskList_PreviewMouseDown" MouseMove="taskList_MouseMove">
             <ListBoxItem>Task #1</ListBoxItem>
             <ListBoxItem>Task #2</ListBoxItem>
             <ListBoxItem>Task #3</ListBoxItem>
