@@ -21,16 +21,34 @@ namespace SubjectsSchedule.Model
     /// od 07:00 do 22:00, a termin nastave može biti zakazan
     /// u bilo kom trenutku u tom periodu.
     /// </summary>
+    [Serializable()]
     class Classroom
     {
-        private string id { get; set; }
-        private string description { get; set; }
-        private int seats { get; set; }
-        private bool projector { get; set; }
-        private bool board { get; set; }
-        private bool smartBoard { get; set; }
-        private OS operatingSystem { get; set; }
-        private List<string> installedSoftware { get; set; }
+        #region private fields
+
+        private string id;
+        private string description;
+        private int seats;
+        private bool projector;
+        private bool board;
+        private bool smartBoard;
+        private OS operatingSystem;
+        private List<string> installedSoftware;
+
+        #endregion
+
+        #region public properties
+
+        public string Id { get { return id; } set { id = value; } }
+        public string Description { get { return description; } set { description = value; } }
+        public int Seats { get { return seats; } set { seats = value; } }
+        public bool Projector { get { return projector; } set { projector = value; } }
+        public bool Board { get { return board; } set { board = value; } }
+        public bool SmartBoard { get { return smartBoard; } set { smartBoard = value; } }
+        public OS OperatingSystem { get { return operatingSystem; } set { operatingSystem = value; } }
+        public List<string> InstalledSoftware { get { return installedSoftware; } set { installedSoftware = value; } }
+
+        #endregion
 
         public Classroom()
         {
@@ -39,6 +57,7 @@ namespace SubjectsSchedule.Model
 
         public Classroom(string id, string description, int seats,
             bool projector, bool board, bool smartBoard, OS operatingSystem)
+            : this()
         {
             this.id = id;
             this.description = description;
@@ -47,7 +66,6 @@ namespace SubjectsSchedule.Model
             this.board = board;
             this.smartBoard = smartBoard;
             this.operatingSystem = operatingSystem;
-            installedSoftware = new List<string>();
         }
 
         public override string ToString()
