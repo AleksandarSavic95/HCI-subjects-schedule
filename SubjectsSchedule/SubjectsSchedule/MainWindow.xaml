@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         xmlns:cmd="clr-namespace:SubjectsSchedule.MyCommands"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        Title="MainWindow" Height="400" Width="525"
+        Title="MainWindow" Height="400" Width="800"
         l:HelpProvider.HelpKey="Forma">
     <!-- Global commands: https://stackoverflow.com/a/4710197 -->
     <Window.CommandBindings>
@@ -157,7 +157,7 @@
         <f:FormaFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyForma"/>
         <f:FormaSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverForma"/>
 
-        <s:ScheduleScheme DockPanel.Dock="Left" Width="408" Visibility="Collapsed" x:Name="ShemaRasporeda"/>
+        <s:ScheduleScheme DockPanel.Dock="Left" Width="800" Visibility="Collapsed" x:Name="ShemaRasporeda"/>
 
         <!-- Dugmad za dodavanje entiteta -->
         <StackPanel DockPanel.Dock="Right" MinWidth="100" Width="150" HorizontalAlignment="Right">

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:SubjectsSchedule.Schedules"
              xmlns:planner="http://mindfusion.eu/scheduling/wpf" xmlns:Globalization="clr-namespace:System.Globalization;assembly=mscorlib" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="SubjectsSchedule.Schedules.ScheduleScheme"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="400">
+             d:DesignHeight="350" d:DesignWidth="800">
     <Grid Loaded="ScheduleSchemeLoaded">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -19,7 +19,7 @@
         </Grid.ColumnDefinitions>
 
         <planner:Calendar x:Name="kalendar" Height="248" Margin="0" Grid.Row="2" Grid.ColumnSpan="2"
-                          CurrentView="Timetable" Theme="Light" Culture="sr">
+                          CurrentView="Timetable" Theme="Light" Culture="sr" ItemClick="Calendar_ItemClick">
             <planner:Calendar.WeekRangeSettings>
                 <planner:WeekRangeSettings/>
             </planner:Calendar.WeekRangeSettings>

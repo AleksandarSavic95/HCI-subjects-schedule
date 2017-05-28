@@ -101,12 +101,16 @@
     <Compile Include="Forme\FormaSubject.xaml.cs">
       <DependentUpon>FormaSubject.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\MyTermin.cs" />
     <Compile Include="Model\ScheduleDays.cs" />
     <Compile Include="Model\Termin.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Schedules\SceduleSchemeWeek.xaml.cs">
+      <DependentUpon>SceduleSchemeWeek.xaml</DependentUpon>
     </Compile>
     <Compile Include="Schedules\ScheduleScheme.xaml.cs">
       <DependentUpon>ScheduleScheme.xaml</DependentUpon>
@@ -154,6 +158,10 @@
     <Page Include="MyCommands\UgradjeneKomande.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Schedules\SceduleSchemeWeek.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Schedules\ScheduleScheme.xaml">
       <SubType>Designer</SubType>
