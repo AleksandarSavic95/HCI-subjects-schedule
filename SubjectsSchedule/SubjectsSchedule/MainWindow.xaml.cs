@@ -101,16 +101,40 @@ namespace SubjectsSchedule
         private void HelloWorld_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             MessageBox.Show("Hello world!");
-            FieldOfStudyHanlder.Instance.Add("id1", "asd", DateTime.Now, "opis1");
-            Console.WriteLine("ASD: " + FieldOfStudyHanlder.Instance.FieldsOfStudy.Count);
+            /** inicijalizacija softvera */
+            Software soft1 = new Software("1", "s1", OS.WINDOWS, "pro1", "a.com", "1997", 51, "o1");
+            Software soft2 = new Software("2", "s2", OS.WINDOWS, "pro2", "b.com", "1998", 52, "o2");
+            Software soft3 = new Software("3", "s3", OS.WINDOWS, "pro3", "c.com", "1999", 53, "o3");
 
-            foreach (FieldOfStudy fos in FieldOfStudyHanlder.Instance.FieldsOfStudy)
+            /** inicijalizacija ucionice id|opis|mijesta|proj|tabla|pametna| OS */
+            Classroom c1 = new Classroom("1", "o1", 20, false, true, false, OS.C_BOTH);
+            c1.InstalledSoftware = new List<string>() { "1", "2", "3" };
+
+            /** inicijalizacija predmeta */
+            Subject subj1 = new Subject("1", "prd1", "1", "subjO1", 20, 1, 2, false, false, false, OS.SUBJ_WHATEVER);
+            subj1.NeedsSoftware = new List<string>() { "1", "2" };
+            Subject subj2 = new Subject("2", "prd2", "2", "subjO2", 16, 1, 3, false, false, false, OS.SUBJ_WHATEVER);
+            subj2.NeedsSoftware = new List<string>() { "2", "4" };
+            Subject subj3 = new Subject("3", "prd3", "3", "subjO3", 22, 2, 2, false, false, false, OS.SUBJ_WHATEVER);
+            subj3.NeedsSoftware = new List<string>() { "1", "2" };
+
+            List<Subject> subjects = new List<Subject>() { subj1, subj2, subj3 };
+
+            List<Subject> retVal = new List<Subject>();
+            List<string> tuFajnd = c1.InstalledSoftware;
+            HashSet<string> hesSet = new HashSet<string>(tuFajnd);
+            bool sadrzi = subj1.NeedsSoftware.All(i => hesSet.Contains(i));
+
+            foreach (Subject s in subjects)
             {
-                MessageBox.Show(fos.ToString());
+                //if (s.NeedsSoftware.Except(toFind).Any())
+                if (s.NeedsSoftware.All(i => hesSet.Contains(i)))
+                {
+                    Console.WriteLine("sadrzi predmet: " + s.Name);
+                    retVal.Add(s);
+                }
             }
-            MessageBox.Show(FieldOfStudyHanlder.Instance.Has("id1").ToString());
-            MessageBox.Show(FieldOfStudyHanlder.Instance.Has("id2").ToString());
-            MessageBox.Show("Hello world2!");
+
         }
 
         private void Enable_CanExecute(object sender, CanExecuteRoutedEventArgs e)

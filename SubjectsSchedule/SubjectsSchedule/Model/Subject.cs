@@ -39,6 +39,9 @@ namespace SubjectsSchedule.Model
         /// Minimalna dužina termina predmeta (u časovima od po 45 min)
         /// </summary>
         private int classLength;
+        /// <summary>
+        /// Broj termina koje predmet zahtijeva.
+        /// </summary>
         private int terminNumber;
         private bool needsProjector;
         private bool needsBoard;
