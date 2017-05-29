@@ -44,7 +44,8 @@ namespace SubjectsSchedule.Schedules
                     e.Confirm = false;
 
                 var items = kalendar.Schedule.GetAllItems(start, end);
-                if (items.Except(new List<Item>() { e.Item }).Count() > 0)
+                // https://stackoverflow.com/a/407741/2101117 <- prvi komentar: Any efikasnije od Count
+                if (items.Except(new List<Item>() { e.Item }).Any())
                 {
                     Console.WriteLine("Ima itema! Ne moze!");
                     e.Confirm = false;
