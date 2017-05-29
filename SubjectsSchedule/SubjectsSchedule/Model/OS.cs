@@ -2,10 +2,10 @@
 {
     /// <summary>
     /// Opisuje mogućnosti za operativni sistem,
-    /// u učionici, za softver ili za nastavu.
+    /// u učionici (C), za predmet(SUBJ) ili za softver(SOFT).
     /// </summary>
     public enum OS
     {
-        WINDOWS, LINUX, BOTH, WHATEVER, CROSS_PLATFORM
+        WINDOWS, LINUX, C_BOTH, SUBJ_WHATEVER, SOFT_CROSS_PLATFORM
     }
 }

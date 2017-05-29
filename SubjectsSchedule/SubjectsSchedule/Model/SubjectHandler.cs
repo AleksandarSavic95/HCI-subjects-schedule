@@ -66,6 +66,27 @@ namespace SubjectsSchedule.Model
             return subjects[id];
         }
 
+        public List<Subject> FindByClassroom(Classroom classroom)
+        {
+            List<Subject> retVal = new List<Subject>();
+
+            List<string> toFind = classroom.InstalledSoftware;
+
+            HashSet<string> hashSet = new HashSet<string>(toFind);
+            bool contained = this.Subjects[0].NeedsSoftware.All(i => hashSet.Contains(i));
+
+            foreach (Subject s in this.Subjects)
+            {
+                //if (s.NeedsSoftware.Except(toFind).Any())
+                if (s.NeedsSoftware.All(i => hashSet.Contains(i)))
+                {
+                    Console.WriteLine("sadrzi predmet: " + s.Name);
+                    retVal.Add(s);
+                }
+            }
+            return retVal;
+        }
+
         public void Remove(string id)
         {
             subjects.Remove(id);
