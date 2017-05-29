@@ -124,6 +124,7 @@
     <Compile Include="StudentHelpOld\StudentHelpOld.xaml.cs">
       <DependentUpon>StudentHelpOld.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\MessageBoxManager.cs" />
     <Page Include="Forme\FormaClassroom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

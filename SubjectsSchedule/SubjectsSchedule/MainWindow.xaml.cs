@@ -54,6 +54,10 @@ namespace SubjectsSchedule
             // Deserialize();
 
             this.DataContext = this;
+
+            // Omogućuje postavku naziva za dugmad u messageBox-ovima
+            // credits: https://www.codeproject.com/Articles/18399/Localizing-System-MessageBox
+            System.Windows.Forms.MessageBoxManager.Register();
         }
 
         private void Serialize()

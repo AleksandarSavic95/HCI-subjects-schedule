@@ -31,9 +31,6 @@ namespace SubjectsSchedule.Schedules
             // Da na kalendaru pravimo termine tipa MyTermin, a ne Appointment
             kalendar.InteractiveItemType = typeof(MyTermin);
 
-            Console.WriteLine("start time: " + kalendar.TimetableSettings.StartTime);
-            Console.WriteLine("end time: " + kalendar.TimetableSettings.EndTime);
-
             kalendar.ItemModifying += (s, e) =>
             {
                 DateTime start = e.Item.StartTime;
@@ -156,37 +153,44 @@ namespace SubjectsSchedule.Schedules
 
         private void kalendar_Drop(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(typeof(string)))
+            if (e.Data.GetDataPresent(typeof(string))) // TODO: promijeniti tip!
             {
                 Point point = e.GetPosition(kalendar);
                 DateTime? date = kalendar.GetDateAt(point);
-                MyTermin existing = (MyTermin)kalendar.GetItemAt(point);
+
+                //MyTermin existing = (MyTermin)kalendar.GetItemAt(point);
+
+                var allItems = kalendar.Schedule.GetAllItems(date.Value, date.Value.AddMinutes(30));
+                bool zauzeto = allItems.Any();
+
                 if (date != null)
                 {
                     MessageBoxResult messageBoxResult = MessageBoxResult.Yes;
-                    if (existing != null) // postoji termin
+
+                    if (zauzeto) // postoji 1 ili više termina
                     {
+                        /** Prevod teksta na dugmadima <see cref="MainWindow()"/>*/
+                        System.Windows.Forms.MessageBoxManager.Yes = "Da";
+                        System.Windows.Forms.MessageBoxManager.No = "Ne";
+
                         messageBoxResult = MessageBox
-                            .Show("Da li želite da obrišete postojeći termin?",
-                            "Zauzet termin", MessageBoxButton.YesNo);
+                            .Show("Da li želite da obrišete termine koji se preklapaju?",
+                            "Zauzet termin", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                         if (messageBoxResult == MessageBoxResult.Yes)
                         {
                             // čišćenje polja sa taskovima
-                            kalendar.GetItemAt(point).Task = null;
+                            allItems.ToList().ForEach(x => kalendar.Schedule.Items.Remove(x));
 
-                            // nije dovoljno..
-                            //existing = (Appointment)kalendar.GetItemAt(point);
+                            // ne pokriva slučaj kada dodajemo termin koji pokriva više termina
+                            //kalendar.Schedule.Items.Remove(existing);
 
-                            existing = null;
+                            zauzeto = false; // fleg za dodavanje novog
                         }
                     }
-                    if (existing == null)
+                    if (!zauzeto)
                     {
                         string task = (string)e.Data.GetData(typeof(string));
-                        MyTermin termin = new MyTermin();
-                        termin.HeaderText = task;
-                        termin.StartTime = date.Value;
-                        termin.EndTime = termin.StartTime.AddMinutes(30);
+                        MyTermin termin = new MyTermin(task, "", date.Value, date.Value.AddMinutes(30));
                         kalendar.Schedule.Items.Add(termin);
                     }
                 }

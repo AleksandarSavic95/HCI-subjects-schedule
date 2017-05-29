@@ -19,6 +19,30 @@ namespace SubjectsSchedule.Model
             // još neka inicijalizacija??
         }
 
+        /// <summary>
+        /// Pravi novi termin od proslijeđenih informacija.
+        /// Poziva <see cref="MyTermin()"/>!
+        /// </summary>
+        /// <param name="header">Naslov</param>
+        /// <param name="description">Opis</param>
+        /// <param name="start">početak</param>
+        /// <param name="end">kraj</param>
+        public MyTermin(string header, string description, DateTime start, DateTime end) : this()
+        {
+            this.HeaderText = header;
+            this.DescriptionText = description;
+            this.StartTime = start;
+            this.EndTime = end;
+        }
+
+        public MyTermin(string header, string description, DateTime start, DateTime end,
+            Classroom classroom, Subject subject) : this(header, description, start, end)
+        {
+            this._inClassroom = classroom;
+            this._forSubject = subject;
+        }
+
+
         /** Override the SaveTo and LoadFrom methods of the Appointment class
         * in order to serialize the custom property Kept. */
         public override void SaveTo(XmlElement element, XmlSerializationContext context)
