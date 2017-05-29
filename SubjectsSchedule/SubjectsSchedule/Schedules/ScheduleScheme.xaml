@@ -59,7 +59,7 @@
 
         <!-- difference between ListBox and ListView
         https://stackoverflow.com/a/4703658/2101117 -->
-        <ListBox x:Name="taskList" Grid.Column="0" Grid.Row="1"
+        <ListBox x:Name="taskList" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
             PreviewMouseDown="taskList_PreviewMouseDown" MouseMove="taskList_MouseMove">
             <ListBoxItem>Task #1</ListBoxItem>
             <ListBoxItem>Task #2</ListBoxItem>
@@ -68,18 +68,19 @@
             <ListBoxItem>Task #5</ListBoxItem>
             <ListBoxItem>Task #6</ListBoxItem>
         </ListBox>
-        <ListView x:Name="listaPredmeta" Grid.Column="0" Grid.Row="1" Visibility="Collapsed"
+        <ListView x:Name="listaPredmeta" Grid.Column="0" Grid.Row="1"
+                  Visibility="Visible" VerticalAlignment="Bottom" Height="50"
                   ItemsSource="{Binding PredmetiZaUcionicu}"
                   PreviewMouseLeftButtonDown="listaPredmeta_PreviewMouseLeftButtonDown"
                   MouseMove="listaPredmeta_MouseMove">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
-                        <TextBlock Text="{Binding Ime}" FontWeight="Bold" />
-                        <TextBlock Text=", " />
-                        <TextBlock Text="{Binding Prezime}" />
+                        <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                        <TextBlock Text=", fos: " />
+                        <TextBlock Text="{Binding FieldOfStudy}" />
                         <TextBlock Text=" (" />
-                        <TextBlock Text="{Binding Email}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                        <TextBlock Text="{Binding TerminNumber}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
                         <TextBlock Text=")" />
                     </WrapPanel>
                 </DataTemplate>

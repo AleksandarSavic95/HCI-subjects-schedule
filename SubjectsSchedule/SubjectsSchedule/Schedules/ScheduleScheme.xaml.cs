@@ -2,6 +2,7 @@
 using SubjectsSchedule.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace SubjectsSchedule.Schedules
     public partial class ScheduleScheme : UserControl
     {
         private bool mouseDown;
+        private ObservableCollection<Subject> PredmetiZaUcionicu;
 
         public ScheduleScheme()
         {
@@ -35,7 +37,7 @@ namespace SubjectsSchedule.Schedules
             {
                 DateTime start = e.Item.StartTime;
                 DateTime end = e.Item.EndTime;
-                // ILI: " ... < kalendar.TimetableSettings.StartTime"
+
                 if (start.TimeOfDay < TimeSpan.FromHours(7) ||
                     end.TimeOfDay > TimeSpan.FromHours(22))
                     e.Confirm = false;
@@ -43,29 +45,29 @@ namespace SubjectsSchedule.Schedules
                 var items = kalendar.Schedule.GetAllItems(start, end);
                 // https://stackoverflow.com/a/407741/2101117 <- prvi komentar: Any efikasnije od Count
                 if (items.Except(new List<Item>() { e.Item }).Any())
-                {
-                    Console.WriteLine("Ima itema! Ne moze!");
                     e.Confirm = false;
-                }
-                else
-                {
-                    Console.WriteLine("NEEEMA itema! MOOOZE!");
-                }
-
             };
 
             // 
             kalendar.ItemCreated += (s, e) =>
             {
                 if (e.Item is MyTermin)
-                {
-                    //kalendar.ResetDrag();
+                //kalendar.ResetDrag();
                     Console.WriteLine("ItemCreated Event: moj termin!");
-                }
             };
 
             // Serialization support
             Schedule.RegisterItemClass(typeof(MyTermin), "mytermin", 1);
+
+            Classroom svemoguca = new Classroom("1", "", 30, true, true, true, OS.C_BOTH);
+            svemoguca.InstalledSoftware.AddRange(new List<string>() { "1", "2", "3", "4" });
+
+            SubjectHandler.Instance.Add("1", "subj1", "1", "oSubj1", 20, 1, 2, false, true, true, OS.WINDOWS);
+            SubjectHandler.Instance.Add("2", "subj2", "2", "oSubj2", 22, 2, 1, false, true, true, OS.SUBJ_WHATEVER);
+            SubjectHandler.Instance.Add("3", "bazePod", "Siit3", "oSubj3", 18, 3, 1, true, true, false, OS.WINDOWS);
+
+            PredmetiZaUcionicu = new ObservableCollection<Subject>(SubjectHandler.Instance.FindByClassroom(svemoguca));
+            Console.WriteLine(PredmetiZaUcionicu.Count);
         }
 
         private void kalendar_ItemClick(object sender, MindFusion.Scheduling.Wpf.ItemMouseEventArgs e)
@@ -84,29 +86,11 @@ namespace SubjectsSchedule.Schedules
             kalendar.BeginInit();
             kalendar.TimetableSettings.Dates.Clear();
 
-            // ne radi "Lt-sr-SP", pa mora hrvatski ;(
-            //kalendar.Culture = new System.Globalization.CultureInfo("hr-HR");
-
             /// Popunjavanje kalendara danima u sedmici <see cref="ScheduleDays"/>
             for (int i = 0; i < 6; i++)
                 kalendar.TimetableSettings.Dates.Add(ScheduleDays.workDays[i]);
 
             kalendar.EndInit();
-
-            /** Create an appointment *
-            Appointment app = new Appointment();
-            app.HeaderText = "Meet George";
-            app.DescriptionText = "This is a sample appointment";
-
-            / * *
-            app.StartTime = ScheduleDays.workDays[0].Add(new TimeSpan(9, 15, 0));
-            app.EndTime = app.StartTime.Add(new TimeSpan(0, 65, 0)); // * /
-
-            / * *
-            app.StartTime = new DateTime(2017, 5, 25, 14, 0, 0);
-            app.EndTime = new DateTime(2017, 5, 25, 16, 30, 0); // * /
-
-            kalendar.Schedule.Items.Add(app); // */
         }
 
         private void taskList_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -158,8 +142,6 @@ namespace SubjectsSchedule.Schedules
                 Point point = e.GetPosition(kalendar);
                 DateTime? date = kalendar.GetDateAt(point);
 
-                //MyTermin existing = (MyTermin)kalendar.GetItemAt(point);
-
                 var allItems = kalendar.Schedule.GetAllItems(date.Value, date.Value.AddMinutes(30));
                 bool zauzeto = allItems.Any();
 
@@ -180,10 +162,7 @@ namespace SubjectsSchedule.Schedules
                         {
                             // čišćenje polja sa taskovima
                             allItems.ToList().ForEach(x => kalendar.Schedule.Items.Remove(x));
-
-                            // ne pokriva slučaj kada dodajemo termin koji pokriva više termina
-                            //kalendar.Schedule.Items.Remove(existing);
-
+                            
                             zauzeto = false; // fleg za dodavanje novog
                         }
                     }
