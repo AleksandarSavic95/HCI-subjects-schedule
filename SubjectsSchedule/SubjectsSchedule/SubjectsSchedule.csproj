@@ -38,11 +38,13 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MindFusion.Licensing">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MindFusion\MindFusion.Scheduling for WPF\CLR4 (.NET 4.0 and .NET 4.5)\MindFusion.Licensing.dll</HintPath>
+    <Reference Include="MindFusion.Licensing, Version=1.0.0.24360, Culture=neutral, PublicKeyToken=9d02e21d957ddaef, processorArchitecture=MSIL">
+      <HintPath>..\packages\MindFusion.Scheduling.Wpf.3.3.1\lib\net40\MindFusion.Licensing.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="MindFusion.Scheduling.Wpf">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MindFusion\MindFusion.Scheduling for WPF\CLR4 (.NET 4.0 and .NET 4.5)\MindFusion.Scheduling.Wpf.dll</HintPath>
+    <Reference Include="MindFusion.Scheduling.Wpf, Version=3.3.1.10055, Culture=neutral, PublicKeyToken=d12631580350466b, processorArchitecture=MSIL">
+      <HintPath>..\packages\MindFusion.Scheduling.Wpf.3.3.1\lib\net40\MindFusion.Scheduling.Wpf.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
