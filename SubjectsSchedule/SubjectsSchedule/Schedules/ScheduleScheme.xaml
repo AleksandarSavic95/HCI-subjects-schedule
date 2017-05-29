@@ -36,7 +36,7 @@
         <planner:Calendar x:Name="kalendar" Margin="0" Height="400" Culture="en"
                           AllowDrop="True" DragOver="kalendar_DragOver" Drop="kalendar_Drop"
             Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2"
-            CurrentView="Timetable" Theme="Light" ItemClick="kalendar_ItemClick"
+            CurrentView="Timetable" Theme="Silver" ItemClick="kalendar_ItemClick"
                 AllowInplaceCreate="False" AllowInplaceEdit="False" ScrollViewer.HorizontalScrollBarVisibility="Visible">
             <planner:Calendar.ItemSettings>
                 <planner:ItemSettings MinHeight="10" MinWidth="10" ClipToBounds="True" ResizeBandSize="0" Drop="ItemSettings_Drop"/>
