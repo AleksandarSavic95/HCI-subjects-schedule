@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,8 +23,17 @@ namespace SubjectsSchedule.Model
     /// neophodnog softvera za nastavu.
     /// </summary>
     [Serializable()]
-    class Subject
+    class Subject : INotifyPropertyChanged
     {
+        [field: NonSerialized]
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
 
         #region private fields
 
@@ -57,16 +67,55 @@ namespace SubjectsSchedule.Model
 
         #endregion
 
-        #region public properties
+        #region public properties most of which are with OnPropertyChanged
 
         public string Id { get { return id; } set { id = value; } }
-        public string Name { get { return name; } set { name = value; } }
-        public string FieldOfStudy { get { return fieldOfStudy; } set { fieldOfStudy = value; } }
-        public string Description { get { return description; } set { description = value; } }
+        public string Name { get { return name; }
+            set {
+                if (value != name) {
+                    name = value;
+                    OnPropertyChanged("Name");
+                }
+            }
+        }
+        public string FieldOfStudy { get { return fieldOfStudy; }
+            set {
+                if (value != fieldOfStudy) {
+                    fieldOfStudy = value;
+                    OnPropertyChanged("FieldOfStudy");
+                }
+            }
+        }
+        public string Description { get { return description; }
+            set {
+                if (value != description)
+                {
+                    description = value;
+                    OnPropertyChanged("Description");
+                }
+            }
+        }
         public int GroupSize { get { return groupSize; } set { groupSize = value; } }
         public int ClassLength { get { return classLength; } set { classLength = value; } }
-        public int TerminNumber { get { return terminNumber; } set { terminNumber = value; } }
-        public bool NeedsProjector { get { return needsProjector; } set { needsProjector = value; } }
+        public int TerminNumber { get { return terminNumber; }
+            set {
+                if (value != terminNumber)
+                {
+                    terminNumber = value;
+                    OnPropertyChanged("TerminNumber");
+                }
+            }
+        }
+
+        public bool NeedsProjector { get { return needsProjector; }
+            set {
+                if (value != needsProjector)
+                {
+                    needsProjector = value;
+                    OnPropertyChanged("NeedsProjector");
+                }
+            }
+        }
         public bool NeedsBoard { get { return needsBoard; } set { needsBoard = value; } }
         public bool NeedsSmartBoard { get { return needsSmartBoard; } set { needsSmartBoard = value; } }
         public OS NeedsOS { get { return needsOS; } set { needsOS = value; } }

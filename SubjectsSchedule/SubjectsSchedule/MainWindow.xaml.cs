@@ -97,6 +97,7 @@ namespace SubjectsSchedule
             Console.WriteLine("Deserialization finished");
         }
 
+        #region komande menija
         private void HelloWorld_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
@@ -172,7 +173,9 @@ namespace SubjectsSchedule
             e.CanExecute = true;
         }
 
+        #endregion
 
+        #region PropertyChanged handling
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string name)
         {
@@ -181,6 +184,7 @@ namespace SubjectsSchedule
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
+        #endregion
 
         #region Menu item click actions
 
@@ -226,6 +230,7 @@ namespace SubjectsSchedule
         }
         #endregion
 
+        #region help support
         /// <summary>
         /// Help command event handler.
         /// </summary>
@@ -253,7 +258,9 @@ namespace SubjectsSchedule
             //btnOK.Background = new SolidColorBrush(Color.FromRgb(32, 64, 128));
             Title = param;
         }
+        #endregion
 
+        #region komande i dugmad za forme
         private void New_Classroom_Click(object sender, RoutedEventArgs e) { }
 
         private void New_Subject_Click(object sender, RoutedEventArgs e) { }
@@ -316,6 +323,7 @@ namespace SubjectsSchedule
             HideAllForms();
             SoftverForma.Visibility = Visibility.Visible;
         }
+#endregion
 
         private void PregledSheme_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {

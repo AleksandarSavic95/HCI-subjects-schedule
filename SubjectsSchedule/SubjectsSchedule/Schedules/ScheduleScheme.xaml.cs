@@ -69,6 +69,12 @@ namespace SubjectsSchedule.Schedules
             PredmetiZaUcionicu = new ObservableCollection<Subject>(SubjectHandler.Instance.FindByClassroom(svemoguca));
             Console.WriteLine(PredmetiZaUcionicu.Count);
         }
+        
+
+        private void DataGrid_DblClick(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("\nDvoklik na element u DataGrid-u!");
+        }
 
         private void kalendar_ItemClick(object sender, MindFusion.Scheduling.Wpf.ItemMouseEventArgs e)
         {
@@ -93,6 +99,7 @@ namespace SubjectsSchedule.Schedules
             kalendar.EndInit();
         }
 
+        #region Drag & drop  TaskList --> kalendar
         private void taskList_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             mouseDown = e.LeftButton == MouseButtonState.Pressed;
@@ -142,7 +149,9 @@ namespace SubjectsSchedule.Schedules
                 Point point = e.GetPosition(kalendar);
                 DateTime? date = kalendar.GetDateAt(point);
 
-                var allItems = kalendar.Schedule.GetAllItems(date.Value, date.Value.AddMinutes(30));
+                // TODO: Srediti da se može dodati termin "tik uz drugi"
+                // trenutno preko štapa i kanapa [ ili nije? :) ]
+                var allItems = kalendar.Schedule.GetAllItems(date.Value, date.Value.AddMinutes(30).AddSeconds(-1));
                 bool zauzeto = allItems.Any();
 
                 if (date != null)
@@ -176,13 +185,17 @@ namespace SubjectsSchedule.Schedules
             }
         }
 
+        #endregion
+
+        /** TODO: [low priority] razmotriti korištenje ovoga, ne znam ni šta je.. */
         private void ItemSettings_Drop(object sender, DragEventArgs e)
         {
             Console.WriteLine("\n sta ce sad biti?");
             if (e.Data.GetDataPresent(typeof(MyTermin)))
                 Console.WriteLine("Termin drop! PUF!");
         }
-        
+
+        #region Drag & drop ListaPredmeta --> kalendar
         /** Drag and drop podrška za listView kontrolu. */
         private void listaPredmeta_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -193,5 +206,7 @@ namespace SubjectsSchedule.Schedules
         {
 
         }
+
+        #endregion
     }
 }
