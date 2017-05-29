@@ -31,6 +31,41 @@ namespace SubjectsSchedule.Schedules
             // Da na kalendaru pravimo termine tipa MyTermin, a ne Appointment
             kalendar.InteractiveItemType = typeof(MyTermin);
 
+            Console.WriteLine("start time: " + kalendar.TimetableSettings.StartTime);
+            Console.WriteLine("end time: " + kalendar.TimetableSettings.EndTime);
+
+            kalendar.ItemModifying += (s, e) =>
+            {
+                DateTime start = e.Item.StartTime;
+                DateTime end = e.Item.EndTime;
+                // ILI: " ... < kalendar.TimetableSettings.StartTime"
+                if (start.TimeOfDay < TimeSpan.FromHours(7) ||
+                    end.TimeOfDay > TimeSpan.FromHours(22))
+                    e.Confirm = false;
+
+                var items = kalendar.Schedule.GetAllItems(start, end);
+                if (items.Except(new List<Item>() { e.Item }).Count() > 0)
+                {
+                    Console.WriteLine("Ima itema! Ne moze!");
+                    e.Confirm = false;
+                }
+                else
+                {
+                    Console.WriteLine("NEEEMA itema! MOOOZE!");
+                }
+
+            };
+
+            // 
+            kalendar.ItemCreated += (s, e) =>
+            {
+                if (e.Item is MyTermin)
+                {
+                    //kalendar.ResetDrag();
+                    Console.WriteLine("ItemCreated Event: moj termin!");
+                }
+            };
+
             // Serialization support
             Schedule.RegisterItemClass(typeof(MyTermin), "mytermin", 1);
         }
@@ -162,6 +197,17 @@ namespace SubjectsSchedule.Schedules
             Console.WriteLine("\n sta ce sad biti?");
             if (e.Data.GetDataPresent(typeof(MyTermin)))
                 Console.WriteLine("Termin drop! PUF!");
+        }
+        
+        /** Drag and drop podrška za listView kontrolu. */
+        private void listaPredmeta_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void listaPredmeta_MouseMove(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

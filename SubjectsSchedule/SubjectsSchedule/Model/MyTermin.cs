@@ -12,7 +12,11 @@ namespace SubjectsSchedule.Model
     {
         public MyTermin()
         {
-            // da li mi treba neka inicijalizacija??
+            // zabrana resize-a
+            this.AllowChangeStart = false;
+            this.AllowChangeEnd = false;
+
+            // još neka inicijalizacija??
         }
 
         /** Override the SaveTo and LoadFrom methods of the Appointment class
