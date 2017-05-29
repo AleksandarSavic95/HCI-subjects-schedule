@@ -26,19 +26,41 @@
             </TextBlock>
         </Grid>
 
-        <planner:Calendar x:Name="kalendar" Margin="0" Height="400" Culture="sr"
+        <!-- Drag & Drop:
+        ~ Performing a Drag-and-Drop Operation in Windows Forms:
+        https://msdn.microsoft.com/en-us/library/za0zx9y0(v=vs.110).aspx
+        
+        ~ Drag and Drop - e.Data.GetData using a base class
+        https://stackoverflow.com/a/2731674/2101117
+        -->
+        <planner:Calendar x:Name="kalendar" Margin="0" Height="400" Culture="en"
                           AllowDrop="True" DragOver="kalendar_DragOver" Drop="kalendar_Drop"
             Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2"
-            CurrentView="Timetable" Theme="Light" ItemClick="kalendar_ItemClick">
+            CurrentView="Timetable" Theme="Light" ItemClick="kalendar_ItemClick"
+                AllowInplaceCreate="False" AllowInplaceEdit="False" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+            <planner:Calendar.ItemSettings>
+                <planner:ItemSettings MinHeight="10" MinWidth="10" ClipToBounds="True" ResizeBandSize="0" Drop="ItemSettings_Drop"/>
+            </planner:Calendar.ItemSettings>
+            <!-- onemogućavanje kreiranja i izmjene sadržaja termina -->
             <planner:Calendar.WeekRangeSettings>
-                <planner:WeekRangeSettings/>
+                <planner:WeekRangeSettings VisibleRows="7" UseLayoutRounding="False"/>
             </planner:Calendar.WeekRangeSettings>
             <planner:Calendar.TimetableSettings>
-                <planner:TimetableSettings CellSize="20" MinItemSize="10" ShowWorkTime="True" WorkTimeStart="7:0:0" WorkTimeEnd="22:0:0" StartTime="420" ShowAM="True" SnapUnit="Minute" TwelveHourFormat="False" HeaderDateFormat="dddd"/>
+                <planner:TimetableSettings CellSize="20" MinItemSize="10" ShowWorkTime="False" WorkTimeStart="7:0:0" WorkTimeEnd="22:0:0" StartTime="420" SnapUnit="Minute" TwelveHourFormat="False" HeaderDateFormat="dddd" ShowDayHeader="False" ShowAM="True" ShowMinutesInHourHeaders="True" ShowPadding="False" SubHeaderSize="0" TimelineSize="60" CellTime="0:15:0" EnableCollisions="False" EnableSnapping="True" SnapUnitCount="5" EndTime="1380" MinWidth="50" Width="50" EnableDayItems="False" ShowItemSpans="True">
+                    <planner:TimetableSettings.TimelineStyle>
+                        <planner:CalendarStyle/>
+                    </planner:TimetableSettings.TimelineStyle>
+                    <planner:TimetableSettings.HeaderStyle>
+                        <planner:CalendarStyle/>
+                    </planner:TimetableSettings.HeaderStyle>
+                </planner:TimetableSettings>
             </planner:Calendar.TimetableSettings>
         </planner:Calendar>
 
-        <ListBox x:Name="taskList" Grid.Column="0" Grid.Row="1" PreviewMouseDown="taskList_PreviewMouseDown" MouseMove="taskList_MouseMove">
+        <!-- difference between ListBox and ListView
+        https://stackoverflow.com/a/4703658/2101117 -->
+        <ListBox x:Name="taskList" Grid.Column="0" Grid.Row="1"
+            PreviewMouseDown="taskList_PreviewMouseDown" MouseMove="taskList_MouseMove">
             <ListBoxItem>Task #1</ListBoxItem>
             <ListBoxItem>Task #2</ListBoxItem>
             <ListBoxItem>Task #3</ListBoxItem>
