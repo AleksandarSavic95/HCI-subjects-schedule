@@ -6,12 +6,14 @@
              xmlns:local="clr-namespace:SubjectsSchedule.Schedules"
              xmlns:planner="http://mindfusion.eu/scheduling/wpf" xmlns:Globalization="clr-namespace:System.Globalization;assembly=mscorlib" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="SubjectsSchedule.Schedules.ScheduleScheme"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+    >
+    <!-- DataContext="{Binding RelativeSource={RelativeSource Self}}" -->
     <Grid Loaded="ScheduleSchemeLoaded">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -33,11 +35,14 @@
         ~ Drag and Drop - e.Data.GetData using a base class
         https://stackoverflow.com/a/2731674/2101117
         -->
-        <planner:Calendar x:Name="kalendar" Margin="0" Height="400" Culture="en"
-                          AllowDrop="True" DragOver="kalendar_DragOver" Drop="kalendar_Drop"
-            Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2"
+        <planner:Calendar x:Name="kalendar" Margin="0,0,0,10" Culture="sr"
+            AllowDrop="True" DragOver="kalendar_DragOver" Drop="kalendar_Drop"
+            Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
             CurrentView="Timetable" ItemClick="kalendar_ItemClick"
-                AllowInplaceCreate="False" AllowInplaceEdit="False" ScrollViewer.HorizontalScrollBarVisibility="Visible" Theme="Silver">
+            AllowInplaceCreate="False" AllowInplaceEdit="False"
+            ScrollViewer.HorizontalScrollBarVisibility="Visible"
+            ScrollViewer.VerticalScrollBarVisibility="Visible"
+                          Theme="Silver">
             <planner:Calendar.ItemSettings>
                 <planner:ItemSettings MinHeight="10" MinWidth="10" ClipToBounds="True" ResizeBandSize="0" Drop="ItemSettings_Drop"/>
             </planner:Calendar.ItemSettings>
@@ -46,7 +51,7 @@
                 <planner:WeekRangeSettings VisibleRows="7" UseLayoutRounding="False"/>
             </planner:Calendar.WeekRangeSettings>
             <planner:Calendar.TimetableSettings>
-                <planner:TimetableSettings CellSize="20" MinItemSize="10" ShowWorkTime="False" WorkTimeStart="7:0:0" WorkTimeEnd="22:0:0" StartTime="420" SnapUnit="Minute" TwelveHourFormat="False" HeaderDateFormat="dddd" ShowDayHeader="False" ShowAM="True" ShowMinutesInHourHeaders="True" ShowPadding="False" SubHeaderSize="0" TimelineSize="60" CellTime="0:15:0" EnableCollisions="False" EnableSnapping="True" SnapUnitCount="5" EndTime="1380" MinWidth="50" Width="50" EnableDayItems="False" ShowItemSpans="True">
+                <planner:TimetableSettings CellSize="20" MinItemSize="10" ShowWorkTime="False" WorkTimeStart="7:0:0" WorkTimeEnd="22:0:0" StartTime="420" SnapUnit="Minute" TwelveHourFormat="False" HeaderDateFormat="dddd" ShowDayHeader="False" ShowAM="True" ShowMinutesInHourHeaders="True" ShowPadding="False" SubHeaderSize="0" TimelineSize="60" CellTime="0:15:0" EnableCollisions="False" EnableSnapping="True" SnapUnitCount="5" EndTime="1320" MinWidth="50" Width="50" EnableDayItems="False" ShowItemSpans="True" ToolTip="Treba Vam pomoć? Pritisnite F1.">
                     <planner:TimetableSettings.TimelineStyle>
                         <planner:CalendarStyle/>
                     </planner:TimetableSettings.TimelineStyle>
@@ -59,42 +64,21 @@
 
         <!-- difference between ListBox and ListView
         https://stackoverflow.com/a/4703658/2101117 -->
-        <ListBox x:Name="taskList" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
+        <ListBox x:Name="taskList" Grid.Column="0" Grid.Row="2" VerticalAlignment="Top"
             PreviewMouseDown="taskList_PreviewMouseDown" MouseMove="taskList_MouseMove">
             <ListBoxItem>Task #1</ListBoxItem>
-            <ListBoxItem>Task #2</ListBoxItem>
-            <ListBoxItem>Task #3</ListBoxItem>
-            <ListBoxItem>Task #4</ListBoxItem>
             <ListBoxItem>Task #5</ListBoxItem>
-            <ListBoxItem>Task #6</ListBoxItem>
         </ListBox>
-        
-        <!-- SelectedItem="{Binding SelectedSubject}" -->
-        <ListView x:Name="listaPredmeta" Grid.Column="0" Grid.Row="2"
-                  Visibility="Visible" VerticalAlignment="Top" Height="50"
-                  ItemsSource="{Binding PredmetiZaUcionicu}"          
-                  PreviewMouseLeftButtonDown="listaPredmeta_PreviewMouseLeftButtonDown"
-                  MouseMove="listaPredmeta_MouseMove">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <WrapPanel>
-                        <TextBlock Text="{Binding Name}" FontWeight="Bold" />
-                        <TextBlock Text=", fos: " />
-                        <TextBlock Text="{Binding FieldOfStudy}" />
-                        <TextBlock Text=" (" />
-                        <TextBlock Text="{Binding TerminNumber}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
-                        <TextBlock Text=")" />
-                    </WrapPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
 
         <!-- -->
-        <DataGrid x:Name="bookList" Grid.Column="0" Grid.Row="0"
-				ItemsSource="{Binding PredmetiZaUcionicu}" AutoGenerateColumns="False"
-				ScrollViewer.CanContentScroll="True" IsReadOnly="True"
-                SelectionMode="Single" CanUserResizeColumns="False"
-				GridLinesVisibility="Horizontal" HeadersVisibility="Column">
+        <DataGrid x:Name="SubjectsList" Grid.Column="0" Grid.Row="1"
+                  Height="70"
+                  ItemsSource="{Binding PredmetiZaUcionicu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  AutoGenerateColumns="False" SelectionUnit="FullRow"
+                  ScrollViewer.CanContentScroll="True" IsReadOnly="True"
+                  SelectionMode="Single" CanUserResizeColumns="False"
+                  GridLinesVisibility="Horizontal" HeadersVisibility="Column"
+                  PreviewMouseDown="subjList_PreviewMouseDown" MouseMove="subjList_MouseMove">
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
                     <EventSetter Event="Control.MouseDoubleClick" Handler="DataGrid_DblClick"/>
@@ -103,9 +87,10 @@
 
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="NameColumn3" Header="Naziv" Binding="{Binding Name}" />
-                <DataGridTextColumn x:Name="FoSColumn3" Header="Smjer" Binding="{Binding Description}" />
+                <DataGridTextColumn x:Name="FoSColumn3" Header="Smjer" Binding="{Binding FieldOfStudy.Name}" />
                 <DataGridTextColumn x:Name="TerminsColumn3" Header="Termina" Binding="{Binding TerminNumber}" />
             </DataGrid.Columns>
-        </DataGrid> <!-- -->
+        </DataGrid>
+        <!-- -->
     </Grid>
 </UserControl>

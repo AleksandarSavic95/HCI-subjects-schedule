@@ -73,7 +73,7 @@ namespace SubjectsSchedule.Model
             List<string> toFind = classroom.InstalledSoftware;
 
             HashSet<string> hashSet = new HashSet<string>(toFind);
-            bool contained = this.Subjects[0].NeedsSoftware.All(i => hashSet.Contains(i));
+            //bool contained = this.Subjects[0].NeedsSoftware.All(i => hashSet.Contains(i));
 
             foreach (Subject s in this.Subjects)
             {

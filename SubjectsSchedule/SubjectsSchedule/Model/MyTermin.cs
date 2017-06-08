@@ -1,6 +1,7 @@
 ﻿using MindFusion.Scheduling;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,23 @@ namespace SubjectsSchedule.Model
             this.AllowChangeStart = false;
             this.AllowChangeEnd = false;
 
+            this.PropertyChanged += TimeChangedDescriptionUpdate;
+
             // još neka inicijalizacija??
+        }
+        private void TimeChangedDescriptionUpdate(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Contains("Time"))
+            {
+                Console.WriteLine("vrijeme se promijenilo!");
+                this.DescriptionText = string.Format("  {0}\n {1} - {2}",
+                    StartTime.ToShortDateString(), StartTime.ToString("HH:mm"), EndTime.ToString("HH:mm"));
+                //     izgled
+                //+---------------+
+                //|  25/05/2017   |
+                //| 10:15.-.14:30 |
+                //|               |
+            }
         }
 
         /// <summary>
@@ -27,12 +44,13 @@ namespace SubjectsSchedule.Model
         /// <param name="description">Opis</param>
         /// <param name="start">početak</param>
         /// <param name="end">kraj</param>
-        public MyTermin(string header, string description, DateTime start, DateTime end) : this()
+        public MyTermin(string header, string description, DateTime start, DateTime end) : this() // poziva se base konstruktor!
         {
             this.HeaderText = header;
-            this.DescriptionText = description;
             this.StartTime = start;
             this.EndTime = end;
+            this.DescriptionText = string.Format("  {0}\n {1} - {2}",
+                    StartTime.ToShortDateString(), StartTime.ToString("HH:mm"), EndTime.ToString("HH:mm"));
         }
 
         public MyTermin(string header, string description, DateTime start, DateTime end,

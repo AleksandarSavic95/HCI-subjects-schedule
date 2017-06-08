@@ -10,20 +10,16 @@ namespace SubjectsSchedule.Model
     /// <summary>
     /// Svaki predmet je opisan preko:
     /// jedinstvene, ljudski-čitljive oznake predmeta,
-    /// naziva predmeta,
-    /// smera predmeta,
-    /// opisa predmeta,
+    /// naziva predmeta, smera predmeta, opisa predmeta,
     /// veličine grupe u kojoj se radi predmet,
     /// minimalne dužine termina predmeta(u časovima od po 45 min),
-    /// broja termina koji predmet zahteva,
-    /// neophodnosti projektora za nastavu,
-    /// neophodnosti table za nastavu,
-    /// neophodnosti pametne table za nastavu,
+    /// broja termina koji predmet zahteva, neophodnosti projektora za nastavu,
+    /// neophodnosti table za nastavu, neophodnosti pametne table za nastavu,
     /// neophodnog operativnog sistema za nastavu {windows, linux, svejedno},
     /// neophodnog softvera za nastavu.
     /// </summary>
     [Serializable()]
-    class Subject : INotifyPropertyChanged
+    public class Subject : INotifyPropertyChanged
     {
         [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
@@ -37,112 +33,112 @@ namespace SubjectsSchedule.Model
 
         #region private fields
 
-        private string id;
-        private string name;
+        private string _id;
+        private string _name;
         /// <summary>
         /// ID smjera u mapi smjerova
         /// </summary>
-        private string fieldOfStudy;
-        private string description;
-        private int groupSize;
+        private string _fieldOfStudy;
+        private string _description;
+        private int _groupSize;
         /// <summary>
         /// Minimalna dužina termina predmeta (u časovima od po 45 min)
         /// </summary>
-        private int classLength;
+        private int _classLength;
         /// <summary>
         /// Broj termina koje predmet zahtijeva.
         /// </summary>
-        private int terminNumber;
-        private bool needsProjector;
-        private bool needsBoard;
-        private bool needsSmartBoard;
+        private int _terminNumber;
+        private bool _needsProjector;
+        private bool _needsBoard;
+        private bool _needsSmartBoard;
         /// <summary>
         /// Neophodni operativni sistem za nastavu {windows, linux, svejedno}
         /// </summary>
-        private OS needsOS;
+        private OS _needsOS;
         /// <summary>
         /// Neophodni softver za nastavu. Lista, jer može biti više od jednog.
         /// </summary>
-        private List<string> needsSoftware { get; set; }
+        private List<string> _needsSoftware { get; set; }
 
         #endregion
 
         #region public properties most of which are with OnPropertyChanged
 
-        public string Id { get { return id; } set { id = value; } }
-        public string Name { get { return name; }
+        public string Id { get { return _id; } set { _id = value; } }
+        public string Name { get { return _name; }
             set {
-                if (value != name) {
-                    name = value;
+                if (value != _name) {
+                    _name = value;
                     OnPropertyChanged("Name");
                 }
             }
         }
-        public string FieldOfStudy { get { return fieldOfStudy; }
+        public string FieldOfStudy { get { return _fieldOfStudy; }
             set {
-                if (value != fieldOfStudy) {
-                    fieldOfStudy = value;
+                if (value != _fieldOfStudy) {
+                    _fieldOfStudy = value;
                     OnPropertyChanged("FieldOfStudy");
                 }
             }
         }
-        public string Description { get { return description; }
+        public string Description { get { return _description; }
             set {
-                if (value != description)
+                if (value != _description)
                 {
-                    description = value;
+                    _description = value;
                     OnPropertyChanged("Description");
                 }
             }
         }
-        public int GroupSize { get { return groupSize; } set { groupSize = value; } }
-        public int ClassLength { get { return classLength; } set { classLength = value; } }
-        public int TerminNumber { get { return terminNumber; }
+        public int GroupSize { get { return _groupSize; } set { _groupSize = value; } }
+        public int ClassLength { get { return _classLength; } set { _classLength = value; } }
+        public int TerminNumber { get { return _terminNumber; }
             set {
-                if (value != terminNumber)
+                if (value != _terminNumber)
                 {
-                    terminNumber = value;
+                    _terminNumber = value;
                     OnPropertyChanged("TerminNumber");
                 }
             }
         }
 
-        public bool NeedsProjector { get { return needsProjector; }
+        public bool NeedsProjector { get { return _needsProjector; }
             set {
-                if (value != needsProjector)
+                if (value != _needsProjector)
                 {
-                    needsProjector = value;
+                    _needsProjector = value;
                     OnPropertyChanged("NeedsProjector");
                 }
             }
         }
-        public bool NeedsBoard { get { return needsBoard; } set { needsBoard = value; } }
-        public bool NeedsSmartBoard { get { return needsSmartBoard; } set { needsSmartBoard = value; } }
-        public OS NeedsOS { get { return needsOS; } set { needsOS = value; } }
-        public List<string> NeedsSoftware { get { return needsSoftware; } set { needsSoftware = value; } }
+        public bool NeedsBoard { get { return _needsBoard; } set { _needsBoard = value; } }
+        public bool NeedsSmartBoard { get { return _needsSmartBoard; } set { _needsSmartBoard = value; } }
+        public OS NeedsOS { get { return _needsOS; } set { _needsOS = value; } }
+        public List<string> NeedsSoftware { get { return _needsSoftware; } set { _needsSoftware = value; } }
 
         #endregion
 
         public Subject()
         {
-            needsSoftware = new List<string>();
+            _needsSoftware = new List<string>();
         }
 
         public Subject(string id, string name, string fieldOfStudy, string description, int groupSize, int classLength, int terminNumber,
             bool needsProjector, bool needsBoard, bool needsSmartBoard, OS needsOS)
             : this()
         {
-            this.id = id;
-            this.name = name;
-            this.fieldOfStudy = fieldOfStudy;
-            this.description = description;
-            this.groupSize = groupSize;
-            this.classLength = classLength;
-            this.terminNumber = terminNumber;
-            this.needsProjector = needsProjector;
-            this.needsBoard = needsBoard;
-            this.needsSmartBoard = needsSmartBoard;
-            this.needsOS = needsOS;
+            this._id = id;
+            this._name = name;
+            this._fieldOfStudy = fieldOfStudy;
+            this._description = description;
+            this._groupSize = groupSize;
+            this._classLength = classLength;
+            this._terminNumber = terminNumber;
+            this._needsProjector = needsProjector;
+            this._needsBoard = needsBoard;
+            this._needsSmartBoard = needsSmartBoard;
+            this._needsOS = needsOS;
         }
     }
 }
