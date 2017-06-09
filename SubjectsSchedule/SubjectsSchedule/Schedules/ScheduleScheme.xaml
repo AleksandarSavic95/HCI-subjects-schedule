@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:SubjectsSchedule.Schedules"
              xmlns:planner="http://mindfusion.eu/scheduling/wpf" xmlns:Globalization="clr-namespace:System.Globalization;assembly=mscorlib" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="SubjectsSchedule.Schedules.ScheduleScheme"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="450" d:DesignWidth="800" IsVisibleChanged="UserControl_IsVisibleChanged"
     >
     <!-- DataContext="{Binding RelativeSource={RelativeSource Self}}" -->
     <Grid Loaded="ScheduleSchemeLoaded">
@@ -71,17 +71,34 @@
                   ScrollViewer.CanContentScroll="True" IsReadOnly="True"
                   SelectionMode="Single" CanUserResizeColumns="False"
                   GridLinesVisibility="Horizontal" HeadersVisibility="Column"
-                  PreviewMouseDown="subjList_PreviewMouseDown" MouseMove="subjList_MouseMove">
+                  PreviewMouseDown="subjList_PreviewMouseDown" MouseMove="subjList_MouseMove"
+                  Loaded="SubjectsList_Loaded">
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
                     <EventSetter Event="Control.MouseDoubleClick" Handler="DataGrid_DblClick"/>
                 </Style>
             </DataGrid.ItemContainerStyle>
-
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <!--<Setter Property="BorderBrush" Value="Transparent"/>-->
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <!-- Update from comments. Remove the focus indication for the selected cell -->
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    <Setter Property="IsTabStop"        Value="False" />
+                </Style>
+            </DataGrid.CellStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="NameColumn3" Header="Naziv" Binding="{Binding Name}" />
                 <DataGridTextColumn x:Name="FoSColumn3" Header="Smjer" Binding="{Binding FieldOfStudy.Name}" />
-                <DataGridTextColumn x:Name="TerminsColumn3" Header="Termina" Binding="{Binding TerminNumber}" />
+                <DataGridTextColumn x:Name="TerminsColumn3" Binding="{Binding UnscheduledTermins}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock ToolTip="raspoređeno/neraspoređeno">
+                            Nerasp
+                            <LineBreak/>
+                            / rasp?
+                        </TextBlock>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <!-- -->

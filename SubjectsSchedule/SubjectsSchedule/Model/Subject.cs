@@ -9,14 +9,13 @@ namespace SubjectsSchedule.Model
 {
     /// <summary>
     /// Svaki predmet je opisan preko:
-    /// jedinstvene, ljudski-čitljive oznake predmeta,
+    /// jedinstvene, LJUDSKI-ČITLJIVE oznake predmeta,
     /// naziva predmeta, smera predmeta, opisa predmeta,
     /// veličine grupe u kojoj se radi predmet,
     /// minimalne dužine termina predmeta(u časovima od po 45 min),
-    /// broja termina koji predmet zahteva, neophodnosti projektora za nastavu,
-    /// neophodnosti table za nastavu, neophodnosti pametne table za nastavu,
-    /// neophodnog operativnog sistema za nastavu {windows, linux, svejedno},
-    /// neophodnog softvera za nastavu.
+    /// broja termina,
+    /// neophodnosti projektora, table i pametne table za nastavu,
+    /// neophodnog operativnog sistema {windows, linux, svejedno} i softvera.
     /// </summary>
     [Serializable()]
     public class Subject : INotifyPropertyChanged
@@ -59,11 +58,17 @@ namespace SubjectsSchedule.Model
         /// <summary>
         /// Neophodni softver za nastavu. Lista, jer može biti više od jednog.
         /// </summary>
-        private List<string> _needsSoftware { get; set; }
+        private List<string> _needsSoftware;
+
+        /// <summary>
+        /// Broj temrina ovog predmeta koji nisu raspoređeni.
+        /// </summary>
+        private int _unscheduledTermins;
 
         #endregion
 
-        #region public properties most of which are with OnPropertyChanged
+        #region Public props, most of which raise the OnPropertyChanged event
+        
 
         public string Id { get { return _id; } set { _id = value; } }
         public string Name { get { return _name; }
@@ -117,6 +122,19 @@ namespace SubjectsSchedule.Model
         public OS NeedsOS { get { return _needsOS; } set { _needsOS = value; } }
         public List<string> NeedsSoftware { get { return _needsSoftware; } set { _needsSoftware = value; } }
 
+        public int UnscheduledTermins
+        {
+            get { return _unscheduledTermins; }
+            set
+            {
+                if (value != _unscheduledTermins)
+                {
+                    _unscheduledTermins = value;
+                    OnPropertyChanged("UnscheduledTermins");
+                }
+            }
+        }
+
         #endregion
 
         public Subject()
@@ -134,7 +152,10 @@ namespace SubjectsSchedule.Model
             this._description = description;
             this._groupSize = groupSize;
             this._classLength = classLength;
+
             this._terminNumber = terminNumber;
+            this._unscheduledTermins = terminNumber; // bitno! - broj nerasp. termina
+
             this._needsProjector = needsProjector;
             this._needsBoard = needsBoard;
             this._needsSmartBoard = needsSmartBoard;

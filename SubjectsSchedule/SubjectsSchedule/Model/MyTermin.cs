@@ -27,6 +27,9 @@ namespace SubjectsSchedule.Model
             if (e.PropertyName.Contains("Time"))
             {
                 Console.WriteLine("vrijeme se promijenilo!");
+                // TODO: pogledati formatiranje stringova:
+                // http://blog.stevex.net/string-formatting-in-csharp/
+                // https://stackoverflow.com/q/644017
                 this.DescriptionText = string.Format("{0}\n{1} -- {2}",
                     DescriptionCentering(StartTime.DayOfWeek),
                     StartTime.ToString("HH:mm"), EndTime.ToString("HH:mm"));
@@ -51,6 +54,7 @@ namespace SubjectsSchedule.Model
             this.HeaderText = header;
             this.StartTime = start;
             this.EndTime = end;
+            // TODO: pogledati formatiranje stringova...
             this.DescriptionText = string.Format("{0}\n{1} -- {2}", DescriptionCentering(start.DayOfWeek),
                     StartTime.ToString("HH:mm"), EndTime.ToString("HH:mm"));
         }
@@ -79,6 +83,7 @@ namespace SubjectsSchedule.Model
                 default:  // neće nikada biti nedelja
                     break;
             }
+            // TODO: pogledati formatiranje stringova...
             // Font nije *monospace* pa mora veći left-padding..
             return "        ".Substring(0, space*2-2) + dayOfWeekSerbian;
         }

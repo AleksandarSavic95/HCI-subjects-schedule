@@ -110,7 +110,6 @@
     <Compile Include="Model\ScheduleDays.cs" />
     <Compile Include="Model\SoftwareHandler.cs" />
     <Compile Include="Model\SubjectHandler.cs" />
-    <Compile Include="Model\Termin.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
