@@ -20,7 +20,7 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Grid.Row="0">
+        <Grid Grid.Column="0" Grid.Row="0" Margin="5, 5, 5, 20">
             <TextBlock>
                 INFO INFO
                 <LineBreak/>
@@ -64,15 +64,8 @@
 
         <!-- difference between ListBox and ListView
         https://stackoverflow.com/a/4703658/2101117 -->
-        <ListBox x:Name="taskList" Grid.Column="0" Grid.Row="2" VerticalAlignment="Top"
-            PreviewMouseDown="taskList_PreviewMouseDown" MouseMove="taskList_MouseMove">
-            <ListBoxItem>Task #1</ListBoxItem>
-            <ListBoxItem>Task #5</ListBoxItem>
-        </ListBox>
-
-        <!-- -->
         <DataGrid x:Name="SubjectsList" Grid.Column="0" Grid.Row="1"
-                  Height="70"
+                  Height="200"
                   ItemsSource="{Binding PredmetiZaUcionicu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" SelectionUnit="FullRow"
                   ScrollViewer.CanContentScroll="True" IsReadOnly="True"

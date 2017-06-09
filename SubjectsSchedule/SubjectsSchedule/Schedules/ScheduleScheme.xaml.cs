@@ -1,5 +1,6 @@
 ﻿using MindFusion.Scheduling;
 using SubjectsSchedule.Model;
+using SubjectsSchedule.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -50,40 +51,7 @@ namespace SubjectsSchedule.Schedules
 
             // Da na kalendaru pravimo termine tipa MyTermin, a ne Appointment
             kalendar.InteractiveItemType = typeof(MyTermin);
-
-            kalendar.ItemModifying += (s, e) =>
-            {
-                DateTime start = e.Item.StartTime;
-                DateTime end = e.Item.EndTime;
-
-                if (start.TimeOfDay < TimeSpan.FromHours(7))
-                {
-                    e.Confirm = false;
-
-                    // kraj = 7:00 + razlika kraja i početka ~~~ očuvanje trajanja termina
-                    end = start.Date.AddHours(7).Add(end.Subtract(start));
-                    start = start.Date.AddHours(7); // počinje u sedam
-                }
-                else if (end.TimeOfDay > TimeSpan.FromHours(22))
-                {
-                    e.Confirm = false;
-
-                    // početak = 22:00 - razlika kraja i početka ~~~ očuvanje trajanja termina
-                    start = start.Date.AddHours(22).Subtract(end.Subtract(start));
-                    end = start.Date.AddHours(22);
-                }
-
-                var items = kalendar.Schedule.GetAllItems(start, end);
-                // https://stackoverflow.com/a/407741/2101117 <- prvi komentar: Any efikasnije od Count
-                if (items.Except(new List<Item>() { e.Item }).Any())
-                {
-                    // TODO: pitanje o brisanju postojecih termina
-                    Console.WriteLine("TODO: pitanje o brisanju postojecih termina");
-                    e.Confirm = false;
-                }
-            };
-
-            // 
+            
             kalendar.ItemCreated += (s, e) =>
             {
                 if (e.Item is MyTermin) // ovo prije pisalo: kalendar.ResetDrag();
@@ -95,10 +63,64 @@ namespace SubjectsSchedule.Schedules
             {
                 if (e.Item is MyTermin)
                 {
-                    Console.WriteLine("modifikovan item (slijedi opis) " + e.Item.DescriptionText);
+                    Console.WriteLine("modifikovan termin za " + ((MyTermin)e.Item).ForSubject.Name);
                     // TODO: dodati promjenu stringa! e.Item.DescriptionText = ... ima gotovo ...
+                    DateTime start = e.Item.StartTime;
+                    DateTime end = e.Item.EndTime;
+                    string TooEarlyOrTooLate = "Termin je previše ";
+
+                    if (start.TimeOfDay < TimeSpan.FromHours(7))
+                    {
+                        // kraj = 7:00 + razlika kraja i početka ~~~ očuvanje trajanja termina
+                        end = start.Date.AddHours(7).Add(end.Subtract(start));
+                        start = start.Date.AddHours(7); // počinje u sedam
+                        TooEarlyOrTooLate += "rano. Biće pomjeren tako da počinje u 07:00.\n";
+                    }
+                    else if (end.TimeOfDay > TimeSpan.FromHours(22))
+                    {
+                        // početak = 22:00 - razlika kraja i početka ~~~ očuvanje trajanja termina
+                        start = start.Date.AddHours(22).Subtract(end.Subtract(start));
+                        end = start.Date.AddHours(22);
+                        TooEarlyOrTooLate += "kasno. Biće pomjeren tako da završava u 22:00.\n";
+                    }
+
+                    // Uzmi sve Item-e osim tek spuštenog
+                    var items = kalendar.Schedule.GetAllItems(start, end.AddSeconds(-1)).Except(new List<Item>() { e.Item });
+                    // izbacivanje https://stackoverflow.com/a/407741/2101117 <- prvi komentar: Any efikasnije od Count
+                    bool zauzeto = items.Any();
+
+                    if (zauzeto)
+                    {
+                        // Da li želite da obrišete postojeće termine? Argument je tekst "termin je prerano/prekasno".
+                        if (Questions.BrisanjeTermina(TooEarlyOrTooLate.Length > 22 ? TooEarlyOrTooLate : "") == MessageBoxResult.Yes)
+                        {
+                            items.ToList().ForEach(x => kalendar.Schedule.Items.Remove(x));
+                            zauzeto = false;
+                        }
+                    }
+                    // ako je slobodno, samo poruka o izlasku iz opsega [7-22]
+                    else
+                        if (TooEarlyOrTooLate.Length > 22) // ima prekoračenja
+                            MessageBox.Show(TooEarlyOrTooLate);
+
+                    if (!zauzeto)
+                    {
+                        e.Item.StartTime = start; //
+                        e.Item.EndTime = end;     //
+                    }
+                    else
+                    {
+                        e.Item.StartTime = e.OldStartTime;
+                        e.Item.EndTime = e.OldEndTime;
+                    }
                 }
 
+            };
+
+            // tokom izmjene - mogućnost prekida događaja
+            kalendar.ItemModifying += (s, e) =>
+            {
+                // e.Confirm = false;
             };
 
             // Serialization support
@@ -148,173 +170,15 @@ namespace SubjectsSchedule.Schedules
             /* ako već postoje u Handler-u, zakomentarisati ovo */
             // SubjectHandler.Instance.Add("3", "bazePod", "Siit3", "oSubj3", 18, 3, 1, true, true, false, OS.WINDOWS); // */
 
-            //List <Subject> tmp = SubjectHandler.Instance.FindByClassroom(svemoguca);
+            //List <Subject> tmp = SubjectHandler.Instance.FindByClassroom(svemoguca); // RADI!
             
             //if (tmp.Count > 0) tmp.ForEach(subj => PredmetiZaUcionicu.Add(subj));
 
-            PredmetiZaUcionicu.Add(new Subject("4", "HCI", "siit", "Interakcija covjek-racunar", 16, 45, 2, false, false, false, OS.SUBJ_WHATEVER));
+            PredmetiZaUcionicu.Add(new Subject("4", "HCI", "siit", "Interakcija covjek-racunar", 16, 2, 2, false, false, false, OS.SUBJ_WHATEVER));
 
             //SubjectsList.ItemsSource = PredmetiZaUcionicu; // ako nije podešen DataContext mora sa ovim
         }
 
-        #region Drag & drop  TaskList --> kalendar
-        private void taskList_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            mouseDown = e.LeftButton == MouseButtonState.Pressed;
-        }
-
-        private void taskList_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (taskList.SelectedItem != null && mouseDown)
-            {
-                mouseDown = false;
-                // Za d&d bitan je tip DATA parametra
-                string data = ((ListBoxItem)taskList.SelectedItem).Content.ToString();
-                Console.WriteLine("mouseMOve: " + data);
-                DragDrop.DoDragDrop(taskList, data, DragDropEffects.Copy);
-            }
-        }
-
-        /// <summary>
-        /// Gives visual feedback to the user when the mouse moves
-        /// over the kalendar control during drag & drop operation.
-        /// Checks if the dragged data matches the expected type and
-        /// if the location under the mouse cursor represents a valid date.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void kalendar_DragOver(object sender, DragEventArgs e)
-        {
-            e.Effects = DragDropEffects.None;
-            string gotData = (string)e.Data.GetData(DataFormats.StringFormat);
-            if (e.Data.GetDataPresent(typeof(string)))
-            {
-                Console.WriteLine("\nStigao string(data): " + gotData);
-
-                DateTime? date = kalendar.GetDateAt(e.GetPosition(kalendar));
-
-                Console.WriteLine("\nsupsteno na datum: " + date);
-
-                if (date != null)
-                    e.Effects = DragDropEffects.Copy;
-            }
-            else //ne treba mi ovo prije...
-            if (e.Data.GetDataPresent(typeof(Subject))) {
-                Console.WriteLine("Subject! DragOver");
-                Subject subject = (Subject)e.Data.GetData(typeof(Subject));
-
-                DateTime? date = kalendar.GetDateAt(e.GetPosition(kalendar));
-                Console.WriteLine("\nsupsteno SUBJECT na datum: " + date);
-
-                if (date != null)
-                    e.Effects = DragDropEffects.Copy;
-            }
-        }
-
-        private void kalendar_Drop(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(typeof(string))) // TODO: promijeniti tip
-            {
-                AddTaskFromDragAndDrop(e);
-            }
-            if (e.Data.GetDataPresent(typeof(Subject)))
-            {
-                AddTerminFromDragAndDrop(e);
-            }
-        }
-
-        private void AddTerminFromDragAndDrop(DragEventArgs e)
-        {
-            Point point = e.GetPosition(kalendar);
-            DateTime? date = kalendar.GetDateAt(point);
-
-            Subject subject = (Subject) e.Data.GetData(typeof(Subject));
-
-            // TODO: Srediti da se može dodati termin "tik uz drugi" - pogledaj kod ispod ove linije
-            // trenutno preko štapa i kanapa [ ili nije? :) ]
-            var allItems = kalendar.Schedule.GetAllItems(date.Value, date.Value.AddMinutes(subject.ClassLength * 45).AddSeconds(-1));
-            bool zauzeto = allItems.Any();
-
-            if (date != null)
-            {
-                MessageBoxResult messageBoxResult = MessageBoxResult.Yes;
-
-                if (zauzeto) // postoji 1 ili više termina
-                {
-                    /** Prevod teksta na dugmadima <see cref="MainWindow()"/>*/
-                    System.Windows.Forms.MessageBoxManager.Yes = "Da";
-                    System.Windows.Forms.MessageBoxManager.No = "Ne";
-
-                    messageBoxResult = MessageBox
-                        .Show("Da li želite da obrišete termine koji se preklapaju?",
-                        "Zauzet termin", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                    if (messageBoxResult == MessageBoxResult.Yes)
-                    {
-                        // čišćenje polja sa taskovima
-                        allItems.ToList().ForEach(x => kalendar.Schedule.Items.Remove(x));
-
-                        zauzeto = false; // fleg za dodavanje novog
-                    }
-                }
-                if (!zauzeto)
-                {
-                    Console.WriteLine(date.Value.TimeOfDay.ToString());
-                    Console.WriteLine(date.Value.Hour + ":" + date.Value.Minute + " - nezavršeno" );
-                    MyTermin termin = new MyTermin(subject.Name, "", date.Value, date.Value.AddMinutes(subject.ClassLength * 45));
-                    kalendar.Schedule.Items.Add(termin);
-                }
-            }
-        }
-
-        private void AddTaskFromDragAndDrop(DragEventArgs e)
-        {
-            Point point = e.GetPosition(kalendar);
-            DateTime? date = kalendar.GetDateAt(point);
-
-            // TODO: Srediti da se može dodati termin "tik uz drugi"
-            // trenutno preko štapa i kanapa [ ili nije? :) ]
-            var allItems = kalendar.Schedule.GetAllItems(date.Value, date.Value.AddMinutes(30).AddSeconds(-1));
-            bool zauzeto = allItems.Any();
-
-            if (date != null)
-            {
-                MessageBoxResult messageBoxResult = MessageBoxResult.Yes;
-
-                if (zauzeto) // postoji 1 ili više termina
-                {
-                    /** Prevod teksta na dugmadima <see cref="MainWindow()"/>*/
-                    System.Windows.Forms.MessageBoxManager.Yes = "Da";
-                    System.Windows.Forms.MessageBoxManager.No = "Ne";
-
-                    messageBoxResult = MessageBox
-                        .Show("Da li želite da obrišete termine koji se preklapaju?",
-                        "Zauzet termin", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                    if (messageBoxResult == MessageBoxResult.Yes)
-                    {
-                        // čišćenje polja sa taskovima
-                        allItems.ToList().ForEach(x => kalendar.Schedule.Items.Remove(x));
-
-                        zauzeto = false; // fleg za dodavanje novog
-                    }
-                }
-                if (!zauzeto)
-                {
-                    string task = (string)e.Data.GetData(typeof(string));
-                    MyTermin termin = new MyTermin(task, "", date.Value, date.Value.AddMinutes(30));
-                    kalendar.Schedule.Items.Add(termin);
-                }
-            }
-        }
-
-        #endregion
-
-        /** TODO: [low priority] razmotriti korištenje ovoga, ne znam ni šta je.. */
-        private void ItemSettings_Drop(object sender, DragEventArgs e)
-        {
-            Console.WriteLine("\n sta ce sad biti?");
-            if (e.Data.GetDataPresent(typeof(MyTermin)))
-                Console.WriteLine("Termin drop! PUF!");
-        }
 
         #region Drag & drop ListaPredmeta --> kalendar
 
@@ -337,6 +201,80 @@ namespace SubjectsSchedule.Schedules
             }
         }
 
+        /// <summary>
+        /// Gives visual feedback to the user when the mouse moves
+        /// over the kalendar control during drag & drop operation.
+        /// Checks if the dragged data matches the expected type and
+        /// if the location under the mouse cursor represents a valid date.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void kalendar_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effects = DragDropEffects.None;
+            if (e.Data.GetDataPresent(typeof(Subject))) {
+                Console.WriteLine("Subject! DragOver");
+                Subject subject = (Subject)e.Data.GetData(typeof(Subject));
+
+                DateTime? date = kalendar.GetDateAt(e.GetPosition(kalendar));
+                Console.WriteLine("\nsupsteno SUBJECT na datum: " + date);
+
+                if (date != null)
+                    e.Effects = DragDropEffects.Copy;
+            }
+        }
+
+        private void kalendar_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(Subject)))
+                AddTerminFromDragAndDrop(e);
+        }
+
+        private void AddTerminFromDragAndDrop(DragEventArgs e)
+        {
+            Point point = e.GetPosition(kalendar);
+            DateTime? date = kalendar.GetDateAt(point);
+
+            Subject subject = (Subject) e.Data.GetData(typeof(Subject));
+
+            // TODO: Srediti da se može dodati termin "tik uz drugi" - pogledaj kod ispod ove linije
+            // trenutno preko štapa i kanapa [ ili nije? :) ]
+            DateTime start = date.Value;
+            DateTime end = start.AddMinutes(subject.ClassLength * 45);
+
+            var allItems = kalendar.Schedule.GetAllItems(start, end.AddSeconds(-1));
+            bool zauzeto = allItems.Any();
+
+            if (date != null)
+            {
+                if (zauzeto) // postoji 1 ili više termina
+                {
+                    if (Questions.BrisanjeTermina() == MessageBoxResult.Yes)
+                    {
+                        // čišćenje polja sa taskovima
+                        allItems.ToList().ForEach(x => kalendar.Schedule.Items.Remove(x));
+                        zauzeto = false; // fleg za dodavanje novog
+                    }
+                }
+                if (!zauzeto) // ne može else zbog flag-a iznad
+                {
+                    Console.WriteLine(start.TimeOfDay.ToString());
+                    Console.WriteLine(start.ToString("HH:mm") + " - nezavršeno" + end.ToString("HH:mm"));
+                    MyTermin termin = new MyTermin(subject.Name, start, end);
+                    termin.ForSubject = subject;
+                    kalendar.Schedule.Items.Add(termin);
+                }
+            }
+        }
+        
         #endregion
+
+        /** TODO: [low priority] razmotriti korištenje ovoga, ne znam ni šta je.. */
+        private void ItemSettings_Drop(object sender, DragEventArgs e)
+        {
+            Console.WriteLine("\n sta ce sad biti?");
+            if (e.Data.GetDataPresent(typeof(MyTermin)))
+                Console.WriteLine("Termin drop! PUF!");
+        }
     }
 }
