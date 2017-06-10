@@ -176,10 +176,13 @@ namespace SubjectsSchedule.Schedules
             // */
 
             /* ako već postoje u Handler-u, zakomentarisati ovo */
-            SubjectHandler.Instance.TryAdd("1", "subj1", "1", "oSubj1", 20, 1, 2, false, true, true, OS.WINDOWS);
-            SubjectHandler.Instance.TryAdd("2", "ISA", "2", "oSubj2", 22, 2, 1, false, true, true, OS.SUBJ_WHATEVER);
-            SubjectHandler.Instance.TryAdd("3", "bazePod", "Siit3", "oSubj3", 18, 3, 1, true, true, false, OS.WINDOWS);
-            SubjectHandler.Instance.TryAdd("4", "HCI", "siit", "Interakcija covjek-racunar", 16, 2, 2, false, false, false, OS.SUBJ_WHATEVER);
+            FieldOfStudy fos1 = new FieldOfStudy("fos1", "SIIT", DateTime.Parse("25/05/2014"),"opisFOS1");
+            FieldOfStudy fos2 = new FieldOfStudy("fos2", "E3", DateTime.Parse("24/04/2015"), "opisFOS2");
+
+            SubjectHandler.Instance.TryAdd("1", "subj1", fos1, "opis sub1", 20, 1, 2, false, true, true, OS.WINDOWS);
+            SubjectHandler.Instance.TryAdd("2", "ISA", fos2, "oSubj2", 22, 2, 1, false, true, true, OS.SUBJ_WHATEVER);
+            SubjectHandler.Instance.TryAdd("3", "bazePod", fos1, "oSubj3", 18, 3, 1, true, true, false, OS.WINDOWS);
+            SubjectHandler.Instance.TryAdd("4", "HCI", fos2, "Interakcija covjek-racunar", 16, 2, 2, false, false, false, OS.SUBJ_WHATEVER);
             // */
 
             List<Subject> tmp = SubjectHandler.Instance.FindByClassroom(svemoguca); // RADI!
@@ -192,9 +195,20 @@ namespace SubjectsSchedule.Schedules
         private void AddToSubjectListAndUpdateRow(Subject subj)
         {
             PredmetiZaUcionicu.Add(subj);
-            
+            // dodatni kod za ažuriranje reda
         }
 
+        private void kalendar_ItemDeleted(object sender, ItemEventArgs e)
+        {
+            MyTermin deletedTermin = (MyTermin)e.Item;
+            Subject deletedTerminSubject = deletedTermin.ForSubject;
+
+            SubjectHandler.Instance.ChangeUnscheduledTermins(deletedTerminSubject.Id, false);
+
+            UpdateSubjectRow(deletedTerminSubject);
+
+            SubjectsList.UnselectAll();
+        }
 
         #region Drag & drop ListaPredmeta --> kalendar
 
@@ -301,15 +315,7 @@ namespace SubjectsSchedule.Schedules
                     SubjectHandler.Instance.ChangeUnscheduledTermins(subject.Id);
 
                     // TODO: poboljšati (?) označavanje potpuno raspoređenog predmeta
-                    if (subject.UnscheduledTermins < 1)
-                    {
-                        Subject itm = (Subject)SubjectsList.SelectedItem;
-                        DataGridRow row = SubjectsList.ItemContainerGenerator.ContainerFromItem(itm) as DataGridRow;
-                        row.Background = Brushes.PaleGreen;
-                        row.ToolTip = "Predmet " + subject.Name + " je raspoređen.";
-                        //row.IsEnabled = false;
-                        SubjectsList.UnselectAll();
-                    }
+                    UpdateSubjectRow(subject);
 
                     kalendar.Schedule.Items.Add(termin);
                 }
@@ -327,28 +333,12 @@ namespace SubjectsSchedule.Schedules
             SubjectHandler.Instance.ChangeUnscheduledTermins(itemsSubject.Id, false);
 
             // TODO: poboljšati (?) označavanje NEraspoređenog predmeta ** kada postane NErasp. drugačije od već NErasp.?? **
-            if (itemsSubject.UnscheduledTermins > 0)
-            {
-                Subject rowItem = itemsSubject;
-                //SubjectsList.Items.IndexOf()
-                DataGridRow row = SubjectsList.ItemContainerGenerator.ContainerFromItem(rowItem) as DataGridRow;
-                row.Background = Brushes.PaleGoldenrod; // black'n gold baby :P
-                row.ToolTip = "Predmet " + itemsSubject.Name + " ima neraspoređene termine.";
-                row.IsEnabled = true;
-            }
+            UpdateSubjectRow(itemsSubject);
 
             kalendar.Schedule.Items.Remove(item);
         }
 
         #endregion
-
-        /** TODO: [low priority] razmotriti korištenje ovoga, ne znam ni šta je.. */
-        private void ItemSettings_Drop(object sender, DragEventArgs e)
-        {
-            Console.WriteLine("\n sta ce sad biti?");
-            if (e.Data.GetDataPresent(typeof(MyTermin)))
-                Console.WriteLine("Termin drop! PUF!");
-        }
 
         private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
@@ -357,26 +347,9 @@ namespace SubjectsSchedule.Schedules
                 InitializeSubjectList();
         }
 
-        private void ColorMyRows()
-        {
-            DataGridRow row = null;
-            for (int i = 0; i < SubjectsList.Items.Count; i++)
-            {
-                row = SubjectsList.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
-                if (PredmetiZaUcionicu[i].UnscheduledTermins > 0)
-                {
-                    row.Background = Brushes.PaleGoldenrod; // black'n gold baby :P
-                    row.ToolTip = "Predmet " + PredmetiZaUcionicu[i].Name + " ima neraspoređene termine.";
-                }
-                else
-                {
-                    row.Background = Brushes.PaleGreen;
-                    row.ToolTip = "Predmet " + PredmetiZaUcionicu[i].Name + " nema neraspoređenih termina.";
-                }
-            }
-        }
-
         /// <summary>
+        /// Asinhroni(?) poziv za bojenje svih redova u listi predmeta.
+        /// <see cref="ColorMyRows"/>
         /// ASYNC EVENT: https://stackoverflow.com/questions/24087058/do-something-after-datagrid-finished-loading-with-async-itemssource
         /// </summary>
         /// <param name="sender"></param>
@@ -384,6 +357,56 @@ namespace SubjectsSchedule.Schedules
         private void SubjectsList_Loaded(object sender, RoutedEventArgs e)
         {
             Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() => ColorMyRows()));
+        }
+
+        private void SubjectsList_LayoutUpdated(object sender, EventArgs e)
+        {
+            Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => ColorMyRows()));
+        }
+
+        /// <summary>
+        /// Boji redove u listi predmeta u zavisnosti
+        /// od broja NEraspoređenih termina.
+        /// </summary>
+        private void ColorMyRows()
+        {
+            DataGridRow row = null;
+            Subject currentSubject;
+            for (int i = 0; i < SubjectsList.Items.Count; i++)
+            {
+                row = SubjectsList.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
+                currentSubject = (Subject)row.Item;
+                if (currentSubject.UnscheduledTermins > 0)
+                {
+                    row.Background = Brushes.PaleGoldenrod; // black'n gold baby :P
+                    row.ToolTip = "Predmet " + currentSubject.Name + " ima neraspoređene termine.";
+                }
+                else
+                {
+                    row.Background = Brushes.PaleGreen;
+                    row.ToolTip = "Predmet " + currentSubject.Name + " nema neraspoređenih termina.";
+                }
+            }
+        }
+
+        private void UpdateSubjectRow(Subject subject)
+        {
+            if (subject.UnscheduledTermins < 1)
+            {
+                DataGridRow row = SubjectsList.ItemContainerGenerator.ContainerFromItem(subject) as DataGridRow;
+                row.Background = Brushes.PaleGreen;
+                row.ToolTip = "Predmet " + subject.Name + " je raspoređen.";
+                //row.IsEnabled = false;
+                SubjectsList.UnselectAll();
+            }
+            else
+            {
+                DataGridRow row = SubjectsList.ItemContainerGenerator.ContainerFromItem(subject) as DataGridRow;
+                row.Background = Brushes.PaleGoldenrod; // black'n gold baby :P
+                row.ToolTip = "Predmet " + subject.Name + " ima neraspoređene termine.";
+                //row.IsEnabled = true;
+                SubjectsList.UnselectAll();
+            }
         }
     }
 }

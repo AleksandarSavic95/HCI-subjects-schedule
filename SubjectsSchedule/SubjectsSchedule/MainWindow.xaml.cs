@@ -115,12 +115,13 @@ namespace SubjectsSchedule
             Classroom c1 = new Classroom("1", "o1", 20, false, true, false, OS.C_BOTH);
             c1.InstalledSoftware = new List<string>() { "1", "2", "3" };
 
+            FieldOfStudy fos1 = new FieldOfStudy("fos1", "SIIT", DateTime.Parse("25/05/2014"), "opisFOS1");
             /** inicijalizacija predmeta */
-            Subject subj1 = new Subject("1", "prd1", "1", "subjO1", 20, 1, 2, false, false, false, OS.SUBJ_WHATEVER);
+            Subject subj1 = new Subject("1", "prd1", fos1, "subjO1", 20, 1, 2, false, false, false, OS.SUBJ_WHATEVER);
             subj1.NeedsSoftware = new List<string>() { "1", "2" };
-            Subject subj2 = new Subject("2", "prd2", "2", "subjO2", 16, 1, 3, false, false, false, OS.SUBJ_WHATEVER);
+            Subject subj2 = new Subject("2", "prd2", fos1, "subjO2", 16, 1, 3, false, false, false, OS.SUBJ_WHATEVER);
             subj2.NeedsSoftware = new List<string>() { "2", "4" };
-            Subject subj3 = new Subject("3", "prd3", "3", "subjO3", 22, 2, 2, false, false, false, OS.SUBJ_WHATEVER);
+            Subject subj3 = new Subject("3", "prd3", fos1, "subjO3", 22, 2, 2, false, false, false, OS.SUBJ_WHATEVER);
             subj3.NeedsSoftware = new List<string>() { "1", "2" };
 
             List<Subject> subjects = new List<Subject>() { subj1, subj2, subj3 };

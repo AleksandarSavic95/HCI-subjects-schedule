@@ -55,7 +55,7 @@ namespace SubjectsSchedule.Model
             }
         }
 
-        public void TryAdd(string id, string name, string fieldOfStudy, string description, int groupSize, int classLength,
+        public void TryAdd(string id, string name, FieldOfStudy fieldOfStudy, string description, int groupSize, int classLength,
             int terminNumber, bool needsProjector, bool needsBoard, bool needsSmartBoard, OS needsOS)
         {
             try
