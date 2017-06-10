@@ -352,8 +352,8 @@ namespace SubjectsSchedule.Schedules
 
         private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            Console.WriteLine("Inicijalizacija iz IsVisibleChanged + " + ((Visibility)e.NewValue).ToString());
-            if (((Visibility)e.NewValue).Equals(Visibility.Visible))
+            Console.WriteLine("Inicijalizacija iz IsVisibleChanged + " + ((bool)e.NewValue));
+            if ((bool)e.NewValue)
                 InitializeSubjectList();
         }
 
