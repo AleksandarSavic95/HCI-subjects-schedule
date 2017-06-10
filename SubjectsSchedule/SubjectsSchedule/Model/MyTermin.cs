@@ -1,6 +1,8 @@
 ﻿using MindFusion.Scheduling;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,8 +18,83 @@ namespace SubjectsSchedule.Model
             this.AllowChangeStart = false;
             this.AllowChangeEnd = false;
 
+            this.PropertyChanged += TimeChangedDescriptionUpdate;
+
             // još neka inicijalizacija??
         }
+        private void TimeChangedDescriptionUpdate(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Contains("Time"))
+            {
+                Console.WriteLine("vrijeme se promijenilo!");
+                // TODO: pogledati formatiranje stringova:
+                // http://blog.stevex.net/string-formatting-in-csharp/
+                // https://stackoverflow.com/q/644017
+                this.DescriptionText = string.Format("{0}\n{1} -- {2}",
+                    DescriptionCentering(StartTime.DayOfWeek),
+                    StartTime.ToString("HH:mm"), EndTime.ToString("HH:mm"));
+            }
+        }
+
+        /// <summary>
+        /// Prevod naziva dana na srpski jezik.
+        /// </summary>
+        private static CultureInfo culture = new CultureInfo("sr");
+
+        /// <summary>
+        /// Pravi novi termin od proslijeđenih informacija.
+        /// Poziva <see cref="MyTermin()"/>!
+        /// </summary>
+        /// <param name="header">Naslov</param>
+        /// <param name="description">Opis</param>
+        /// <param name="start">početak</param>
+        /// <param name="end">kraj</param>
+        public MyTermin(string header, DateTime start, DateTime end) : this() // poziva se base konstruktor!
+        {
+            this.HeaderText = header;
+            this.StartTime = start;
+            this.EndTime = end;
+            // TODO: pogledati formatiranje stringova...
+            this.DescriptionText = string.Format("{0}\n{1} -- {2}", DescriptionCentering(start.DayOfWeek),
+                    StartTime.ToString("HH:mm"), EndTime.ToString("HH:mm"));
+        }
+        /*
+            |22:00 -- 22:00|  14 karaktera
+            |  ponedeljak  | ponedeljak ima 2 razmaka
+            |    utorak    | utorak, srEda, petak i subota imaju 4
+            |   četvrtak   | četvrtak ima 3
+        */
+        private string DescriptionCentering(DayOfWeek dayOfWeek)
+        {
+            string dayOfWeekSerbian = culture.DateTimeFormat.GetDayName(dayOfWeek);
+            int space = 0;
+            switch (dayOfWeek)
+            {
+                case DayOfWeek.Monday:
+                    space = 2;
+                    break;
+                case DayOfWeek.Tuesday: case DayOfWeek.Wednesday:
+                case DayOfWeek.Friday: case DayOfWeek.Saturday:
+                    space = 4;
+                    break;
+                case DayOfWeek.Thursday:
+                    space = 3;
+                    break;
+                default:  // neće nikada biti nedelja
+                    break;
+            }
+            // TODO: pogledati formatiranje stringova...
+            // Font nije *monospace* pa mora veći left-padding..
+            return "        ".Substring(0, space*2-2) + dayOfWeekSerbian;
+        }
+
+        public MyTermin(string header, DateTime start, DateTime end,
+            Classroom classroom, Subject subject) : this(header, start, end)
+        {
+            this._inClassroom = classroom;
+            this._forSubject = subject;
+        }
+
 
         /** Override the SaveTo and LoadFrom methods of the Appointment class
         * in order to serialize the custom property Kept. */

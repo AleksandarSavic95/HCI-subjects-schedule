@@ -6,25 +6,35 @@
              xmlns:local="clr-namespace:SubjectsSchedule.Schedules"
              xmlns:planner="http://mindfusion.eu/scheduling/wpf" xmlns:Globalization="clr-namespace:System.Globalization;assembly=mscorlib" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="SubjectsSchedule.Schedules.ScheduleScheme"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" IsVisibleChanged="UserControl_IsVisibleChanged"
+    >
+    <!-- DataContext="{Binding RelativeSource={RelativeSource Self}}" -->
     <Grid Loaded="ScheduleSchemeLoaded">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="170" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Grid.Row="0">
-            <TextBlock>
-                INFO INFO
+        <!-- info box -->
+        <StackPanel Grid.Column="0" Grid.Row="0" Margin="5, 5, 5, 20">
+            <!-- ima i 48x48 -->
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/MyIcons/info icon 32x32.png" Margin="0" Width="32"/>
+                <TextBlock FontSize="18" VerticalAlignment="Center" Margin="10, 0, 0, 0">
+                    INFO
+                </TextBlock>
+            </StackPanel>
+            <TextBlock FontSize="14" TextWrapping="Wrap" TextAlignment="Justify">
+                More info more more more asd asd 
                 <LineBreak/>
-                kfisdfisdfo sefija keofrk
+                Fiksna količina teksta - provjeri Wraping i Alignment
             </TextBlock>
-        </Grid>
+        </StackPanel>
 
         <!-- Drag & Drop:
         ~ Performing a Drag-and-Drop Operation in Windows Forms:
@@ -33,20 +43,23 @@
         ~ Drag and Drop - e.Data.GetData using a base class
         https://stackoverflow.com/a/2731674/2101117
         -->
-        <planner:Calendar x:Name="kalendar" Margin="0" Height="400" Culture="en"
-                          AllowDrop="True" DragOver="kalendar_DragOver" Drop="kalendar_Drop"
-            Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2"
-            CurrentView="Timetable" Theme="Silver" ItemClick="kalendar_ItemClick"
-                AllowInplaceCreate="False" AllowInplaceEdit="False" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+        <planner:Calendar x:Name="kalendar" Margin="0,0,0,10" Culture="sr"
+            AllowDrop="True" DragOver="kalendar_DragOver" Drop="kalendar_Drop"
+            Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
+            CurrentView="Timetable" ItemClick="kalendar_ItemClick"
+            AllowInplaceCreate="False" AllowInplaceEdit="False"
+            ScrollViewer.HorizontalScrollBarVisibility="Visible"
+            ScrollViewer.VerticalScrollBarVisibility="Visible"
+                          Theme="Silver" ItemDeleted="kalendar_ItemDeleted">
             <planner:Calendar.ItemSettings>
-                <planner:ItemSettings MinHeight="10" MinWidth="10" ClipToBounds="True" ResizeBandSize="0" Drop="ItemSettings_Drop"/>
+                <planner:ItemSettings MinHeight="10" MinWidth="10" ClipToBounds="True" ResizeBandSize="0"/>
             </planner:Calendar.ItemSettings>
             <!-- onemogućavanje kreiranja i izmjene sadržaja termina -->
             <planner:Calendar.WeekRangeSettings>
                 <planner:WeekRangeSettings VisibleRows="7" UseLayoutRounding="False"/>
             </planner:Calendar.WeekRangeSettings>
             <planner:Calendar.TimetableSettings>
-                <planner:TimetableSettings CellSize="20" MinItemSize="10" ShowWorkTime="False" WorkTimeStart="7:0:0" WorkTimeEnd="22:0:0" StartTime="420" SnapUnit="Minute" TwelveHourFormat="False" HeaderDateFormat="dddd" ShowDayHeader="False" ShowAM="True" ShowMinutesInHourHeaders="True" ShowPadding="False" SubHeaderSize="0" TimelineSize="60" CellTime="0:15:0" EnableCollisions="False" EnableSnapping="True" SnapUnitCount="5" EndTime="1380" MinWidth="50" Width="50" EnableDayItems="False" ShowItemSpans="True">
+                <planner:TimetableSettings CellSize="20" MinItemSize="10" ShowWorkTime="False" WorkTimeStart="7:0:0" WorkTimeEnd="22:0:0" StartTime="420" SnapUnit="Minute" TwelveHourFormat="False" HeaderDateFormat="dddd" ShowDayHeader="False" ShowAM="True" ShowMinutesInHourHeaders="True" ShowPadding="False" SubHeaderSize="0" TimelineSize="60" CellTime="0:15:0" EnableCollisions="False" EnableSnapping="True" SnapUnitCount="5" EndTime="1320" MinWidth="50" Width="50" EnableDayItems="False" ShowItemSpans="True" ToolTip="Treba Vam pomoć? Pritisnite F1.">
                     <planner:TimetableSettings.TimelineStyle>
                         <planner:CalendarStyle/>
                     </planner:TimetableSettings.TimelineStyle>
@@ -59,52 +72,52 @@
 
         <!-- difference between ListBox and ListView
         https://stackoverflow.com/a/4703658/2101117 -->
-        <ListBox x:Name="taskList" Grid.Column="0" Grid.Row="1"
-            PreviewMouseDown="taskList_PreviewMouseDown" MouseMove="taskList_MouseMove">
-            <ListBoxItem>Task #1</ListBoxItem>
-            <ListBoxItem>Task #2</ListBoxItem>
-            <ListBoxItem>Task #3</ListBoxItem>
-            <ListBoxItem>Task #4</ListBoxItem>
-            <ListBoxItem>Task #5</ListBoxItem>
-            <ListBoxItem>Task #6</ListBoxItem>
-        </ListBox>
-        <ListView x:Name="listaPredmeta" Grid.Column="0" Grid.Row="1" Visibility="Collapsed"
-                  ItemsSource="{Binding PredmetiZaUcionicu}"
-                  PreviewMouseLeftButtonDown="listaPredmeta_PreviewMouseLeftButtonDown"
-                  MouseMove="listaPredmeta_MouseMove">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <WrapPanel>
-                        <TextBlock Text="{Binding Ime}" FontWeight="Bold" />
-                        <TextBlock Text=", " />
-                        <TextBlock Text="{Binding Prezime}" />
-                        <TextBlock Text=" (" />
-                        <TextBlock Text="{Binding Email}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
-                        <TextBlock Text=")" />
-                    </WrapPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
-        <!--
-        <DataGrid x:Name="bookList" DockPanel.Dock="Top" FontSize="13.333"
-                Grid.Column="0" Grid.Row="1" Visibility="Collapsed"
-				ItemsSource="{Binding Books}" AutoGenerateColumns="False"
-                Margin="20, 0, 20, 0" BorderThickness="0, 1, 0, 0" Background="White"
-				ScrollViewer.CanContentScroll="True" IsReadOnly="True"
-                SelectionMode="Single" CanUserResizeColumns="False"
-				GridLinesVisibility="Horizontal" HeadersVisibility="Column">
+        <DataGrid x:Name="SubjectsList" Grid.Column="0" Grid.Row="1"
+                  Height="242"
+                  ItemsSource="{Binding PredmetiZaUcionicu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  AutoGenerateColumns="False" SelectionUnit="FullRow"
+                  ScrollViewer.CanContentScroll="True" IsReadOnly="True"
+                  SelectionMode="Single" CanUserResizeColumns="False"
+                  GridLinesVisibility="Horizontal" HeadersVisibility="Column"
+                  PreviewMouseDown="subjList_PreviewMouseDown" MouseMove="subjList_MouseMove"
+                  Loaded="SubjectsList_Loaded" LayoutUpdated="SubjectsList_LayoutUpdated">
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <EventSetter Event="Control.MouseDoubleClick" Handler=""/>
+                    <EventSetter Event="Control.MouseDoubleClick" Handler="DataGrid_DblClick"/>
                 </Style>
             </DataGrid.ItemContainerStyle>
-
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <!--<Setter Property="BorderBrush" Value="Transparent"/>-->
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <!-- Update from comments. Remove the focus indication for the selected cell -->
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    <Setter Property="IsTabStop"        Value="False" />
+                </Style>
+            </DataGrid.CellStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="NameColumn3" Header="First Name" Binding="{Binding Name}" Width="*" />
-                <DataGridTextColumn x:Name="AuthorColumn3" Header="Author" Binding="{Binding Author}" Width="Auto" />
-                <DataGridTextColumn x:Name="GenreColumn3" Header="Genre" Binding="{Binding Genre}" Width="Auto" />
+                <DataGridTextColumn x:Name="NameColumn" Header="Naziv" Binding="{Binding Name}" Width="70" MinWidth="30"/>
+                <DataGridTextColumn x:Name="SmjerCol" Header="Smjer" Binding="{Binding FieldOfStudy.Name}" MinWidth="30"/>
+                <DataGridTextColumn x:Name="TerminCountColumn" MinWidth="20">
+                    <!-- Binding="{Binding UnscheduledTermins}" -->
+                    <DataGridTextColumn.Header>
+                        <TextBlock ToolTip="raspoređeno/neraspoređeno">
+                            Termini
+                            <LineBreak/>
+                            nerasp. / ukupno
+                        </TextBlock>
+                    </DataGridTextColumn.Header>
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} / {1}">
+                            <Binding Path="UnscheduledTermins" />
+                            <Binding Path="TerminNumber" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
             </DataGrid.Columns>
-        </DataGrid> -->
+        </DataGrid>
+        <Button Grid.Column="0" Grid.Row="2" Margin="5" FontSize="16">
+            Zatvori
+        </Button>
     </Grid>
 </UserControl>
