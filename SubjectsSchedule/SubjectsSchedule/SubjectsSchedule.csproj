@@ -115,6 +115,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Schedules\GlobalSchedule.xaml.cs">
+      <DependentUpon>GlobalSchedule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Schedules\SceduleSchemeWeek.xaml.cs">
       <DependentUpon>SceduleSchemeWeek.xaml</DependentUpon>
     </Compile>
@@ -166,6 +169,10 @@
     <Page Include="MyCommands\UgradjeneKomande.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Schedules\GlobalSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Schedules\SceduleSchemeWeek.xaml">
       <SubType>Designer</SubType>
