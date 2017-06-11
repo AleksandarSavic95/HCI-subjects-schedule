@@ -26,6 +26,17 @@ namespace SubjectsSchedule.Schedules
         public GlobalSchedule()
         {
             InitializeComponent();
+
+            //globalCalendar.IsEnabled = false;
+            //globalCalendar.IsManipulationEnabled = false;
+
+            //globalCalendar.ItemSettings.Cursor = Cursors.Hand;
+
+            // disable idem modification
+            globalCalendar.ItemStartModifying += (s, e) =>
+            {
+                e.Confirm = false;
+            };
         }
 
         private void GlobalSchedule_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -101,30 +112,27 @@ namespace SubjectsSchedule.Schedules
         private void DefineResources()
         {
             Classroom c1 = new Classroom("L-1", "prva", 20, true, true, true, OS.C_BOTH);
-            Classroom c2 = new Classroom("L-2", "druga", 16, false, false, false, OS.LINUX);
-            Classroom c3 = new Classroom("L-3", "treca", 12, false, true, false, OS.WINDOWS);
-
             Resource r1 = new Resource();
-            Resource r2 = new Resource();
-            Resource r3 = new Resource();
-
             r1.Name = c1.Id;
             r1.Tag = c1;
             r1.Id = "r1";
+            globalCalendar.Schedule.Resources.Add(r1);
+            globalCalendar.ItemResources.Add(r1);
 
+            Classroom c2 = new Classroom("L-2", "druga", 16, false, false, false, OS.LINUX);
+            Resource r2 = new Resource();
             r2.Name = c2.Id;
             r2.Tag = c2;
             r2.Id = "r2";
+            globalCalendar.Schedule.Resources.Add(r2);
+            globalCalendar.ItemResources.Add(r2);
 
+            Classroom c3 = new Classroom("L-3", "treca", 12, false, true, false, OS.WINDOWS);
+            Resource r3 = new Resource();
             r3.Name = c3.Id;
             r3.Tag = c3;
             r3.Id = "r3";
-
-            globalCalendar.Schedule.Resources.Add(r1);
-            globalCalendar.Schedule.Resources.Add(r2);
             globalCalendar.Schedule.Resources.Add(r3);
-            globalCalendar.ItemResources.Add(r1);
-            globalCalendar.ItemResources.Add(r2);
             globalCalendar.ItemResources.Add(r3);
         }
 

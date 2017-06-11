@@ -54,8 +54,8 @@ namespace SubjectsSchedule
 
             //newClassroom = new FormaClassroom.FormaClassroom();
 
-            // Serialize();
-            // Deserialize();
+            Serialize();
+            Deserialize();
 
             this.DataContext = this;
 
@@ -396,7 +396,8 @@ namespace SubjectsSchedule
         }
 
         /// <summary>
-        /// Sakriva sve (četiri) forme za dodavanje entiteta.
+        /// Sakriva globalnu i pojedinacnu shemu rasporeda,
+        /// kao i forme za dodavanje entiteta (predmet, softver...).
         /// </summary>
         private void HideAllForms()
         {
@@ -404,6 +405,8 @@ namespace SubjectsSchedule
             SubjectForma.Visibility = Visibility.Collapsed;
             SoftverForma.Visibility = Visibility.Collapsed;
             FieldOfStudyForma.Visibility = Visibility.Collapsed;
+            RasporedUcionice.Visibility = Visibility.Collapsed;
+            GlobalnaShema.Visibility = Visibility.Collapsed;
         }
 
         private void NovaUcionica_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -454,7 +457,55 @@ namespace SubjectsSchedule
         private void PregledSheme_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             HideAllForms();
-            ShemaRasporeda.Visibility = Visibility.Visible;
+            RasporedUcionice.Visibility = Visibility.Visible;
+        }
+
+        private void DockPanelLoaded(object sender, RoutedEventArgs e)
+        {
+            InitializeClassroomsList();
+        }
+
+        private void InitializeClassroomsList()
+        {
+            try
+            {
+                ClassroomHandler.Instance.Add("L-1", "prva", 16, true, false, false, OS.WINDOWS);
+                ClassroomHandler.Instance.Add("L-2", "druga", 22, true, true, false, OS.LINUX);
+                ClassroomHandler.Instance.Add("L-3", "treca", 14, true, true, true, OS.C_BOTH);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("nisu dodate sve ucionice iz test liste!");
+            }
+
+            Button classroomButton;
+            foreach (var classroom in ClassroomHandler.Instance.Classrooms)
+            {
+                classroomButton = new Button();
+                classroomButton.Content = classroom.Id;
+                classroomButton.Click += ClassroomButton_Click; ;
+                classroomButton.Margin = new Thickness(0, 1, 0, 1);
+
+                // Kačimo objekat za dugme, da ga ne tražimo poslije u bazi
+                classroomButton.Tag = classroom;
+
+                ClassroomButtonList.Children.Add(classroomButton);
+            }
+        }
+
+        private void ClassroomButton_Click(object sender, RoutedEventArgs e)
+        {
+            Classroom c = (Classroom)((Button)e.Source).Tag;
+
+            //string classroomId = (e.Source as Button).Content.ToString();
+            //Console.WriteLine("Klik na: " + classroomId + " ||| moze i Tag property..");
+            //Classroom c1 = ClassroomHandler.Instance.FindById(classroomId);
+
+            if (RasporedUcionice.SelectedClassroom == c)
+                return;
+
+            this.HideAllForms();
+            RasporedUcionice.InitializeSubjectList(c);
         }
     }
 }

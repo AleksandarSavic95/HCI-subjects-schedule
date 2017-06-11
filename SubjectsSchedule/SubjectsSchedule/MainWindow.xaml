@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         xmlns:cmd="clr-namespace:SubjectsSchedule.MyCommands"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        Title="MainWindow" Height="500" Width="800"
+        Title="MainWindow" Height="500" Width="900"
         l:HelpProvider.HelpKey="Forma">
     <!-- Global commands: https://stackoverflow.com/a/4710197 -->
     <Window.CommandBindings>
@@ -25,7 +25,7 @@
         <CommandBinding Command="cmd:RoutedCommands.NoviSoftver" CanExecute="NoviSoftver_CanExecute" Executed="NoviSoftver_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.PregledSheme" CanExecute="PregledSheme_CanExecute" Executed="PregledSheme_Executed"></CommandBinding>
     </Window.CommandBindings>
-    <DockPanel>
+    <DockPanel Loaded="DockPanelLoaded">
         <Menu DockPanel.Dock ="Top">
             <MenuItem Header="Komande">
                 <MenuItem Header="_Hello World" Command="cmd:RoutedCommands.HelloWorld"></MenuItem>
@@ -55,120 +55,36 @@
                 <MenuItem Header="_Drag and Drop" Click="MenuItem_Click_4"></MenuItem>
             </MenuItem>
         </Menu>
-        <!-- forma za ????  Visibility="Collapsed" Visibility="Collapsed" Visibility="Collapsed" -->
-        <Grid Visibility="Collapsed" DockPanel.Dock="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <!-- jer su nazivi tu -->
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <TextBlock Margin="5" Grid.Column="0" Grid.Row="0" Text="Opis"/>
-            <TextBlock Margin="5" Grid.Column="0" Grid.Row="1" Text="Broj radnih mijesta"/>
-            <TextBlock Margin="5" Grid.Column="0" Grid.Row="2" Text="Pomjeri sve?!"/>
-            <TextBlock Margin="5" Grid.Column="0" Grid.Row="3" Text="Operativni sistem(i)"/>
-            <TextBlock Margin="5" Grid.Column="0" Grid.Row="4" Text="Instalirani softver"/>
-            <TextBlock Margin="5" Grid.Column="0" Grid.Row="5" Text="Dodatni elementi"/>
 
-            <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True"/>
-            <!-- AcceptsReturn="True" ? -->
-            <xctk:IntegerUpDown Margin="10, 5" Grid.Column="1" Grid.Row="1" Minimum="1" x:Name="brojTerminaUpDown" l:HelpProvider.HelpKey="Prezime"/>
-            <!-- ???? Margin="5" Grid.Column="1" Grid.Row="2" ... -->
-            <ComboBox Margin="10, 5" Grid.Column="1" Grid.Row="3" SelectedIndex="0">
-                <ComboBoxItem Content="Windows"></ComboBoxItem>
-                <ComboBoxItem Content="Linux"></ComboBoxItem>
-                <ComboBoxItem Content="Oba"></ComboBoxItem>
-            </ComboBox>
-
-            <TextBlock Margin="10, 5" Grid.Column="1" Grid.Row="4" Text="Odaberite iz liste"/>
-
-            <!-- SVE ZA ODABIR JEZIKA
-            Osnovni primjer listBox-a: https://msdn.microsoft.com/en-us/library/system.windows.forms.listbox.items(v=vs.110).aspx
-            ListBox + DataBase + prikaz odabranog u TextBoxu: https://www.youtube.com/watch?v=I5qvyyhUKfY
-            IMA U KODU S VJEŽBI: Move items between to ListBoxes: http://csharphelper.com/blog/2015/11/move-items-between-two-listboxes-in-c/
-            -->
-            <ListBox Margin="10, 5" Grid.Column="2" Grid.Row="1" Grid.RowSpan="4"
-                     Height="104" SelectionMode="Multiple">
-                <!-- APSOLUTNA VISINA.. ne valja..
-                OnLoad nakačiti nešto: https://stackoverflow.com/a/16084207
-                Postaviti visinu itema na (ListBox.Height/brojItema): https://stackoverflow.com/a/26558478
-                Treći pokušaj: https://stackoverflow.com/a/841618
-                -->
-                <ListBoxItem>Jedan</ListBoxItem>
-                <ListBoxItem>Dva</ListBoxItem>
-                <ListBoxItem>Tri</ListBoxItem>
-                <ListBoxItem>Četiri</ListBoxItem>
-                <ListBoxItem>Sedam</ListBoxItem>
-                <ListBoxItem>Deset</ListBoxItem>
-                <ListBoxItem>Osam</ListBoxItem>
-            </ListBox>
-
-            <!-- Stavljeno kao posljednje, jer se može preskočiti Enter-om -->
-            <!-- TODO: da li ćemo praviti da se pamte posljednje selektovani CB-ovi i nakon zatvaranja forme -->
-            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2">
-                <CheckBox Margin="10, 5, 5, 5" Content="Tabla" IsChecked="True"/>
-                <CheckBox Margin="5" Content="Projektor"/>
-                <!-- pamtiti čekiranost u promjenljivoj? Binding? -->
-                <CheckBox Margin="5" Content="Pametna tabla"/>
+        <StackPanel DockPanel.Dock="Left" MinWidth="80" Width="90" HorizontalAlignment="Left"
+            TextBlock.FontSize="18" TextBlock.TextAlignment="Center">
+            <TextBlock>Učionice</TextBlock>
+            <StackPanel Name="ClassroomButtonList">
+                <Button Margin="0, 1">Uč-1</Button>
+                <Button Margin="0, 1">Uč-2</Button>
+                <TextBlock>učitane:</TextBlock>
             </StackPanel>
-
-            <!-- reset dugme, bez upisa u bazu? -->
-            <Button Grid.Column="0" Grid.Row="7" Name="Reset_" Padding="10" Margin="10" 
-                    MaxWidth="330" HorizontalAlignment="Center">
-                <StackPanel>
-                    <TextBlock FontSize="14">Isprazni polja</TextBlock>
-                    <!-- <TextBlock FontSize="9" HorizontalAlignment="Center">bez potvrde unosa</TextBlock> -->
-                    <TextBlock FontSize="10" HorizontalAlignment="Center">[ALT + ENTER]</TextBlock>
-                </StackPanel>
-            </Button>
-
-            <StackPanel Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="1" Orientation="Horizontal">
-                <Button Name="Potvrda__" Padding="10" Margin="10" 
-                    MaxWidth="330" HorizontalAlignment="Center">
-                    <StackPanel>
-                        <TextBlock FontSize="14" HorizontalAlignment="Center">Unos [ENTER]</TextBlock>
-
-                        <!-- <TextBlock FontSize="9" HorizontalAlignment="Center">[CTRL + ENTER] ili [CTRL + klik]</TextBlock>
-                        <TextBlock FontSize="9" HorizontalAlignment="Center">za potvrdu i nastavak unošenja</TextBlock> -->
-
-                        <TextBlock FontSize="10" HorizontalAlignment="Center">[CTRL] uz potvrdu unosa za</TextBlock>
-                        <TextBlock FontSize="10" HorizontalAlignment="Center">potvrdu i nastavak unošenja</TextBlock>
-                    </StackPanel>
-                </Button>
-                <!-- <StackPanel Margin="0, 0, 0, 0" VerticalAlignment="Center">
-                    <TextBlock Text="Ctrl + ENTER/klik za" />
-                    <TextBlock Text="potvrdu i nastavak unošenja" />
-                </StackPanel> -->
-            </StackPanel>
-        </Grid>
-        <!-- /forma za ???? -->
+        </StackPanel>
 
         <f:FormaClassroom DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="ClassroomForma"/>
         <f:FormaSubject DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SubjectForma"/>
         <f:FormaFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyForma"/>
         <f:FormaSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverForma"/>
 
-        <s:ScheduleScheme DockPanel.Dock="Left" Width="800" Visibility="Collapsed" x:Name="ShemaRasporeda"/>
-        <s:GlobalSchedule DockPanel.Dock="Left" Width="800" Visibility="Visible" x:Name="GlobalnaShema"/>
+        <s:ScheduleScheme DockPanel.Dock="Left" Width="800" Visibility="Collapsed" x:Name="RasporedUcionice"/>
+
+        <s:GlobalSchedule DockPanel.Dock="Left" Width="Auto" Visibility="Visible" x:Name="GlobalnaShema" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+        </s:GlobalSchedule>
 
         <!-- Dugmad za dodavanje entiteta -->
-        <StackPanel DockPanel.Dock="Right" MinWidth="100" Width="150" HorizontalAlignment="Right">
+        <StackPanel DockPanel.Dock="Right" MinWidth="80" Width="90" HorizontalAlignment="Right">
             <!-- icon: http://www.iconarchive.com/show/ios7-icons-by-icons8/Science-Classroom-icon.html -->
             <Button x:Name="dodajUcionicuDugme" Command="cmd:RoutedCommands.NovaUcionica" Margin="5" Padding="5">
                 <!-- Click="New_Classroom_Click" -->
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">Dodaj</TextBlock>
                     <TextBlock HorizontalAlignment="Center"><Bold>U</Bold>čionicu</TextBlock>
-                    <TextBlock HorizontalAlignment="Center" FontSize="9">[ALT + SHIFT + <Bold>U</Bold>]</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="9">[CTRL + <Bold>U</Bold>]</TextBlock>
                 </StackPanel>
             </Button>
 
@@ -176,7 +92,7 @@
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">Dodaj</TextBlock>
                     <TextBlock HorizontalAlignment="Center"><Bold>P</Bold>redmet</TextBlock>
-                    <TextBlock HorizontalAlignment="Center" FontSize="9">[ALT + SHIFT + <Bold>P</Bold>]</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="9">[CTRL + <Bold>P</Bold>]</TextBlock>
                 </StackPanel>
             </Button>
 
@@ -184,7 +100,7 @@
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">Dodaj</TextBlock>
                     <TextBlock HorizontalAlignment="Center"><Bold>S</Bold>mjer</TextBlock>
-                    <TextBlock HorizontalAlignment="Center" FontSize="9">[ALT + SHIFT + <Bold>S</Bold>]</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="9">[CTRL + <Bold>S</Bold>]</TextBlock>
                 </StackPanel>
             </Button>
 
@@ -192,7 +108,7 @@
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">Dodaj</TextBlock>
                     <TextBlock HorizontalAlignment="Center">S<Bold>o</Bold>ftver</TextBlock>
-                    <TextBlock HorizontalAlignment="Center" FontSize="9">[ALT + SHIFT + <Bold>O</Bold>]</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="9">[CTRL + <Bold>O</Bold>]</TextBlock>
                 </StackPanel>
             </Button>
 
@@ -200,7 +116,7 @@
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">Shema</TextBlock>
                     <TextBlock HorizontalAlignment="Center"><Bold>R</Bold>asporeda</TextBlock>
-                    <TextBlock HorizontalAlignment="Center" FontSize="9">[ALT + SHIFT + <Bold>R</Bold>]</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="9">[CTRL + <Bold>R</Bold>]</TextBlock>
                 </StackPanel>
             </Button>
         </StackPanel>

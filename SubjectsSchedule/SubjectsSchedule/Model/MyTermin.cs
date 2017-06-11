@@ -1,4 +1,6 @@
 ﻿using MindFusion.Scheduling;
+using MindFusion.Scheduling.Wpf;
+using SubjectsSchedule.Schedules;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +12,8 @@ using System.Xml;
 
 namespace SubjectsSchedule.Model
 {
-    class MyTermin : MindFusion.Scheduling.Appointment
+    //[ItemPresenter(typeof(CustomAppointmentPresenter))]
+    class MyTermin : Appointment
     {
         public MyTermin()
         {

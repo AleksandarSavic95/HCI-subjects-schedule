@@ -120,11 +120,13 @@
     <Compile Include="Model\ScheduleDays.cs" />
     <Compile Include="Model\SoftwareHandler.cs" />
     <Compile Include="Model\SubjectHandler.cs" />
+    <Compile Include="Model\TerminHandler.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Schedules\CustomAppointmentPresenter.cs" />
     <Compile Include="Schedules\GlobalSchedule.xaml.cs">
       <DependentUpon>GlobalSchedule.xaml</DependentUpon>
     </Compile>
