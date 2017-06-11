@@ -50,6 +50,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -59,6 +60,10 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="TestApiWpf">
+      <HintPath>..\..\..\..\..\..\..\MojiFajlovi\Faks\6SestiSemestar\HCI\1ZavrsniProjekat\PomocniDll-ovi\TestApiWpf.dll</HintPath>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -92,6 +97,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DemoMode\DemoModeWindow.xaml.cs">
+      <DependentUpon>DemoModeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forme\FormaClassroom.xaml.cs">
       <DependentUpon>FormaClassroom.xaml</DependentUpon>
     </Compile>
@@ -104,6 +112,8 @@
     <Compile Include="Forme\FormaSubject.xaml.cs">
       <DependentUpon>FormaSubject.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DemoMode\DpiHelper.cs" />
+    <Compile Include="DemoMode\InputHelper.cs" />
     <Compile Include="Model\ClassroomHandler.cs" />
     <Compile Include="Model\FieldOfStudyHanlder.cs" />
     <Compile Include="Model\MyTermin.cs" />
@@ -126,6 +136,10 @@
     </Compile>
     <Compile Include="Utilities\MessageBoxManager.cs" />
     <Compile Include="Utilities\Questions.cs" />
+    <Page Include="DemoMode\DemoModeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forme\FormaClassroom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
