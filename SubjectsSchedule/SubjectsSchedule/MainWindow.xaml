@@ -18,7 +18,7 @@
         <CommandBinding Command="cmd:RoutedCommands.Enable" CanExecute="Enable_CanExecute" Executed="Enable_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Komanda" CanExecute="Komanda_CanExecute" Executed="Komanda_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Ugradjene" CanExecute="Ugradjene_CanExecute"  Executed="Ugradjene_Executed"></CommandBinding>
-        
+
         <CommandBinding Command="cmd:RoutedCommands.NovaUcionica" CanExecute="NovaUcionica_CanExecute" Executed="NovaUcionica_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.NoviPredmet" CanExecute="NoviPredmet_CanExecute" Executed="NoviPredmet_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.NoviSmjer" CanExecute="NoviSmjer_CanExecute" Executed="NoviSmjer_Executed"></CommandBinding>
@@ -50,7 +50,7 @@
                 <MenuItem Header="_Student forma" Click="MenuItem_Click_3"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Kontrole">
-                <MenuItem Header="_Tabela" Click="MenuItem_Click_1"></MenuItem>
+                <MenuItem Header="_Demonstracioni mod" Click="Demonstracioni_mod_Click"></MenuItem>
                 <MenuItem Header="_Toolbar, Tree, i Kontekstni Meniji" Click="MenuItem_Click_5"></MenuItem>
                 <MenuItem Header="_Drag and Drop" Click="MenuItem_Click_4"></MenuItem>
             </MenuItem>
@@ -163,7 +163,7 @@
         <!-- Dugmad za dodavanje entiteta -->
         <StackPanel DockPanel.Dock="Right" MinWidth="100" Width="150" HorizontalAlignment="Right">
             <!-- icon: http://www.iconarchive.com/show/ios7-icons-by-icons8/Science-Classroom-icon.html -->
-            <Button Command="cmd:RoutedCommands.NovaUcionica" Margin="5" Padding="5">
+            <Button x:Name="dodajUcionicuDugme" Command="cmd:RoutedCommands.NovaUcionica" Margin="5" Padding="5">
                 <!-- Click="New_Classroom_Click" -->
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">Dodaj</TextBlock>
@@ -172,7 +172,7 @@
                 </StackPanel>
             </Button>
 
-            <Button Command="cmd:RoutedCommands.NoviPredmet" Margin="5" Padding="5">
+            <Button x:Name="dodajPredmetDugme" Command="cmd:RoutedCommands.NoviPredmet" Margin="5" Padding="5">
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">Dodaj</TextBlock>
                     <TextBlock HorizontalAlignment="Center"><Bold>P</Bold>redmet</TextBlock>
@@ -180,7 +180,7 @@
                 </StackPanel>
             </Button>
 
-            <Button Command="cmd:RoutedCommands.NoviSmjer" Margin="5" Padding="5" Click="New_FoS_Click">
+            <Button x:Name="dodajSmjerDugme" Command="cmd:RoutedCommands.NoviSmjer" Margin="5" Padding="5" Click="New_FoS_Click">
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">Dodaj</TextBlock>
                     <TextBlock HorizontalAlignment="Center"><Bold>S</Bold>mjer</TextBlock>
@@ -188,7 +188,7 @@
                 </StackPanel>
             </Button>
 
-            <Button Command="cmd:RoutedCommands.NoviSoftver" Margin="5" Padding="5" Click="New_Software_Click">
+            <Button x:Name="dodajSoftverDugme" Command="cmd:RoutedCommands.NoviSoftver" Margin="5" Padding="5" Click="New_Software_Click">
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">Dodaj</TextBlock>
                     <TextBlock HorizontalAlignment="Center">S<Bold>o</Bold>ftver</TextBlock>
@@ -196,7 +196,7 @@
                 </StackPanel>
             </Button>
 
-            <Button Command="cmd:RoutedCommands.PregledSheme" Margin="5" Padding="5" Click="New_Software_Click">
+            <Button x:Name="shemaRasporedaDugme" Command="cmd:RoutedCommands.PregledSheme" Margin="5" Padding="5" Click="New_Software_Click">
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">Shema</TextBlock>
                     <TextBlock HorizontalAlignment="Center"><Bold>R</Bold>asporeda</TextBlock>
