@@ -16,6 +16,7 @@ namespace SubjectsSchedule
     {
         public App()
         {
+            // credits: https://www.youtube.com/watch?v=x-KK7bmo1AM
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
         }
 
