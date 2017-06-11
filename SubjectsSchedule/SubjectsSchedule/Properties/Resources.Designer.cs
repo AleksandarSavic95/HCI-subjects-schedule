@@ -155,11 +155,21 @@ namespace SubjectsSchedule.Properties {
         ///        &lt;/p&gt;
         ///        &lt;p&gt;
         ///            &lt;input type=&quot;text&quot; id=&quot;txtMessage&quot; /&gt;
-        ///            &lt;input type=&quot;button&quot; value=&quot;Press Me!&quot; onclick=&quot;javascript:window.external.RunFromJavascr [rest of string was truncated]&quot;;.
+        ///            &lt;input type=&quot;button&quot; value=&quot;Press Me!&quot; onclick=&quot;javascript:window.external.RunFromJavascript(document.get [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Prezime {
             get {
                 return ResourceManager.GetString("Prezime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] TestApiWpf {
+            get {
+                object obj = ResourceManager.GetObject("TestApiWpf", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

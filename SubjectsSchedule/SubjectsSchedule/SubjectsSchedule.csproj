@@ -61,7 +61,7 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="TestApiWpf">
-      <HintPath>..\..\..\..\..\..\..\MojiFajlovi\Faks\6SestiSemestar\HCI\1ZavrsniProjekat\PomocniDll-ovi\TestApiWpf.dll</HintPath>
+      <HintPath>..\packages\TestApiWpf.dll</HintPath>
     </Reference>
     <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
@@ -233,6 +233,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\TestApiWpf.dll" />
     <Resource Include="MyIcons\info icon 32x32.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
