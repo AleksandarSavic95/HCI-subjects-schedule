@@ -125,6 +125,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Schedules\GlobalSchedule.xaml.cs">
+      <DependentUpon>GlobalSchedule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Schedules\SceduleSchemeWeek.xaml.cs">
       <DependentUpon>SceduleSchemeWeek.xaml</DependentUpon>
     </Compile>
@@ -181,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Schedules\GlobalSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Schedules\SceduleSchemeWeek.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -226,7 +233,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="MyIcons\arrow_black.png" />
+    <Resource Include="MyIcons\info icon 32x32.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="MyIcons\info icon 48x48.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="MyIcons\arrow_black.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="HelpSystem\HelpContent\error.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

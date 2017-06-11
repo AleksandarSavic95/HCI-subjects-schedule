@@ -4,7 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SubjectsSchedule.Schedules"
-             xmlns:planner="http://mindfusion.eu/scheduling/wpf" xmlns:Globalization="clr-namespace:System.Globalization;assembly=mscorlib" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="SubjectsSchedule.Schedules.ScheduleScheme"
+             xmlns:planner="http://mindfusion.eu/scheduling/wpf"
+    xmlns:Globalization="clr-namespace:System.Globalization;assembly=mscorlib"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    x:Class="SubjectsSchedule.Schedules.ScheduleScheme"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" IsVisibleChanged="UserControl_IsVisibleChanged"
     >
@@ -16,17 +19,25 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="170" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Grid.Row="0" Margin="5, 5, 5, 20">
-            <TextBlock>
-                INFO INFO
+        <!-- info box -->
+        <StackPanel Grid.Column="0" Grid.Row="0" Margin="5, 5, 5, 20">
+            <!-- ima i 48x48 -->
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/MyIcons/info icon 32x32.png" Margin="0" Width="32"/>
+                <TextBlock FontSize="18" VerticalAlignment="Center" Margin="10, 0, 0, 0">
+                    INFO
+                </TextBlock>
+            </StackPanel>
+            <TextBlock FontSize="14" TextWrapping="Wrap" TextAlignment="Justify">
+                More info more more more asd asd 
                 <LineBreak/>
-                kfisdfisdfo sefija keofrk
+                Fiksna količina teksta - provjeri Wraping i Alignment
             </TextBlock>
-        </Grid>
+        </StackPanel>
 
         <!-- Drag & Drop:
         ~ Performing a Drag-and-Drop Operation in Windows Forms:
@@ -42,9 +53,9 @@
             AllowInplaceCreate="False" AllowInplaceEdit="False"
             ScrollViewer.HorizontalScrollBarVisibility="Visible"
             ScrollViewer.VerticalScrollBarVisibility="Visible"
-                          Theme="Silver">
+                          Theme="Silver" ItemDeleted="kalendar_ItemDeleted">
             <planner:Calendar.ItemSettings>
-                <planner:ItemSettings MinHeight="10" MinWidth="10" ClipToBounds="True" ResizeBandSize="0" Drop="ItemSettings_Drop"/>
+                <planner:ItemSettings MinHeight="10" MinWidth="10" ClipToBounds="True" ResizeBandSize="0"/>
             </planner:Calendar.ItemSettings>
             <!-- onemogućavanje kreiranja i izmjene sadržaja termina -->
             <planner:Calendar.WeekRangeSettings>
@@ -65,14 +76,14 @@
         <!-- difference between ListBox and ListView
         https://stackoverflow.com/a/4703658/2101117 -->
         <DataGrid x:Name="SubjectsList" Grid.Column="0" Grid.Row="1"
-                  Height="200"
+                  Height="242"
                   ItemsSource="{Binding PredmetiZaUcionicu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" SelectionUnit="FullRow"
                   ScrollViewer.CanContentScroll="True" IsReadOnly="True"
                   SelectionMode="Single" CanUserResizeColumns="False"
                   GridLinesVisibility="Horizontal" HeadersVisibility="Column"
                   PreviewMouseDown="subjList_PreviewMouseDown" MouseMove="subjList_MouseMove"
-                  Loaded="SubjectsList_Loaded">
+                  Loaded="SubjectsList_Loaded" LayoutUpdated="SubjectsList_LayoutUpdated">
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
                     <EventSetter Event="Control.MouseDoubleClick" Handler="DataGrid_DblClick"/>
@@ -88,19 +99,28 @@
                 </Style>
             </DataGrid.CellStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="NameColumn3" Header="Naziv" Binding="{Binding Name}" />
-                <DataGridTextColumn x:Name="FoSColumn3" Header="Smjer" Binding="{Binding FieldOfStudy.Name}" />
-                <DataGridTextColumn x:Name="TerminsColumn3" Binding="{Binding UnscheduledTermins}">
+                <DataGridTextColumn x:Name="NameColumn" Header="Naziv" Binding="{Binding Name}" Width="70" MinWidth="30"/>
+                <DataGridTextColumn x:Name="SmjerCol" Header="Smjer" Binding="{Binding FieldOfStudy.Name}" MinWidth="30"/>
+                <DataGridTextColumn x:Name="TerminCountColumn" MinWidth="20">
+                    <!-- Binding="{Binding UnscheduledTermins}" -->
                     <DataGridTextColumn.Header>
                         <TextBlock ToolTip="raspoređeno/neraspoređeno">
-                            Nerasp
+                            Termini
                             <LineBreak/>
-                            / rasp?
+                            nerasp. / ukupno
                         </TextBlock>
                     </DataGridTextColumn.Header>
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} / {1}">
+                            <Binding Path="UnscheduledTermins" />
+                            <Binding Path="TerminNumber" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <!-- -->
+        <Button Grid.Column="0" Grid.Row="2" Margin="5" FontSize="16">
+            Zatvori
+        </Button>
     </Grid>
 </UserControl>

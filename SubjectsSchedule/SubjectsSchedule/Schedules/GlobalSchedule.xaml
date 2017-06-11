@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="SubjectsSchedule.Schedules.GlobalSchedule"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SubjectsSchedule.Schedules"
+             xmlns:planner="http://mindfusion.eu/scheduling/wpf"
+    xmlns:Globalization="clr-namespace:System.Globalization;assembly=mscorlib"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="300" IsVisibleChanged="GlobalSchedule_IsVisibleChanged">
+    <Grid>
+        <planner:Calendar x:Name="globalCalendar" Culture="sr" Theme="Silver" Loaded="globalCalendar_Loaded"
+            CurrentView="Timetable" AllowInplaceCreate="False" AllowInplaceEdit="False"
+            ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" GroupType="GroupByLocations">
+            <planner:Calendar.TimetableSettings>
+                <planner:TimetableSettings StartTime="420" EndTime="1320"
+                    CellTime="0:15:0" CellSize="40" MinItemSize="20" 
+                    EnableSnapping="True" SnapUnitCount="5" SnapUnit="Minute" TwelveHourFormat="False"
+                    HeaderDateFormat="dddd" ShowAM="True" ShowMinutesInHourHeaders="True"
+                    ShowPadding="False" TimelineSize="60" EnableCollisions="False"
+                    MinWidth="50" Width="50" EnableDayItems="False" ShowItemSpans="True"
+                                           ShowDayHeader="False"
+                    ToolTip="Treba Vam pomoć? Pritisnite F1.">
+                    <!-- SubHeaderSize="0" > -->
+                </planner:TimetableSettings>
+            </planner:Calendar.TimetableSettings>
+        </planner:Calendar>
+    </Grid>
+</UserControl>

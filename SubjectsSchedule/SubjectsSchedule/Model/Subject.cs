@@ -37,7 +37,13 @@ namespace SubjectsSchedule.Model
         /// <summary>
         /// ID smjera u mapi smjerova
         /// </summary>
-        private string _fieldOfStudy;
+        //private string _fieldOfStudy;
+
+        /// <summary>
+        /// Smjer predmeta.
+        /// </summary>
+        private FieldOfStudy _fos;
+
         private string _description;
         private int _groupSize;
         /// <summary>
@@ -79,10 +85,15 @@ namespace SubjectsSchedule.Model
                 }
             }
         }
-        public string FieldOfStudy { get { return _fieldOfStudy; }
-            set {
-                if (value != _fieldOfStudy) {
-                    _fieldOfStudy = value;
+
+        public FieldOfStudy FieldOfStudy
+        {
+            get { return _fos; }
+            set
+            {
+                if (value != _fos)
+                {
+                    _fos = value;
                     OnPropertyChanged("FieldOfStudy");
                 }
             }
@@ -142,13 +153,13 @@ namespace SubjectsSchedule.Model
             _needsSoftware = new List<string>();
         }
 
-        public Subject(string id, string name, string fieldOfStudy, string description, int groupSize, int classLength, int terminNumber,
+        public Subject(string id, string name, FieldOfStudy fieldOfStudy, string description, int groupSize, int classLength, int terminNumber,
             bool needsProjector, bool needsBoard, bool needsSmartBoard, OS needsOS)
             : this()
         {
             this._id = id;
             this._name = name;
-            this._fieldOfStudy = fieldOfStudy;
+            this._fos = fieldOfStudy;
             this._description = description;
             this._groupSize = groupSize;
             this._classLength = classLength;
