@@ -6,5 +6,7 @@
              xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="SubjectsSchedule.App"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <!-- upotreba: ToolTip="{StaticResource HelpMessage}"-->
+        <System:String x:Key="HelpMessage">Treba vam pomoć? Pritisnite F1. ili pogledajte meni Help.</System:String>
     </Application.Resources>
 </Application>

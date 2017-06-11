@@ -11,8 +11,8 @@
              d:DesignHeight="500" d:DesignWidth="300" IsVisibleChanged="GlobalSchedule_IsVisibleChanged">
     <Grid>
         <planner:Calendar x:Name="globalCalendar" Culture="sr" Theme="Silver" Loaded="globalCalendar_Loaded"
-            CurrentView="Timetable" AllowInplaceCreate="False" AllowInplaceEdit="False"
-            ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" GroupType="GroupByLocations">
+            CurrentView="Timetable" AllowInplaceEdit="False" 
+            ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" GroupType="GroupByLocations" ToolTip="{StaticResource HelpMessage}">
             <planner:Calendar.TimetableSettings>
                 <planner:TimetableSettings StartTime="420" EndTime="1320"
                     CellTime="0:15:0" CellSize="40" MinItemSize="20" 
@@ -20,8 +20,8 @@
                     HeaderDateFormat="dddd" ShowAM="True" ShowMinutesInHourHeaders="True"
                     ShowPadding="False" TimelineSize="60" EnableCollisions="False"
                     MinWidth="50" Width="50" EnableDayItems="False" ShowItemSpans="True"
-                                           ShowDayHeader="False"
-                    ToolTip="Treba Vam pomoć? Pritisnite F1.">
+                            ShowDayHeader="False"
+                    ToolTip="{StaticResource HelpMessage}">
                     <!-- SubHeaderSize="0" > -->
                 </planner:TimetableSettings>
             </planner:Calendar.TimetableSettings>
