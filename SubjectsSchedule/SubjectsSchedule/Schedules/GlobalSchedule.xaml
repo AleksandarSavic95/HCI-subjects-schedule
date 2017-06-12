@@ -11,7 +11,7 @@
              d:DesignHeight="500" d:DesignWidth="300" IsVisibleChanged="GlobalSchedule_IsVisibleChanged">
     <Grid Loaded="globalCalendar_Loaded">
         <planner:Calendar x:Name="globalCalendar" Culture="sr" Theme="Silver"
-            CurrentView="Timetable" AllowInplaceEdit="False"
+            CurrentView="Timetable" AllowInplaceEdit="False" AllowInplaceCreate="False"
             ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" GroupType="GroupByLocations" ToolTip="{StaticResource HelpMessage}">
             <planner:Calendar.TimetableSettings>
                 <planner:TimetableSettings StartTime="420" EndTime="1320"
@@ -22,6 +22,19 @@
                     MinWidth="50" EnableDayItems="False" ShowItemSpans="True"
                             ShowDayHeader="False">
                     <!-- SubHeaderSize="0" > -->
+                    <planner:TimetableSettings.ColumnSubheaderTemplate>
+                        <DataTemplate>
+                            <Grid MouseDown="Grid_MouseDown" Cursor="Hand" Background="Transparent" HorizontalAlignment="Stretch">
+                                <TextBlock Text="{Binding Text}" Grid.Column="1" HorizontalAlignment="Stretch">
+                                    <TextBlock.ToolTip>
+                                        <TextBlock>
+                                            Kliknite na naziv za prikaz rasporeda u učionici <Run Text="{Binding Text}"></Run>
+                                        </TextBlock>
+                                    </TextBlock.ToolTip>
+                                </TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </planner:TimetableSettings.ColumnSubheaderTemplate>
                 </planner:TimetableSettings>
             </planner:Calendar.TimetableSettings>
         </planner:Calendar>

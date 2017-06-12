@@ -483,7 +483,7 @@ namespace SubjectsSchedule
             {
                 classroomButton = new Button();
                 classroomButton.Content = classroom.Id;
-                classroomButton.Click += ClassroomButton_Click; ;
+                classroomButton.Click += ClassroomButton_Click;
                 classroomButton.Margin = new Thickness(0, 1, 0, 1);
 
                 // Kačimo objekat za dugme, da ga ne tražimo poslije u bazi
@@ -501,6 +501,11 @@ namespace SubjectsSchedule
             //Console.WriteLine("Klik na: " + classroomId + " ||| moze i Tag property..");
             //Classroom c1 = ClassroomHandler.Instance.FindById(classroomId);
 
+            PrikazRasporedaUcionice(c);
+        }
+
+        public void PrikazRasporedaUcionice(Classroom c)
+        {
             if (RasporedUcionice.SelectedClassroom == c)
                 return;
 

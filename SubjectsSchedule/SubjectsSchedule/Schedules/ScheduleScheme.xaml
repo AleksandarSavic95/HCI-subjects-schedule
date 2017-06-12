@@ -24,19 +24,43 @@
         </Grid.ColumnDefinitions>
 
         <!-- info box -->
-        <StackPanel Grid.Column="0" Grid.Row="0" Margin="5, 5, 5, 20">
+        <StackPanel Grid.Column="0" Grid.Row="0" Margin="5, 5, 5, 20"
+                    TextBlock.FontSize="14" TextBlock.TextAlignment="Justify">
             <!-- ima i 48x48 -->
-            <StackPanel Orientation="Horizontal">
-                <Image Source="/MyIcons/info icon 32x32.png" Margin="0" Width="32"/>
-                <TextBlock FontSize="18" VerticalAlignment="Center" Margin="10, 0, 0, 0">
-                    INFO
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <Image Source="/MyIcons/info icon 32x32.png" Margin="0" Width="28"/>
+                <TextBlock FontSize="16" VerticalAlignment="Center" Margin="5, 0, 0, 0">
+                    Uputstvo
                 </TextBlock>
             </StackPanel>
-            <TextBlock FontSize="14" TextWrapping="Wrap" TextAlignment="Justify">
-                More info more more more asd asd 
+            <TextBlock TextWrapping="Wrap">
+                Termine za održavanje nastave pravite tako što prevučete predmet iz liste na šemu rasporeda.
                 <LineBreak/>
                 Fiksna količina teksta - provjeri Wraping i Alignment
+                <LineBreak/>
             </TextBlock>
+            <Grid TextBlock.FontSize="10" VerticalAlignment="Bottom">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" TextAlignment="Right" Padding="0,0,2,0">
+                    *
+                </TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="1" TextAlignment="Right" Padding="0,0,2,0">
+                    **
+                </TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="0" TextAlignment="Left">
+                    N - broj neraspoređenih termina
+                </TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="1" TextAlignment="Left">
+                    U - ukupan broj termina
+                </TextBlock>
+            </Grid>
         </StackPanel>
 
         <!-- Drag & Drop:
@@ -132,10 +156,10 @@
                 <DataGridTextColumn x:Name="TerminCountColumn" MinWidth="20">
                     <!-- Binding="{Binding UnscheduledTermins}" -->
                     <DataGridTextColumn.Header>
-                        <TextBlock ToolTip="raspoređeno/neraspoređeno">
+                        <TextBlock ToolTip="Broj neraspoređenih / ukupan broj termina">
                             Termini
                             <LineBreak/>
-                            nerasp. / ukupno
+                            N* / U**
                         </TextBlock>
                     </DataGridTextColumn.Header>
                     <DataGridTextColumn.Binding>
