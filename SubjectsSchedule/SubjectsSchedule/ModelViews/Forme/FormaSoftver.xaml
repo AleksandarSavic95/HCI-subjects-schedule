@@ -35,20 +35,21 @@
         <TextBlock Margin="5" Grid.Column="0" Grid.Row="6" Text="Cijena" VerticalAlignment="Center"/>
         <TextBlock Margin="5" Grid.Column="0" Grid.Row="7" Text="Sajt softvera"/>
 
-        <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Identifikator"/>
-        <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Naziv"/>
-        <TextBox Margin="10,5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Opis"/>
-        <TextBox Margin="10,5" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Proizvodjac"/>
+        <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Identifikator" Text="{Binding SelectedSoftware.Id, Mode=OneWay}"/>
+        <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Naziv" Text="{Binding SelectedSoftware.Name, Mode=OneWay}"/>
+        <TextBox Margin="10,5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Opis" Text="{Binding SelectedSoftware.Description, Mode=OneWay}"/>
+        <TextBox Margin="10,5" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Proizvodjac" Text="{Binding SelectedSoftware.Producer, Mode=OneWay}"/>
 
+        <!-- TODO kao i u ucionicama, selektuj pravi operativni sistem -->
         <ComboBox Margin="10,5" Grid.Column="1" Grid.Row="4" SelectedIndex="0" x:Name="OSComboBox">
             <ComboBoxItem Content="Windows"></ComboBoxItem>
             <ComboBoxItem Content="Linux"></ComboBoxItem>
             <ComboBoxItem Content="Cross platform"></ComboBoxItem>
         </ComboBox>
 
-        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="5" Minimum="1950" Maximum="2017" x:Name="godinaIzdavanjaUpDown" l:HelpProvider.HelpKey="Prezime" VerticalAlignment="Top" Value="2017"/>
-        
-        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="6" Minimum="0" Maximum="2147483647"  Increment="10" x:Name="cijenaUpDown" l:HelpProvider.HelpKey="Prezime" VerticalAlignment="Top">
+        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="5" Minimum="1950" Maximum="2017" x:Name="godinaIzdavanjaUpDown" l:HelpProvider.HelpKey="Prezime" VerticalAlignment="Top" Value="{Binding SelectedSoftware.Year, Mode=OneWay}"/>
+
+        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="6" Minimum="0" Maximum="2147483647"  Increment="10" x:Name="cijenaUpDown" l:HelpProvider.HelpKey="Prezime" VerticalAlignment="Top" Value="{Binding SelectedSoftware.Price, Mode=OneWay}">
             <xctk:IntegerUpDown.Watermark>
                 <TextBlock HorizontalAlignment="Center" Padding="5, 0">
                     ↑+10 <TextBlock Width="10"/> ↓-10
@@ -56,7 +57,7 @@
             </xctk:IntegerUpDown.Watermark>
         </xctk:IntegerUpDown>
 
-        <TextBox Margin="10,5" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" x:Name="Sajt"/>
+        <TextBox Margin="10,5" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" x:Name="Sajt" Text="{Binding SelectedSoftware.WebSite, Mode=OneWay}"/>
 
         <!-- reset dugme, bez upisa u bazu? -->
         <Button Grid.Column="0" Grid.Row="8" Name="Reset" Padding="10" Margin="10" 

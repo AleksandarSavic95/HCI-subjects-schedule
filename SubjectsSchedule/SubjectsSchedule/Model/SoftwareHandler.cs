@@ -23,12 +23,32 @@ namespace SubjectsSchedule.Model
         }
 
         private Dictionary<string, Software> softwares;
+        private Software selectedSoftware;
 
         public List<Software> Softwares
         {
             get
             {
                 return softwares.Values.ToList();
+            }
+        }
+
+        public Software SelectedSoftware
+        {
+            get
+            {
+                return selectedSoftware;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    selectedSoftware = new Software();
+
+                    // set defaults
+                }
+                else
+                    selectedSoftware = softwares[value.Id];
             }
         }
 
@@ -59,7 +79,43 @@ namespace SubjectsSchedule.Model
         {
             softwares.Add(id, new Software(id, name, operatingSystem, producer, webSite, year, price, description));
         }
-        
+
+        public void Add(string id, string name, OS operatingSystem, string producer, string webSite, string year, double price, string description, MainWindow context)
+        {
+            Add(id, name, operatingSystem, producer, webSite, year, price, description);
+            context.NotifyAll("Softwares");
+        }
+
+        public void SetSelectedSoftware(Software software, MainWindow context)
+        {
+            SelectedSoftware = software;
+            context.NotifyAll("SelectedSoftware");
+        }
+
+        public void SetSelectedSoftware(string id, MainWindow context)
+        {
+            SetSelectedSoftware(FindById(id), context);
+        }
+
+        public void Update(string id, string newId, string name, OS operatingSystem, string producer, string webSite, string year, double price, string description)
+        {
+            if (id != newId)
+            {
+                Remove(id);
+                Add(newId, name, operatingSystem, producer, webSite, year, price, description);
+            }
+            else
+                softwares[id] = new Software(id, name, operatingSystem, producer, webSite, year, price, description);
+        }
+
+        public void Update(string id, string newId, string name, OS operatingSystem, string producer, string webSite, string year, double price, string description, MainWindow context)
+        {
+            Update(id, newId, name, operatingSystem, producer, webSite, year, price, description);
+            SetSelectedSoftware(newId, context);
+            // may exists list change
+            context.NotifyAll("Softwares");
+        }
+
         public bool Has(string id)
         {
             return true ? softwares[id] != null : false;
@@ -73,6 +129,12 @@ namespace SubjectsSchedule.Model
         public void Remove(string id)
         {
             softwares.Remove(id);
+        }
+
+        public void Remove(string id, MainWindow context)
+        {
+            Remove(id);
+            context.NotifyAll("Softwares");
         }
     }
 }

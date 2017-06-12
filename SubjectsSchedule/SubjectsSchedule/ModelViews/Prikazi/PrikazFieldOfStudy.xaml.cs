@@ -39,6 +39,7 @@ namespace SubjectsSchedule.ModelViews.Prikazi
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
+
         public PrikazFieldOfStudy()
         {
             InitializeComponent();

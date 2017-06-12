@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SubjectsSchedule.Model;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +20,31 @@ namespace SubjectsSchedule.ModelViews.Prikazi
     /// <summary>
     /// Interaction logic for PrikazSoftver.xaml
     /// </summary>
-    public partial class PrikazSoftver : UserControl
+    public partial class PrikazSoftver : UserControl, INotifyPropertyChanged
     {
+        public Software SelectedSoftware
+        {
+            get
+            {
+                return SoftwareHandler.Instance.SelectedSoftware;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
         public PrikazSoftver()
         {
             InitializeComponent();
+
+            DataContext = this;
         }
     }
 }

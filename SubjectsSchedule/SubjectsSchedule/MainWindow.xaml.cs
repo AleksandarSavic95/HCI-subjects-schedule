@@ -522,7 +522,7 @@ namespace SubjectsSchedule
         private void Predmeti_Click(object sender, RoutedEventArgs e)
         {
             HideAllForms();
-            SubjectForma.Visibility = Visibility.Visible;
+            SubjectTabela.Visibility = Visibility.Visible;
         }
 
         private void Smerovi_Click(object sender, RoutedEventArgs e)
@@ -540,7 +540,7 @@ namespace SubjectsSchedule
         private void Softveri_Click(object sender, RoutedEventArgs e)
         {
             HideAllForms();
-            SoftverForma.Visibility = Visibility.Visible;
+            SoftverTabela.Visibility = Visibility.Visible;
         }
 
         public void NotifyAll(string name)
@@ -549,17 +549,17 @@ namespace SubjectsSchedule
             ClassroomTabela.OnPropertyChanged(name);
             FieldOfStudyTabela.OnPropertyChanged(name);
             //SubjectTabela.OnPropertyChanged(name);
-            //SoftverTabela.OnPropertyChanged(name);
+            SoftverTabela.OnPropertyChanged(name);
 
             ClassroomPrikaz.OnPropertyChanged(name);
             FieldOfStudyPrikaz.OnPropertyChanged(name);
             //SubjectPrikaz.OnPropertyChanged(name);
-            //SoftverPrikaz.OnPropertyChanged(name);
+            SoftverPrikaz.OnPropertyChanged(name);
 
             ClassroomForma.OnPropertyChanged(name);
             FieldOfStudyForma.OnPropertyChanged(name);
             //SubjectForma.OnPropertyChanged(name);
-            //SoftverForma.OnPropertyChanged(name);
+            SoftverForma.OnPropertyChanged(name);
         }
 
         public void NovaUcionica_Show()
@@ -584,6 +584,30 @@ namespace SubjectsSchedule
         {
             HideAllForms();
             FieldOfStudyPrikaz.Visibility = Visibility.Visible;
+        }
+
+        public void NoviSoftver_Show()
+        {
+            HideAllForms();
+            SoftverForma.Visibility = Visibility.Visible;
+        }
+
+        public void Softver_Show()
+        {
+            HideAllForms();
+            SoftverPrikaz.Visibility = Visibility.Visible;
+        }
+
+        public void NoviPredmet_Show()
+        {
+            HideAllForms();
+            SubjectForma.Visibility = Visibility.Visible;
+        }
+
+        public void Predmet_Show()
+        {
+            HideAllForms();
+            SubjectPrikaz.Visibility = Visibility.Visible;
         }
     }
 }

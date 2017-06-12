@@ -14,17 +14,39 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SubjectsSchedule.Model;
 using SubjectsSchedule.Utilities;
+using System.ComponentModel;
 
 namespace SubjectsSchedule.ModelViews.Forme
 {
     /// <summary>
     /// Interaction logic for FormaSoftver.xaml
     /// </summary>
-    public partial class FormaSoftver : UserControl
+    public partial class FormaSoftver : UserControl, INotifyPropertyChanged
     {
+
+        public Software SelectedSoftware
+        {
+            get
+            {
+                return SoftwareHandler.Instance.SelectedSoftware;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
         public FormaSoftver()
         {
             InitializeComponent();
+
+            DataContext = this;
         }
 
         // TODO: cena should be double
@@ -39,9 +61,14 @@ namespace SubjectsSchedule.ModelViews.Forme
             Console.WriteLine(cijenaUpDown.Text);
             Console.WriteLine(Sajt.Text);
 
-            SoftwareHandler.Instance.Add(Identifikator.Text, Naziv.Text, Helper.GetOSFromString(OSComboBox.Text),
-                Proizvodjac.Text, Sajt.Text, godinaIzdavanjaUpDown.Text, Helper.ParseStringToDouble(cijenaUpDown.Text),
-                Opis.Text);
+            if (string.IsNullOrEmpty(SelectedSoftware.Id))
+                SoftwareHandler.Instance.Add(Identifikator.Text, Naziv.Text, Helper.GetOSFromString(OSComboBox.Text),
+                    Proizvodjac.Text, Sajt.Text, godinaIzdavanjaUpDown.Text, Helper.ParseStringToDouble(cijenaUpDown.Text),
+                    Opis.Text, (MainWindow)Window.GetWindow(this));
+            else
+                SoftwareHandler.Instance.Update(SelectedSoftware.Id, Identifikator.Text, Naziv.Text, Helper.GetOSFromString(OSComboBox.Text),
+                    Proizvodjac.Text, Sajt.Text, godinaIzdavanjaUpDown.Text, Helper.ParseStringToDouble(cijenaUpDown.Text),
+                    Opis.Text, (MainWindow)Window.GetWindow(this));
 
             MessageBox.Show("Uspesno dodat softver!");
         }

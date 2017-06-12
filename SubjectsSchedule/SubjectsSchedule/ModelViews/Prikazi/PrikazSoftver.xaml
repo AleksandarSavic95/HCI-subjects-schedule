@@ -6,7 +6,42 @@
              xmlns:local="clr-namespace:SubjectsSchedule.ModelViews.Prikazi"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
+    <Grid DockPanel.Dock="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <!-- Auto, jer su nazivi u prvoj koloni -->
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="120" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="0" Text="Identifikator"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="1" Text="Naziv"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="2" Text="Opis"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="3" Text="Proizvođač"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="4" Text="Za operativni sistem"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="5" Text="Godina izdavanja"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="6" Text="Cijena" VerticalAlignment="Center"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="7" Text="Sajt softvera"/>
+
+        <TextBlock Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" TextWrapping="Wrap" x:Name="Identifikator" Text="{Binding SelectedSoftware.Id, Mode=OneWay}"/>
+        <TextBlock Margin="10, 5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" TextWrapping="Wrap" x:Name="Naziv" Text="{Binding SelectedSoftware.Name, Mode=OneWay}"/>
+        <TextBlock Margin="10,5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"  TextWrapping="Wrap" x:Name="Opis" Text="{Binding SelectedSoftware.Description, Mode=OneWay}"/>
+        <TextBlock Margin="10,5" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2"  TextWrapping="Wrap" x:Name="Proizvodjac" Text="{Binding SelectedSoftware.Producer, Mode=OneWay}"/>
+
+        <TextBlock Margin="10,5" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Text="{Binding SelectedSoftware.Year, Mode=OneWay}" />
+        <TextBlock Margin="10,5" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" Text="{Binding SelectedSoftware.Price, Mode=OneWay}" />
+        <TextBlock Margin="10,5" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding SelectedSoftware.OperatingSystem, Mode=OneWay}" />
+
+        <TextBlock Margin="10,5" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" x:Name="Sajt" Text="{Binding SelectedSoftware.WebSite, Mode=OneWay}"/>
     </Grid>
 </UserControl>
