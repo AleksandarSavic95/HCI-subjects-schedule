@@ -39,7 +39,7 @@
         <xctk:IntegerUpDown Margin="10, 5" Grid.Column="1" Grid.Row="2" Minimum="1" x:Name="brojMijestaUpDown" l:HelpProvider.HelpKey="Prezime" Value="12"/>
         <!-- ???? Margin="5" Grid.Column="1" Grid.Row="2" ... -->
         <ComboBox Name="OperatingSystem" Margin="10, 5" Grid.Column="1" Grid.Row="3" SelectedIndex="0">
-            <ComboBoxItem Content="Windows"></ComboBoxItem>
+            <ComboBoxItem x:Name="classroomFormaWindows" Content="Windows"></ComboBoxItem>
             <ComboBoxItem Content="Linux"></ComboBoxItem>
             <ComboBoxItem Content="Oba"></ComboBoxItem>
         </ComboBox>

@@ -40,6 +40,20 @@ namespace SubjectsSchedule.Schedules
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private Classroom _selectedClassroom;
+
+        public Classroom SelectedClassroom
+        {
+            get { return _selectedClassroom; }
+            set
+            {
+                if (value != _selectedClassroom)
+                {
+                    _selectedClassroom = value;
+                    OnPropertyChanged("SelectedClassroom");
+                }
+            }
+        }
 
         private bool mouseDown;
 
@@ -128,9 +142,6 @@ namespace SubjectsSchedule.Schedules
 
             // Serialization support
             Schedule.RegisterItemClass(typeof(MyTermin), "mytermin", 1);
-
-            // TODO: popunjavanje liste predmeta za ucionicu [iz "baze"]
-            //InitializeSubjectList(); // bolje na IsVisibleChanged - kao na dnu fajla
         }
 
         private void DataGrid_DblClick(object sender, RoutedEventArgs e)
@@ -158,15 +169,34 @@ namespace SubjectsSchedule.Schedules
                 kalendar.TimetableSettings.Dates.Add(ScheduleDays.workDays[i]);
 
             kalendar.EndInit();
-
-            Console.WriteLine("Ucitavanje podataka za odabranu ucionicu..." +
-                "samo ako je odabrana i prozor prikazan! Prebaciti negdje drugo");
         }
 
-        private void InitializeSubjectList()
+        /// <summary>
+        /// Prikaz rasporeda za datu učionicu.
+        /// </summary>
+        /// <param name="classroom">učionica čiji se raspored prikazuje</param>
+        public void InitializeSubjectList(Classroom classroom = null)
         {
-            Classroom svemoguca = new Classroom("1", "", 30, true, true, true, OS.C_BOTH);
-            svemoguca.InstalledSoftware.AddRange(new List<string>() { "1", "2", "3", "4" });
+            Console.WriteLine("InitializeSubjectsList for: " + classroom.Id);
+
+            // TODO: popunjavanje liste predmeta za ucionicu [iz "baze"]
+            Console.WriteLine("Ucitavanje podataka za odabranu ucionicu..." +
+                "samo ako je odabrana i prozor prikazan! Prebaciti negdje drugo");
+
+            /** Prikaz stranice za raspored učionice */
+            PredmetiZaUcionicu.Clear();
+            this.Visibility = Visibility.Visible;
+
+
+            if (classroom == null)
+            {
+                Console.WriteLine("Nema proslijedjene ucionice!");
+                Console.WriteLine("Nema proslijedjene ucionice!");
+                classroom = new Classroom("1", "", 30, true, true, true, OS.C_BOTH);
+                classroom.InstalledSoftware.AddRange(new List<string>() { "1", "2", "3", "4" });
+            }
+
+            SelectedClassroom = classroom;
 
             /* ako NE postoje u Handler-u, zakomentarisati ovo *
             PredmetiZaUcionicu.Add(new Subject("1", "subj1", "1", "oSubj1", 20, 1, 2, false, true, true, OS.WINDOWS));
@@ -185,11 +215,8 @@ namespace SubjectsSchedule.Schedules
             SubjectHandler.Instance.TryAdd("4", "HCI", fos2, "Interakcija covjek-racunar", 16, 2, 2, false, false, false, OS.SUBJ_WHATEVER);
             // */
 
-            List<Subject> tmp = SubjectHandler.Instance.FindByClassroom(svemoguca); // RADI!
+            List<Subject> tmp = SubjectHandler.Instance.FindByClassroom(classroom); // RADI!
             if (tmp.Count > 0) tmp.ForEach(subj => AddToSubjectListAndUpdateRow(subj));
-
-
-            //SubjectsList.ItemsSource = PredmetiZaUcionicu; // ako nije podešen DataContext mora sa ovim
         }
 
         private void AddToSubjectListAndUpdateRow(Subject subj)
@@ -342,9 +369,7 @@ namespace SubjectsSchedule.Schedules
 
         private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            Console.WriteLine("Inicijalizacija iz IsVisibleChanged + " + ((bool)e.NewValue));
-            if ((bool)e.NewValue)
-                InitializeSubjectList();
+            Console.WriteLine("ScheduleScheme IsVisibleChanged + " + ((bool)e.NewValue));
         }
 
         /// <summary>

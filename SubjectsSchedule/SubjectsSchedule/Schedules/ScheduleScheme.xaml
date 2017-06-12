@@ -4,7 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SubjectsSchedule.Schedules"
-             xmlns:planner="http://mindfusion.eu/scheduling/wpf" xmlns:Globalization="clr-namespace:System.Globalization;assembly=mscorlib" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="SubjectsSchedule.Schedules.ScheduleScheme"
+             xmlns:planner="http://mindfusion.eu/scheduling/wpf"
+    xmlns:Globalization="clr-namespace:System.Globalization;assembly=mscorlib"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    x:Class="SubjectsSchedule.Schedules.ScheduleScheme"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" IsVisibleChanged="UserControl_IsVisibleChanged"
     >
@@ -59,13 +62,41 @@
                 <planner:WeekRangeSettings VisibleRows="7" UseLayoutRounding="False"/>
             </planner:Calendar.WeekRangeSettings>
             <planner:Calendar.TimetableSettings>
-                <planner:TimetableSettings CellSize="20" MinItemSize="10" ShowWorkTime="False" WorkTimeStart="7:0:0" WorkTimeEnd="22:0:0" StartTime="420" SnapUnit="Minute" TwelveHourFormat="False" HeaderDateFormat="dddd" ShowDayHeader="False" ShowAM="True" ShowMinutesInHourHeaders="True" ShowPadding="False" SubHeaderSize="0" TimelineSize="60" CellTime="0:15:0" EnableCollisions="False" EnableSnapping="True" SnapUnitCount="5" EndTime="1320" MinWidth="50" Width="50" EnableDayItems="False" ShowItemSpans="True" ToolTip="Treba Vam pomoć? Pritisnite F1.">
-                    <planner:TimetableSettings.TimelineStyle>
-                        <planner:CalendarStyle/>
-                    </planner:TimetableSettings.TimelineStyle>
+                <planner:TimetableSettings CellSize="20" MinItemSize="10" ShowWorkTime="False" WorkTimeStart="7:0:0" WorkTimeEnd="22:0:0" StartTime="420" SnapUnit="Minute" TwelveHourFormat="False" HeaderDateFormat="dddd" ShowDayHeader="False" ShowAM="True" ShowMinutesInHourHeaders="True" ShowPadding="False" SubHeaderSize="0" TimelineSize="60" CellTime="0:15:0" EnableCollisions="False" EnableSnapping="True" SnapUnitCount="5" EndTime="1320" MinWidth="50" Width="50" EnableDayItems="False" ShowItemSpans="True" ToolTip="{StaticResource HelpMessage}" ColumnBandSize="0">
+                    <!-- General view style - turn off surrounding border. -->
+                    <planner:TimetableSettings.CalendarStyle>
+                        <planner:CalendarStyle BorderThickness="0" />
+                    </planner:TimetableSettings.CalendarStyle>
+
+                    <!-- General selection style - make selection invisible. -->
+                    <planner:TimetableSettings.SelectedElementsStyle>
+                        <planner:CalendarStyle Background="Transparent" BorderBrush="Transparent" />
+                    </planner:TimetableSettings.SelectedElementsStyle>
+
+                    <!-- The style of the main header. -->
                     <planner:TimetableSettings.HeaderStyle>
-                        <planner:CalendarStyle/>
+                        <planner:CalendarStyle Background="#F0F0F0" Foreground="Black" BorderBrush="#E0E0E0" BorderThickness="0,1,1,0" FontFamily="Calibri" FontWeight="Normal" FontSize="12" LineBrush="#E0E0E0" />
                     </planner:TimetableSettings.HeaderStyle>
+
+                    <!-- The style of the subheaders - there are no subheaders but this still affects the background of the area above the scrollbar.  -->
+                    <planner:TimetableSettings.SubHeaderStyle>
+                        <planner:CalendarStyle Background="#F0F0F0" />
+                    </planner:TimetableSettings.SubHeaderStyle>
+
+                    <!-- The style of the timeline. -->
+                    <planner:TimetableSettings.TimelineStyle>
+                        <planner:CalendarStyle Background="#F0F0F0" Foreground="Black" BorderBrush="#E0E0E0" BorderThickness="1" FontFamily="Calibri" FontWeight="Normal" FontSize="12" LineBrush="#E0E0E0" />
+                    </planner:TimetableSettings.TimelineStyle>
+
+                    <!-- The style of the cells. -->
+                    <planner:TimetableSettings.CellStyle>
+                        <planner:CalendarStyle Background="#F5F5F5" BorderBrush="#E0E0E0" BorderThickness="0,1,1,1" />
+                    </planner:TimetableSettings.CellStyle>
+
+                    <!-- The style of the cells in the work-time interval. -->
+                    <planner:TimetableSettings.WorkTimeCellStyle>
+                        <planner:CalendarStyle Background="#F5F5F5" BorderBrush="#E0E0E0" BorderThickness="0,1,1,1" />
+                    </planner:TimetableSettings.WorkTimeCellStyle>
                 </planner:TimetableSettings>
             </planner:Calendar.TimetableSettings>
         </planner:Calendar>
