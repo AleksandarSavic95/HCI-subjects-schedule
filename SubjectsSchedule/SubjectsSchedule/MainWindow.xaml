@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:l="clr-namespace:SubjectsSchedule"
-        xmlns:f="clr-namespace:SubjectsSchedule.Forme"
+        xmlns:f="clr-namespace:SubjectsSchedule.ModelViews.Forme"
+        xmlns:t="clr-namespace:SubjectsSchedule.ModelViews.Tabele"
+        xmlns:p="clr-namespace:SubjectsSchedule.ModelViews.Prikazi"
         xmlns:s="clr-namespace:SubjectsSchedule.Schedules"
         mc:Ignorable="d"
         xmlns:cmd="clr-namespace:SubjectsSchedule.MyCommands"
@@ -70,6 +72,16 @@
         <f:FormaSubject DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SubjectForma"/>
         <f:FormaFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyForma"/>
         <f:FormaSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverForma"/>
+
+        <t:TabelaClassroom DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="ClassroomTabela" />
+        <t:TabelaSubject DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SubjectTabela" />
+        <t:TabelaFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyTabela" />
+        <t:TabelaSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverTabela" />
+
+        <p:PrikazClassroom DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="ClassroomPrikaz" />
+        <p:PrikazSubject DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SubjectPrikaz" />
+        <p:PrikazFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyPrikaz" />
+        <p:PrikazSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverPrikaz" />
 
         <s:ScheduleScheme DockPanel.Dock="Left" Width="800" Visibility="Collapsed" x:Name="RasporedUcionice"/>
 

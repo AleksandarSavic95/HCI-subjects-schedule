@@ -14,17 +14,39 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SubjectsSchedule.Model;
 using SubjectsSchedule.Utilities;
+using System.ComponentModel;
 
-namespace SubjectsSchedule.Forme
+namespace SubjectsSchedule.ModelViews.Forme
 {
     /// <summary>
     /// Interaction logic for FormaClassroom.xaml
     /// </summary>
-    public partial class FormaClassroom : UserControl
+    public partial class FormaClassroom : UserControl, INotifyPropertyChanged
     {
+
+        public Classroom SelectedClassroom
+        {
+            get
+            {
+                return ClassroomHandler.Instance.SelectedClassroom;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
         public FormaClassroom()
         {
             InitializeComponent();
+
+            DataContext = this;
         }
 
         // Adding classroom
@@ -36,7 +58,7 @@ namespace SubjectsSchedule.Forme
 
             ClassroomHandler.Instance.Add(Identificator.Text, Description.Text, Helper.ParseStringToInt(brojMijestaUpDown.Text),
                 Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded),
-                Helper.GetOSFromString(OperatingSystem.Text));
+                Helper.GetOSFromString(OperatingSystem.Text), (MainWindow)Window.GetWindow(this));
 
             MessageBox.Show("Ucionica uspesno dodata!");
         }

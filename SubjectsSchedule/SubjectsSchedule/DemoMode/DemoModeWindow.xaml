@@ -4,6 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SubjectsSchedule.DemoMode"
+        xmlns:f="clr-namespace:SubjectsSchedule.ModelViews.Forme"
+        xmlns:t="clr-namespace:SubjectsSchedule.ModelViews.Tabele"
+        xmlns:p="clr-namespace:SubjectsSchedule.ModelViews.Prikazi"
         mc:Ignorable="d"
         Title="Demonstracioni mod - trenutna akcija" Height="271.134" Width="281.333" Topmost="True" ShowInTaskbar="False">
     <StackPanel>

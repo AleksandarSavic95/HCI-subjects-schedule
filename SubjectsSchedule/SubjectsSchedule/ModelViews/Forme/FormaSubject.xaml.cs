@@ -16,7 +16,7 @@ using SubjectsSchedule.Model;
 using SubjectsSchedule.Utilities;
 using System.ComponentModel;
 
-namespace SubjectsSchedule.Forme
+namespace SubjectsSchedule.ModelViews.Forme
 {
     /// <summary>
     /// Interaction logic for FormaSubject.xaml

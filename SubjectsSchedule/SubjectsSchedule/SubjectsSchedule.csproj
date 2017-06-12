@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -100,20 +100,44 @@
     <Compile Include="DemoMode\DemoModeWindow.xaml.cs">
       <DependentUpon>DemoModeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forme\FormaClassroom.xaml.cs">
+    <Compile Include="ModelViews\Forme\FormaClassroom.xaml.cs">
       <DependentUpon>FormaClassroom.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forme\FormaFieldOfStudy.xaml.cs">
+    <Compile Include="ModelViews\Forme\FormaFieldOfStudy.xaml.cs">
       <DependentUpon>FormaFieldOfStudy.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forme\FormaSoftver.xaml.cs">
+    <Compile Include="ModelViews\Forme\FormaSoftver.xaml.cs">
       <DependentUpon>FormaSoftver.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forme\FormaSubject.xaml.cs">
+    <Compile Include="ModelViews\Forme\FormaSubject.xaml.cs">
       <DependentUpon>FormaSubject.xaml</DependentUpon>
     </Compile>
     <Compile Include="DemoMode\DpiHelper.cs" />
     <Compile Include="DemoMode\InputHelper.cs" />
+    <Compile Include="ModelViews\Prikazi\PrikazClassroom.xaml.cs">
+      <DependentUpon>PrikazClassroom.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModelViews\Prikazi\PrikazFieldOfStudy.xaml.cs">
+      <DependentUpon>PrikazFieldOfStudy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModelViews\Prikazi\PrikazSoftver.xaml.cs">
+      <DependentUpon>PrikazSoftver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModelViews\Prikazi\PrikazSubject.xaml.cs">
+      <DependentUpon>PrikazSubject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModelViews\Tabele\TabelaClassroom.xaml.cs">
+      <DependentUpon>TabelaClassroom.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModelViews\Tabele\TabelaFieldOfStudy.xaml.cs">
+      <DependentUpon>TabelaFieldOfStudy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModelViews\Tabele\TabelaSoftver.xaml.cs">
+      <DependentUpon>TabelaSoftver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModelViews\Tabele\TabelaSubject.xaml.cs">
+      <DependentUpon>TabelaSubject.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\ClassroomHandler.cs" />
     <Compile Include="Model\FieldOfStudyHanlder.cs" />
     <Compile Include="Model\MyTermin.cs" />
@@ -146,19 +170,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forme\FormaClassroom.xaml">
+    <Page Include="ModelViews\Forme\FormaClassroom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forme\FormaFieldOfStudy.xaml">
+    <Page Include="ModelViews\Forme\FormaFieldOfStudy.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forme\FormaSoftver.xaml">
+    <Page Include="ModelViews\Forme\FormaSoftver.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forme\FormaSubject.xaml">
+    <Page Include="ModelViews\Forme\FormaSubject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,6 +207,38 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ModelViews\Prikazi\PrikazClassroom.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModelViews\Prikazi\PrikazFieldOfStudy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModelViews\Prikazi\PrikazSoftver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModelViews\Prikazi\PrikazSubject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModelViews\Tabele\TabelaClassroom.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModelViews\Tabele\TabelaFieldOfStudy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModelViews\Tabele\TabelaSoftver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModelViews\Tabele\TabelaSubject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MyCommands\UgradjeneKomande.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

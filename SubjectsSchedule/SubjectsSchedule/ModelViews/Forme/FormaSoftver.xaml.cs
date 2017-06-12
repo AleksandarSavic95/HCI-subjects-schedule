@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using SubjectsSchedule.Model;
 using SubjectsSchedule.Utilities;
 
-namespace SubjectsSchedule.Forme
+namespace SubjectsSchedule.ModelViews.Forme
 {
     /// <summary>
     /// Interaction logic for FormaSoftver.xaml

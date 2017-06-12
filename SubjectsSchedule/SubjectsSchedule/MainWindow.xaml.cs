@@ -405,6 +405,17 @@ namespace SubjectsSchedule
             SubjectForma.Visibility = Visibility.Collapsed;
             SoftverForma.Visibility = Visibility.Collapsed;
             FieldOfStudyForma.Visibility = Visibility.Collapsed;
+
+            ClassroomTabela.Visibility = Visibility.Collapsed;
+            SubjectTabela.Visibility = Visibility.Collapsed;
+            SoftverTabela.Visibility = Visibility.Collapsed;
+            FieldOfStudyTabela.Visibility = Visibility.Collapsed;
+
+            ClassroomPrikaz.Visibility = Visibility.Collapsed;
+            SubjectPrikaz.Visibility = Visibility.Collapsed;
+            SoftverPrikaz.Visibility = Visibility.Collapsed;
+            FieldOfStudyPrikaz.Visibility = Visibility.Collapsed;
+
             RasporedUcionice.Visibility = Visibility.Collapsed;
             GlobalnaShema.Visibility = Visibility.Collapsed;
         }
@@ -523,13 +534,44 @@ namespace SubjectsSchedule
         private void Ucionice_Click(object sender, RoutedEventArgs e)
         {
             HideAllForms();
-            ClassroomForma.Visibility = Visibility.Visible;
+            ClassroomTabela.Visibility = Visibility.Visible;
         }
 
         private void Softveri_Click(object sender, RoutedEventArgs e)
         {
             HideAllForms();
             SoftverForma.Visibility = Visibility.Visible;
+        }
+
+        public void NotifyAll(string name)
+        {
+            Console.WriteLine("Notifying all with {0}", name);
+            ClassroomTabela.OnPropertyChanged(name);
+            //FieldOfStudyTabela.OnPropertyChanged(name);
+            //SubjectTabela.OnPropertyChanged(name);
+            //SoftverTabela.OnPropertyChanged(name);
+
+            ClassroomPrikaz.OnPropertyChanged(name);
+            //FieldOfStudyPrikaz.OnPropertyChanged(name);
+            //SubjectPrikaz.OnPropertyChanged(name);
+            //SoftverPrikaz.OnPropertyChanged(name);
+
+            ClassroomForma.OnPropertyChanged(name);
+            //FieldOfStudyForma.OnPropertyChanged(name);
+            //SubjectForma.OnPropertyChanged(name);
+            //SoftverForma.OnPropertyChanged(name);
+        }
+
+        public void NovaUcionica_Show()
+        {
+            HideAllForms();
+            ClassroomForma.Visibility = Visibility.Visible;
+        }
+
+        public void Ucionica_Show()
+        {
+            HideAllForms();
+            ClassroomPrikaz.Visibility = Visibility.Visible;
         }
     }
 }

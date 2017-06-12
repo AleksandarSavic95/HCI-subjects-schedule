@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SubjectsSchedule.Forme.FormaClassroom"
+﻿<UserControl x:Class="SubjectsSchedule.ModelViews.Forme.FormaClassroom"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -33,10 +33,10 @@
         <TextBlock Margin="5" Grid.Column="0" Grid.Row="4" Text="Instalirani softver" VerticalAlignment="Center"/>
         <TextBlock Margin="5" Grid.Column="0" Grid.Row="5" Text="Dodatni elementi"/>
 
-        <TextBox  Name="Identificator" Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True"/>
-        <TextBox  Name="Description" Margin="10, 5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True"/>
+        <TextBox  Text="{Binding SelectedClassroom.Id}"  Name="Identificator" Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True"/>
+        <TextBox  Text="{Binding SelectedClassroom.Description}" Name="Description" Margin="10, 5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True"/>
         <!-- AcceptsReturn="True" ? -->
-        <xctk:IntegerUpDown Margin="10, 5" Grid.Column="1" Grid.Row="2" Minimum="1" x:Name="brojMijestaUpDown" l:HelpProvider.HelpKey="Prezime" Value="12"/>
+        <xctk:IntegerUpDown Margin="10, 5" Grid.Column="1" Grid.Row="2" Minimum="1" x:Name="brojMijestaUpDown" l:HelpProvider.HelpKey="Prezime" Value="{Binding SelectedClassroom.Seats}"/>
         <!-- ???? Margin="5" Grid.Column="1" Grid.Row="2" ... -->
         <ComboBox Name="OperatingSystem" Margin="10, 5" Grid.Column="1" Grid.Row="3" SelectedIndex="0">
             <ComboBoxItem x:Name="classroomFormaWindows" Content="Windows"></ComboBoxItem>
@@ -79,10 +79,10 @@
         <!-- TODO: da li ćemo praviti da se pamte posljednje selektovani CB-ovi i nakon zatvaranja forme -->
         <!-- Ne bih to stavljao, ostavio bih default, ne deluje mi kao nesto sta moze puno da pomogne, a kontam moze da smara -->
         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-            <CheckBox Name="TableNeeded" Margin="10, 5, 5, 5" Content="Tabla" IsChecked="True"/>
-            <CheckBox Name="ProjectorNeeded" Margin="5" Content="Projektor"/>
+            <CheckBox Name="TableNeeded" Margin="10, 5, 5, 5" Content="Tabla" IsChecked="{Binding SelectedClassroom.Board}"/>
+            <CheckBox Name="ProjectorNeeded" Margin="5" Content="Projektor" IsChecked="{Binding SelectedClassroom.Projector}"/>
             <!-- pamtiti čekiranost u promjenljivoj? Binding? -->
-            <CheckBox Name="SmartTableNeeded" Margin="5" Content="Pametna tabla"/>
+            <CheckBox Name="SmartTableNeeded" Margin="5" Content="Pametna tabla" IsChecked="{Binding SelectedClassroom.SmartBoard}"/>
         </StackPanel>
 
         <!-- reset dugme, bez upisa u bazu? -->

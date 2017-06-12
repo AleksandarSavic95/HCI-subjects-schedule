@@ -23,12 +23,33 @@ namespace SubjectsSchedule.Model
         }
 
         private Dictionary<string, Classroom> classrooms;
+        private Classroom selectedClassroom;
 
         public List<Classroom> Classrooms
         {
             get
             {
                 return classrooms.Values.ToList();
+            }
+        }
+
+        public Classroom SelectedClassroom
+        {
+            get
+            {
+                return selectedClassroom;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    selectedClassroom = new Classroom();
+                    // set defaults
+                    selectedClassroom.Seats = 12;
+                    selectedClassroom.Board = true; 
+                }
+                else
+                    selectedClassroom = classrooms[value.Id];
             }
         }
 
@@ -60,6 +81,18 @@ namespace SubjectsSchedule.Model
             classrooms.Add(id, new Classroom(id, description, seats, projector, board, smartBoard, operatingSystem));
         }
 
+        public void Add(string id, string description, int seats, bool projector, bool board, bool smartBoard, OS operatingSystem, MainWindow context)
+        {
+            Add(id, description, seats, projector, board, smartBoard, operatingSystem);
+            context.NotifyAll("Classrooms");
+        }
+
+        public void SetSelectedClassroom(Classroom classRoom, MainWindow context)
+        {
+            SelectedClassroom = classRoom;
+            context.NotifyAll("SelectedClassroom");
+        }
+
         public bool Has(string id)
         {
             return true ? classrooms[id] != null : false;
@@ -73,6 +106,12 @@ namespace SubjectsSchedule.Model
         public void Remove(string id)
         {
             classrooms.Remove(id);
+        }
+
+        public void Remove(string id, MainWindow context)
+        {
+            Remove(id);
+            context.NotifyAll("Classrooms");
         }
     }
 }
