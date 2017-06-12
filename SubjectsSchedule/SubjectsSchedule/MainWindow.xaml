@@ -19,6 +19,8 @@
         <CommandBinding Command="cmd:RoutedCommands.Komanda" CanExecute="Komanda_CanExecute" Executed="Komanda_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Ugradjene" CanExecute="Ugradjene_CanExecute"  Executed="Ugradjene_Executed"></CommandBinding>
 
+        <CommandBinding Command="cmd:RoutedCommands.AbortDemo" CanExecute="AbortDemo_CanExecute" Executed="AbortDemo_Executed"></CommandBinding>
+
         <CommandBinding Command="cmd:RoutedCommands.NovaUcionica" CanExecute="NovaUcionica_CanExecute" Executed="NovaUcionica_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.NoviPredmet" CanExecute="NoviPredmet_CanExecute" Executed="NoviPredmet_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.NoviSmjer" CanExecute="NoviSmjer_CanExecute" Executed="NoviSmjer_Executed"></CommandBinding>

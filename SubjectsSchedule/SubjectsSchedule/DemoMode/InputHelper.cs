@@ -4,7 +4,7 @@ using System.Windows.Threading;
 using System.Windows.Input;
 using System.Windows;
 using System.Windows.Controls.Primitives;
-using Microsoft.Test;
+//using Microsoft.Test;
 using System.Threading;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
@@ -65,7 +65,7 @@ namespace SubjectsSchedule.InputHelper
                 {
                     if (mousePoint.X != componentPoint.X) mousePoint.X = mousePoint.X + 1;
                     else xReached = true;
-                    Microsoft.Test.Input.Mouse.MoveTo(mousePoint);
+                    //Microsoft.Test.Input.Mouse.MoveTo(mousePoint);
                     Thread.Sleep(3);
                     //Console.WriteLine("mousePoint X: " + mousePoint.X + " mousePoint Y: " + mousePoint.Y);
                     //Console.WriteLine("componentP X: " + componentPoint.X + " componentP Y: " + componentPoint.Y);
@@ -74,7 +74,7 @@ namespace SubjectsSchedule.InputHelper
                 {
                     if (mousePoint.Y != componentPoint.Y) mousePoint.Y = mousePoint.Y + 1;
                     else yReached = true;
-                    Microsoft.Test.Input.Mouse.MoveTo(mousePoint);
+                    //Microsoft.Test.Input.Mouse.MoveTo(mousePoint);
                     Thread.Sleep(3);
                 }
             }
@@ -87,14 +87,14 @@ namespace SubjectsSchedule.InputHelper
                 {
                     if (mousePoint.X != componentPoint.X) mousePoint.X = mousePoint.X + 1;
                     else xReached = true;
-                    Microsoft.Test.Input.Mouse.MoveTo(mousePoint);
+                    //Microsoft.Test.Input.Mouse.MoveTo(mousePoint);
                     Thread.Sleep(3);
                 }
                 while (yReached != true)
                 {
                     if (mousePoint.Y != componentPoint.Y) mousePoint.Y = mousePoint.Y - 1;
                     else yReached = true;
-                    Microsoft.Test.Input.Mouse.MoveTo(mousePoint);
+                    //Microsoft.Test.Input.Mouse.MoveTo(mousePoint);
                     Thread.Sleep(3);
                 }
             }
@@ -107,14 +107,14 @@ namespace SubjectsSchedule.InputHelper
                 {
                     if (mousePoint.X != componentPoint.X) mousePoint.X = mousePoint.X - 1;
                     else xReached = true;
-                    Microsoft.Test.Input.Mouse.MoveTo(mousePoint);
+                    //Microsoft.Test.Input.Mouse.MoveTo(mousePoint);
                     Thread.Sleep(3);
                 }
                 while (yReached != true)
                 {
                     if (mousePoint.Y != componentPoint.Y) mousePoint.Y = mousePoint.Y + 1;
                     else yReached = true;
-                    Microsoft.Test.Input.Mouse.MoveTo(mousePoint);
+                    //Microsoft.Test.Input.Mouse.MoveTo(mousePoint);
                     Thread.Sleep(3);
                 }
             }
@@ -127,14 +127,14 @@ namespace SubjectsSchedule.InputHelper
                 {
                     if (mousePoint.X != componentPoint.X) mousePoint.X = mousePoint.X - 1;
                     else xReached = true;
-                    Microsoft.Test.Input.Mouse.MoveTo(mousePoint);
+                    //Microsoft.Test.Input.Mouse.MoveTo(mousePoint);
                     Thread.Sleep(3);
                 }
                 while (yReached != true)
                 {
                     if (mousePoint.Y != componentPoint.Y) mousePoint.Y = mousePoint.Y - 1;
                     else yReached = true;
-                    Microsoft.Test.Input.Mouse.MoveTo(mousePoint);
+                    //Microsoft.Test.Input.Mouse.MoveTo(mousePoint);
                     Thread.Sleep(3);
                 }
             }
@@ -205,7 +205,7 @@ namespace SubjectsSchedule.InputHelper
                 case FlowDirection.RightToLeft:
                     elementMiddlePointToScreen = new Point(elementPointToScreen.X - convertedHalfWidth, elementPointToScreen.Y + convertedhalfHeight);
                     break;
-            }
+            }   
 
             System.Drawing.Point elementCenterPointToScreen = new System.Drawing.Point
                 (Convert.ToInt32(elementMiddlePointToScreen.X), Convert.ToInt32(elementMiddlePointToScreen.Y));
@@ -224,26 +224,26 @@ namespace SubjectsSchedule.InputHelper
         public static void MouseClickButtonCenter(ButtonBase targetElement, ClickMode clickMode, MouseButton mouseButton)
         {
             InputHelper.MouseMoveToElementCenter(targetElement);
-            DispatcherOperations.WaitFor(DispatcherPriority.ApplicationIdle);
+            //DispatcherOperations.WaitFor(DispatcherPriority.ApplicationIdle);
 
             switch (clickMode)
             {
                 case ClickMode.Release:
-                    Microsoft.Test.Input.Mouse.Click(mouseButton);
+                    //Microsoft.Test.Input.Mouse.Click(mouseButton);
                     break;
                 case ClickMode.Press:
-                    Microsoft.Test.Input.Mouse.Down(mouseButton);
+                    //Microsoft.Test.Input.Mouse.Down(mouseButton);
                     break;
                 case ClickMode.Hover:
                     throw new Exception("Fail: ClickMode.Hover is not supported in the MouseClickCenter method");
             }
-            DispatcherOperations.WaitFor(DispatcherPriority.ApplicationIdle);
+            //DispatcherOperations.WaitFor(DispatcherPriority.ApplicationIdle);
 
             // Cleanup
             if (clickMode == ClickMode.Press)
             {
-                Microsoft.Test.Input.Mouse.Up(mouseButton);
-                DispatcherOperations.WaitFor(DispatcherPriority.ApplicationIdle);
+                //Microsoft.Test.Input.Mouse.Up(mouseButton);
+                //DispatcherOperations.WaitFor(DispatcherPriority.ApplicationIdle);
             }
         }
 
@@ -254,9 +254,9 @@ namespace SubjectsSchedule.InputHelper
         public static void MouseClickCenter(FrameworkElement targetElement, MouseButton mouseButton)
         {
             InputHelper.MouseMoveToElementCenter(targetElement);
-            DispatcherOperations.WaitFor(DispatcherPriority.ApplicationIdle);
-            Microsoft.Test.Input.Mouse.Click(mouseButton);
-            DispatcherOperations.WaitFor(DispatcherPriority.ApplicationIdle);
+            //DispatcherOperations.WaitFor(DispatcherPriority.ApplicationIdle);
+            //Microsoft.Test.Input.Mouse.Click(mouseButton);
+            //DispatcherOperations.WaitFor(DispatcherPriority.ApplicationIdle);
         }
 
         /// <summary>
@@ -270,10 +270,10 @@ namespace SubjectsSchedule.InputHelper
             Point logicalPoint = new Point(point.X + window.ActualWidth / 2, point.Y - 8);
             System.Drawing.Point clickPoint = new System.Drawing.Point(DpiHelper.ConvertToPhysicalPixel(logicalPoint.X), DpiHelper.ConvertToPhysicalPixel(logicalPoint.Y));
 
-            Microsoft.Test.Input.Mouse.MoveTo(clickPoint);
-            DispatcherOperations.WaitFor(DispatcherPriority.SystemIdle);
-            Microsoft.Test.Input.Mouse.Click(MouseButton.Left);
-            DispatcherOperations.WaitFor(DispatcherPriority.SystemIdle);
+            //Microsoft.Test.Input.Mouse.MoveTo(clickPoint);
+            //DispatcherOperations.WaitFor(DispatcherPriority.SystemIdle);
+            //Microsoft.Test.Input.Mouse.Click(MouseButton.Left);
+            //DispatcherOperations.WaitFor(DispatcherPriority.SystemIdle);
         }
     }
 }
