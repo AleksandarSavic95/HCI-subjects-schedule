@@ -225,7 +225,7 @@ namespace SubjectsSchedule
                 + ". Kliknemo na polje opisa učionice" + demoModeWindow.currentDemoDescription.Text; });
 
             Dispatcher.Invoke(() => {
-                TextBoxAutomationPeer peer = new TextBoxAutomationPeer(ClassroomForma.Opis);
+                TextBoxAutomationPeer peer = new TextBoxAutomationPeer(ClassroomForma.Description);
                 peer.SetFocus(); });
 
             Thread.Sleep(2000);
@@ -233,7 +233,7 @@ namespace SubjectsSchedule
             { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
                 + ". Unesemo opis učionice" + demoModeWindow.currentDemoDescription.Text; });
 
-            Dispatcher.Invoke(() => { ClassroomForma.Opis.Text = "Opis učionice"; });
+            Dispatcher.Invoke(() => { ClassroomForma.Description.Text = "Opis učionice"; });
             Thread.Sleep(1000);
 
             Dispatcher.Invoke(() =>
@@ -249,7 +249,7 @@ namespace SubjectsSchedule
                 + ". Odaberemo operativni sistem" + demoModeWindow.currentDemoDescription.Text; });
 
             Dispatcher.Invoke(() => {
-                ComboBoxAutomationPeer peer = new ComboBoxAutomationPeer(ClassroomForma.OperativniSistem);
+                ComboBoxAutomationPeer peer = new ComboBoxAutomationPeer(ClassroomForma.OperatingSystem);
                 peer.SetFocus();
                 IExpandCollapseProvider provider = (IExpandCollapseProvider)
                     peer.GetPattern(PatternInterface.ExpandCollapse);
@@ -257,12 +257,12 @@ namespace SubjectsSchedule
 
             Thread.Sleep(1000);
 
-            Dispatcher.Invoke(() => { ClassroomForma.OperativniSistem.SelectedIndex = 2; });
+            Dispatcher.Invoke(() => { ClassroomForma.OperatingSystem.SelectedIndex = 2; });
 
             Thread.Sleep(2000);
 
             Dispatcher.Invoke(() => {
-                ComboBoxAutomationPeer peer = new ComboBoxAutomationPeer(ClassroomForma.OperativniSistem);
+                ComboBoxAutomationPeer peer = new ComboBoxAutomationPeer(ClassroomForma.OperatingSystem);
                 peer.SetFocus();
                 IExpandCollapseProvider provider = (IExpandCollapseProvider)
                     peer.GetPattern(PatternInterface.ExpandCollapse);
@@ -276,8 +276,8 @@ namespace SubjectsSchedule
             Thread.Sleep(3000);
 
             Dispatcher.Invoke(() => {
-                ClassroomForma.Tabla.IsChecked = false;
-                ClassroomForma.Projektor.IsChecked = true; });
+                ClassroomForma.TableNeeded.IsChecked = false;
+                ClassroomForma.ProjectorNeeded.IsChecked = true; });
 
             Thread.Sleep(2000);
             Dispatcher.Invoke(() =>
@@ -506,6 +506,30 @@ namespace SubjectsSchedule
 
             this.HideAllForms();
             RasporedUcionice.InitializeSubjectList(c);
+        }
+
+        private void Predmeti_Click(object sender, RoutedEventArgs e)
+        {
+            HideAllForms();
+            SubjectForma.Visibility = Visibility.Visible;
+        }
+
+        private void Smerovi_Click(object sender, RoutedEventArgs e)
+        {
+            HideAllForms();
+            FieldOfStudyForma.Visibility = Visibility.Visible;
+        }
+
+        private void Ucionice_Click(object sender, RoutedEventArgs e)
+        {
+            HideAllForms();
+            ClassroomForma.Visibility = Visibility.Visible;
+        }
+
+        private void Softveri_Click(object sender, RoutedEventArgs e)
+        {
+            HideAllForms();
+            SoftverForma.Visibility = Visibility.Visible;
         }
     }
 }

@@ -36,11 +36,11 @@
                 <MenuItem Header="_Ugradjene komande" Command="cmd:RoutedCommands.Ugradjene"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Tabele (ili Pregled?)" ToolTip="Pregled svih entiteta aplikacije">
-                <MenuItem Header="_Predmeti" ></MenuItem>
+                <MenuItem Header="_Predmeti" Click="Predmeti_Click" ></MenuItem>
                 <!--Click=""-->
-                <MenuItem Header="Smj_erovi" ></MenuItem>
-                <MenuItem Header="_Učionice" ></MenuItem>
-                <MenuItem Header="_Softver" ></MenuItem>
+                <MenuItem Header="Smj_erovi" Click="Smerovi_Click" ></MenuItem>
+                <MenuItem Header="_Učionice" Click="Ucionice_Click" ></MenuItem>
+                <MenuItem Header="_Softver" Click="Softveri_Click" ></MenuItem>
             </MenuItem>
             <!-- <MenuItem Header="_Grafika">
                 <MenuItem Header="_Custom Renderer 2D Grafika" Click="MenuItem_Click"></MenuItem>

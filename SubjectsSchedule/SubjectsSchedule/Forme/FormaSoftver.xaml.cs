@@ -41,7 +41,7 @@ namespace SubjectsSchedule.Forme
 
             SoftwareHandler.Instance.Add(Identifikator.Text, Naziv.Text, Helper.GetOSFromString(OSComboBox.Text),
                 Proizvodjac.Text, Sajt.Text, godinaIzdavanjaUpDown.Text, Helper.ParseStringToDouble(cijenaUpDown.Text),
-                Opis.Text, (MainWindow) Window.GetWindow(this));
+                Opis.Text);
 
             MessageBox.Show("Uspesno dodat softver!");
         }
