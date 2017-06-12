@@ -23,12 +23,32 @@ namespace SubjectsSchedule.Model
         }
 
         private Dictionary<string, FieldOfStudy> fieldsOfStudy;
+        private FieldOfStudy selectedFieldOfStudy;
 
         public List<FieldOfStudy> FieldsOfStudy
         {
             get
             {
                 return fieldsOfStudy.Values.ToList();
+            }
+        }
+
+        public FieldOfStudy SelectedFieldOfStudy
+        {
+            get
+            {
+                return selectedFieldOfStudy;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    selectedFieldOfStudy = new FieldOfStudy();
+                    // set defaults
+                    selectedFieldOfStudy.Since = DateTime.Today;
+                }
+                else
+                    selectedFieldOfStudy = fieldsOfStudy[value.Id];
             }
         }
 
@@ -60,6 +80,42 @@ namespace SubjectsSchedule.Model
             fieldsOfStudy.Add(id, new FieldOfStudy(id, name, since, description));
         }
 
+        public void Add(string id, string name, DateTime since, string description, MainWindow context)
+        {
+            Add(id, name, since, description);
+            context.NotifyAll("FieldsOfStudy");
+        }
+  
+        public void SetSelectedFieldOfStudy(FieldOfStudy fieldOfStudy, MainWindow context)
+        {
+            SelectedFieldOfStudy = fieldOfStudy;
+            context.NotifyAll("SelectedFieldOfStudy");
+        }
+
+        public void SetSelectedFieldOfStudy(string id, MainWindow context)
+        {
+            SetSelectedFieldOfStudy(FindById(id), context);
+        }
+
+        public void Update(string id, string newId, string name, DateTime since, string description)
+        {
+            if (id != newId)
+            {
+                Remove(id);
+                Add(newId, name, since, description);
+            }
+            else
+                fieldsOfStudy[id] = new FieldOfStudy(id, name, since, description);
+        }
+
+        public void Update(string id, string newId, string name, DateTime since, string description, MainWindow context)
+        {
+            Update(id, newId, name, since, description);
+            SetSelectedFieldOfStudy(newId, context);
+            // may exist list change
+            context.NotifyAll("FieldsOfStudy");
+        }
+
         public bool Has(string id)
         {
             FieldOfStudy fos = new FieldOfStudy();
@@ -76,6 +132,12 @@ namespace SubjectsSchedule.Model
         {
             fieldsOfStudy.Remove(id);
         }
-        
+
+        public void Remove(string id, MainWindow context)
+        {
+            Remove(id);
+            context.NotifyAll("FieldsOfStudy");
+        }
+
     }
 }

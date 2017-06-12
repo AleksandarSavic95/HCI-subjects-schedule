@@ -27,13 +27,13 @@
         <TextBlock x:Name="Opis_Label" Grid.Column="0" Grid.Row="2" Margin="10,5" Text="Opis"/>
         <TextBlock x:Name="Datum_Label" Grid.Column="0" Grid.Row="3" Margin="10,5" Text="Datum uvođenja"/>
             
-        <TextBox x:Name="Id_Input" Grid.Column="1" Grid.Row="0" Margin="10,5" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="Naziv_Input" Grid.Column="1" Grid.Row="1" Margin="10,5" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="Opis_Input" Grid.Column="1" Grid.Row="2" Margin="10,5" Grid.ColumnSpan="2"/>
-        <DatePicker x:Name="Datum_Input" Grid.Column="1" Grid.Row="3" Margin="10,5" Grid.ColumnSpan="1" Text="Odaberite datum" />
+        <TextBox x:Name="Id_Input" Grid.Column="1" Grid.Row="0" Margin="10,5" Grid.ColumnSpan="2" Text="{Binding SelectedFieldOfStudy.Id, Mode=OneWay}"/>
+        <TextBox x:Name="Naziv_Input" Grid.Column="1" Grid.Row="1" Margin="10,5" Grid.ColumnSpan="2" Text="{Binding SelectedFieldOfStudy.Name, Mode=OneWay}"/>
+        <TextBox x:Name="Opis_Input" Grid.Column="1" Grid.Row="2" Margin="10,5" Grid.ColumnSpan="2" Text="{Binding SelectedFieldOfStudy.Description, Mode=OneWay}"/>
+        <DatePicker x:Name="Datum_Input" Grid.Column="1" Grid.Row="3" Margin="10,5" Grid.ColumnSpan="1" Text="{Binding SelectedFieldOfStudy.Since, Mode=OneWay}" />
 
         <Button x:Name="Dugme_Button" Margin="10,5" Padding="10" Grid.Column="1" Grid.Row="4" Click="Button_Click">
-            Dugmad..
+            Dodaj smer
         </Button>
     </Grid>
 </UserControl>
