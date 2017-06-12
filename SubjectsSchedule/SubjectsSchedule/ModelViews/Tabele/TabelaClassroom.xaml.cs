@@ -53,7 +53,7 @@ namespace SubjectsSchedule.ModelViews.Tabele
 
         private void NovaUcionica_Btn_Click(object sender, RoutedEventArgs e)
         {
-            ClassroomHandler.Instance.SetSelectedClassroom(null, (MainWindow)Window.GetWindow(this));
+            ClassroomHandler.Instance.SetSelectedClassroom((Classroom)null, (MainWindow)Window.GetWindow(this));
             ((MainWindow)Window.GetWindow(this)).NovaUcionica_Show();
         }
 

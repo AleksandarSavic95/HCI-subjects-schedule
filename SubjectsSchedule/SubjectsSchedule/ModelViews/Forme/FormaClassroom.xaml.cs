@@ -56,9 +56,14 @@ namespace SubjectsSchedule.ModelViews.Forme
             Console.WriteLine("Adding Classroom with data: {0}, {1}, {2}, {3}, {4}, {5}, {6}", Identificator.Text, Description.Text, Helper.ParseStringToInt(brojMijestaUpDown.Text),
                 Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded), Helper.GetOSFromString(OperatingSystem.Text));
 
-            ClassroomHandler.Instance.Add(Identificator.Text, Description.Text, Helper.ParseStringToInt(brojMijestaUpDown.Text),
-                Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded),
-                Helper.GetOSFromString(OperatingSystem.Text), (MainWindow)Window.GetWindow(this));
+            if (string.IsNullOrEmpty(ClassroomHandler.Instance.SelectedClassroom.Id))
+                ClassroomHandler.Instance.Add(Identificator.Text, Description.Text, Helper.ParseStringToInt(brojMijestaUpDown.Text),
+                    Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded),
+                    Helper.GetOSFromString(OperatingSystem.Text), (MainWindow)Window.GetWindow(this));
+            else
+                ClassroomHandler.Instance.Update(ClassroomHandler.Instance.SelectedClassroom.Id, Identificator.Text, Description.Text, Helper.ParseStringToInt(brojMijestaUpDown.Text),
+                    Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded),
+                    Helper.GetOSFromString(OperatingSystem.Text), (MainWindow)Window.GetWindow(this));
 
             MessageBox.Show("Ucionica uspesno dodata!");
         }

@@ -93,6 +93,30 @@ namespace SubjectsSchedule.Model
             context.NotifyAll("SelectedClassroom");
         }
 
+        public void SetSelectedClassroom(string id, MainWindow context)
+        {
+            SetSelectedClassroom(FindById(id), context);
+        }
+
+        public void Update(string id, string newId, string description, int seats, bool projector, bool board, bool smartBoard, OS operatingSystem)
+        {
+            if (id != newId)
+            {
+                Remove(id);
+                Add(newId, description, seats, projector, board, smartBoard, operatingSystem);
+            }
+            else
+                classrooms[id] = new Classroom(id, description, seats, projector, board, smartBoard, operatingSystem);
+        }
+
+        public void Update(string id, string newId, string description, int seats, bool projector, bool board, bool smartBoard, OS operatingSystem, MainWindow context)
+        {
+            Update(id, newId, description, seats, projector, board, smartBoard, operatingSystem);
+            SetSelectedClassroom(newId, context);
+            // may exist list change
+            context.NotifyAll("Classrooms");
+        }
+
         public bool Has(string id)
         {
             return true ? classrooms[id] != null : false;
