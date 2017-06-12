@@ -37,7 +37,8 @@ namespace SubjectsSchedule.ModelViews.Tabele
 
             DataContext = this;
 
-            OnPropertyChanged("Classrooms");
+            // neće raditi ovdje, jer nisu sve komponente učitane
+            //OnPropertyChanged("Classrooms");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -86,6 +87,11 @@ namespace SubjectsSchedule.ModelViews.Tabele
                     ClassroomHandler.Instance.Remove((row.DataContext as Classroom).Id, (MainWindow)Window.GetWindow(this));
                     break;
                 }
+        }
+
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            OnPropertyChanged("Classrooms");
         }
     }
 }

@@ -46,7 +46,7 @@ namespace SubjectsSchedule.ModelViews.Forme
         {
             InitializeComponent();
 
-            DataContext = this;
+            DataContext = this; 
         }
 
         // Adding classroom

@@ -8,7 +8,7 @@
              xmlns:cmd="clr-namespace:SubjectsSchedule.MyCommands"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              l:HelpProvider.HelpKey="Forma"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="450">
     <Grid DockPanel.Dock="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
