@@ -56,7 +56,7 @@
             ListBox + DataBase + prikaz odabranog u TextBoxu: https://www.youtube.com/watch?v=I5qvyyhUKfY
             IMA U KODU S VJEŽBI: Move items between to ListBoxes: http://csharphelper.com/blog/2015/11/move-items-between-two-listboxes-in-c/
             -->
-        <ListBox Margin="10, 5" Grid.Column="2" Grid.Row="1" Grid.RowSpan="4"
+        <ListBox x:Name="InstaliraniSoftver" Margin="10, 5" Grid.Column="2" Grid.Row="1" Grid.RowSpan="4"
                      Height="104" SelectionMode="Multiple">
             <!-- APSOLUTNA VISINA.. ne valja..
                 OnLoad nakačiti nešto: https://stackoverflow.com/a/16084207

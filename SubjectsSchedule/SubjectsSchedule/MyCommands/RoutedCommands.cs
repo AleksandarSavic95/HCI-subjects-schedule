@@ -93,5 +93,14 @@ namespace SubjectsSchedule.MyCommands
                 new KeyGesture(Key.R, ModifierKeys.Shift | ModifierKeys.Alt),
             }
             );
+        public static readonly RoutedUICommand AbortDemo = new RoutedUICommand(
+            "Abort Demo",
+            "AbortDemo",
+            typeof(RoutedCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.D, ModifierKeys.Control),
+            }
+            );
     }
 }

@@ -30,6 +30,7 @@ namespace SubjectsSchedule
         private bool _enable;
 
         public static Thread demoModeThread;
+        public DemoMode.DemoModeWindow demoModeWindow;
 
         public bool MenuEnabled
         {
@@ -199,12 +200,16 @@ namespace SubjectsSchedule
             //w.ShowDialog();
         }
 
-        private void demoMode(DemoMode.DemoModeWindow demoModeWindow)
+        private void demoMode() // DemoMode.DemoModeWindow demoModeWindow
         {
+            #region unos učionice
+
             Dispatcher.Invoke(() =>
-            { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber + ". Dodavanje učionice" 
-                + demoModeWindow.currentDemoDescription.Text; });
-            
+            { demoModeWindow.currentDemoDescription.Text = "I - Dodavanje učionice\n" 
+                + demoModeWindow.currentDemoDescription.Text; } );
+
+            Thread.Sleep(3000);
+
             Dispatcher.Invoke(() => {
                 ButtonAutomationPeer peer =
                 new ButtonAutomationPeer(dodajUcionicuDugme);
@@ -222,7 +227,9 @@ namespace SubjectsSchedule
 
             Dispatcher.Invoke(() =>
             { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
-                + ". Kliknemo na polje opisa učionice" + demoModeWindow.currentDemoDescription.Text; });
+                + ". Kliknemo na polje opisa učionice\n" + demoModeWindow.currentDemoDescription.Text; });
+
+            Thread.Sleep(3000);
 
             Dispatcher.Invoke(() => {
                 TextBoxAutomationPeer peer = new TextBoxAutomationPeer(ClassroomForma.Opis);
@@ -231,22 +238,24 @@ namespace SubjectsSchedule
             Thread.Sleep(2000);
             Dispatcher.Invoke(() =>
             { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
-                + ". Unesemo opis učionice" + demoModeWindow.currentDemoDescription.Text; });
-
+                + ". Unesemo opis učionice\n" + demoModeWindow.currentDemoDescription.Text; });
+            Thread.Sleep(2000);
             Dispatcher.Invoke(() => { ClassroomForma.Opis.Text = "Opis učionice"; });
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
 
             Dispatcher.Invoke(() =>
             { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
-                + ". Unesemo broj radnika" + demoModeWindow.currentDemoDescription.Text; });
-            Thread.Sleep(2000);
+                + ". Unesemo broj radnika\n" + demoModeWindow.currentDemoDescription.Text; });
+            Thread.Sleep(2500);
 
             Dispatcher.Invoke(() => { ClassroomForma.brojMijestaUpDown.Value = 3; });
             Thread.Sleep(2000);
 
             Dispatcher.Invoke(() =>
             { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
-                + ". Odaberemo operativni sistem" + demoModeWindow.currentDemoDescription.Text; });
+                + ". Odaberemo operativni sistem\n" + demoModeWindow.currentDemoDescription.Text; });
+
+            Thread.Sleep(3000);
 
             Dispatcher.Invoke(() => {
                 ComboBoxAutomationPeer peer = new ComboBoxAutomationPeer(ClassroomForma.OperativniSistem);
@@ -255,7 +264,7 @@ namespace SubjectsSchedule
                     peer.GetPattern(PatternInterface.ExpandCollapse);
                 provider.Expand(); });
 
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
 
             Dispatcher.Invoke(() => { ClassroomForma.OperativniSistem.SelectedIndex = 2; });
 
@@ -269,20 +278,34 @@ namespace SubjectsSchedule
                 provider.Collapse();
             });
             
-            Thread.Sleep(2000);
-            Dispatcher.Invoke(() =>
-            { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
-                + ". Označimo opremu koja postoji. Tablu nemamo, ali imamo projektor." + demoModeWindow.currentDemoDescription.Text; });
             Thread.Sleep(3000);
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber
+                  + ". Odaberemo instalirani softver iz liste.\n" + demoModeWindow.currentDemoDescription.Text;
+            });
+            Thread.Sleep(5500);
 
             Dispatcher.Invoke(() => {
-                ClassroomForma.Tabla.IsChecked = false;
+                ListBoxAutomationPeer peer = new ListBoxAutomationPeer(ClassroomForma.InstaliraniSoftver);
+                peer.SetFocus();
+                ClassroomForma.InstaliraniSoftver.SelectedIndex = 2; });
+            Thread.Sleep(2000);
+            Dispatcher.Invoke(() => { ClassroomForma.InstaliraniSoftver.SelectedIndex = 4; });
+
+            Thread.Sleep(3000);
+            Dispatcher.Invoke(() =>
+            { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
+                + ". Označimo opremu koja postoji. Tablu nemamo, ali imamo projektor.\n" + demoModeWindow.currentDemoDescription.Text; });
+            Thread.Sleep(5500);
+
+            Dispatcher.Invoke(() => { ClassroomForma.Tabla.IsChecked = false;
                 ClassroomForma.Projektor.IsChecked = true; });
 
             Thread.Sleep(2000);
             Dispatcher.Invoke(() =>
             { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
-                + ". Potvrdimo unos." + demoModeWindow.currentDemoDescription.Text; });
+                + ". Potvrdimo unos.\n" + demoModeWindow.currentDemoDescription.Text; });
             Thread.Sleep(3000);
             Dispatcher.Invoke(() =>
             {
@@ -290,33 +313,42 @@ namespace SubjectsSchedule
                 new ButtonAutomationPeer(ClassroomForma.Potvrda);
                 peer.SetFocus();
             });
-
-            Console.WriteLine("sad idemo na ENTER");
+            
             Thread.Sleep(2000);
-
             Dispatcher.Invoke(() =>
-            {
-                ButtonAutomationPeer peer =
-                new ButtonAutomationPeer(ClassroomForma.Potvrda);
-                IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke)
-                    as IInvokeProvider;
+            {   ButtonAutomationPeer peer = new ButtonAutomationPeer(ClassroomForma.Potvrda);
+                IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
                 invokeProv.Invoke();
+
+                demoModeWindow.demoNumber = 0;
             });
 
-            Thread.Sleep(2000);
-            Console.WriteLine("444444444444", "44444");
+            Thread.Sleep(1000);
+            Console.WriteLine("444444444444");
+
+            #endregion unos učionice
+
+
         }
 
         private void Demonstracioni_mod_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("Sada će aplikacija početi da Vam prikazuje funkcionalnosti." +
-            //    "\n\r Da prekinete prikaz, pritisnite dugme na tastaturi << SPACE >> ili kliknite \n\r na dugme u " +
-            //    "donjem desnom uglu ekrana.",
+            //MessageBox.Show("Sada će aplikacija početi da Vam prikazuje funkcionalnosti.\n" +
+            //    "\n\r U donjem desnom uglu Vašeg ekrana će biti prikazan prozor na kome \n" +
+            //    "će Vam se, po redu izvršavanja, prikazivati akcije koje budu izvršavane. \n\n" +
+            //    "Prekid prikaza funkcionalnosti možete izvršiti na dva načina: \n\n" + 
+            //    "  1. Pomoću tastature\n" +
+            //    "    Kombinacijom dugmadi CTRL i slova D\n" +
+            //    "  \n  2. Pomoću miša\n" +
+            //    "    Klikom na dugme < Prekid demonstracije > na dnu novootvorenog \n" +
+            //    "    prozora u desnom uglu ekrana.",
             //    "Početak demonstracije");
-            var demoModeWindow = new DemoMode.DemoModeWindow();
+
+            demoModeWindow = new DemoMode.DemoModeWindow();
             demoModeWindow.Show();
 
-            demoModeThread = new Thread( () => demoMode(demoModeWindow) );
+            //demoModeThread = new Thread( () => demoMode(demoModeWindow) );
+            demoModeThread = new Thread(new ThreadStart(demoMode));
             demoModeThread.SetApartmentState(ApartmentState.STA);
             demoModeThread.Start();
         }
@@ -506,6 +538,16 @@ namespace SubjectsSchedule
 
             this.HideAllForms();
             RasporedUcionice.InitializeSubjectList(c);
+        }
+
+        private void AbortDemo_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void AbortDemo_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            demoModeWindow.AbortDemo();
         }
     }
 }
