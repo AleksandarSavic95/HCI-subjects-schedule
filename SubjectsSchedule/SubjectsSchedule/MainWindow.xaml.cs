@@ -178,7 +178,7 @@ namespace SubjectsSchedule
 
         #region PropertyChanged handling
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
+        public void OnPropertyChanged(string name)
         {
             if (PropertyChanged != null)
             {

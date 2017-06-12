@@ -22,7 +22,7 @@ namespace SubjectsSchedule.Model
     /// u bilo kom trenutku u tom periodu.
     /// </summary>
     [Serializable()]
-    class Classroom
+    public class Classroom
     {
         #region private fields
 

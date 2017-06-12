@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SubjectsSchedule.Model;
+using SubjectsSchedule.Utilities;
+using System.ComponentModel;
 
 namespace SubjectsSchedule.Forme
 {
@@ -20,9 +23,37 @@ namespace SubjectsSchedule.Forme
     /// </summary>
     public partial class FormaSubject : UserControl
     {
+
         public FormaSubject()
         {
             InitializeComponent();
+
+            IsVisibleChanged += SetComboBoxItems;
+        }
+
+        private void SetComboBoxItems(object sender, DependencyPropertyChangedEventArgs args)
+        {
+            Console.WriteLine("Here!, {0}", FieldOfStudyHanlder.Instance.FieldsOfStudy.Count);
+            SmjerComboBox.ItemsSource = FieldOfStudyHanlder.Instance.FieldsOfStudy;
+            SmjerComboBox.DisplayMemberPath = "Name";
+            SmjerComboBox.SelectedValuePath = "Id";
+        }
+
+        private void Potvrda_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine(Identifikator.Text);
+            Console.WriteLine(Naziv.Text);
+            Console.WriteLine(Opis.Text);
+            Console.WriteLine(SmjerComboBox.SelectedValue);
+            Console.WriteLine(OSComboBox.Text);
+            Console.WriteLine(duzinaTerminaUpDown.Text);
+            Console.WriteLine(brojTerminaUpDown.Text);
+
+            SubjectHandler.Instance.TryAdd(Identifikator.Text, Naziv.Text, null, Opis.Text, Helper.ParseStringToInt(velicinaGrupeUpDown.Text),
+                Helper.ParseStringToInt(duzinaTerminaUpDown.Text), Helper.ParseStringToInt(brojTerminaUpDown.Text),
+                Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded), Helper.GetOSFromString(OSComboBox.Text));
+
+            MessageBox.Show("Uspesno dodat predmet!");
         }
     }
 }

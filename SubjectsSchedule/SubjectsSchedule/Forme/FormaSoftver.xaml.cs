@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SubjectsSchedule.Model;
+using SubjectsSchedule.Utilities;
 
 namespace SubjectsSchedule.Forme
 {
@@ -23,6 +25,25 @@ namespace SubjectsSchedule.Forme
         public FormaSoftver()
         {
             InitializeComponent();
+        }
+
+        // TODO: cena should be double
+        private void Potvrda_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine(Identifikator.Text);
+            Console.WriteLine(Naziv.Text);
+            Console.WriteLine(Opis.Text);
+            Console.WriteLine(Proizvodjac.Text);
+            Console.WriteLine(OSComboBox.Text);
+            Console.WriteLine(godinaIzdavanjaUpDown.Text);
+            Console.WriteLine(cijenaUpDown.Text);
+            Console.WriteLine(Sajt.Text);
+
+            SoftwareHandler.Instance.Add(Identifikator.Text, Naziv.Text, Helper.GetOSFromString(OSComboBox.Text),
+                Proizvodjac.Text, Sajt.Text, godinaIzdavanjaUpDown.Text, Helper.ParseStringToDouble(cijenaUpDown.Text),
+                Opis.Text, (MainWindow) Window.GetWindow(this));
+
+            MessageBox.Show("Uspesno dodat softver!");
         }
     }
 }

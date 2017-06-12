@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SubjectsSchedule.Model;
+using SubjectsSchedule.Utilities;
 
 namespace SubjectsSchedule.Forme
 {
@@ -23,6 +25,20 @@ namespace SubjectsSchedule.Forme
         public FormaClassroom()
         {
             InitializeComponent();
+        }
+
+        // Adding classroom
+        // TODO: Add validation for fields (requied fields and such validations)
+        private void Potvrda_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Adding Classroom with data: {0}, {1}, {2}, {3}, {4}, {5}, {6}", Identificator.Text, Description.Text, Helper.ParseStringToInt(brojMijestaUpDown.Text),
+                Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded), Helper.GetOSFromString(OperatingSystem.Text));
+
+            ClassroomHandler.Instance.Add(Identificator.Text, Description.Text, Helper.ParseStringToInt(brojMijestaUpDown.Text),
+                Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded),
+                Helper.GetOSFromString(OperatingSystem.Text));
+
+            MessageBox.Show("Ucionica uspesno dodata!");
         }
     }
 }

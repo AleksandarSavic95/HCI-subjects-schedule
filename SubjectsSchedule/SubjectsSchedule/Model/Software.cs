@@ -18,7 +18,7 @@ namespace SubjectsSchedule.Model
 	/// opisa softvera.
     /// </summary>
     [Serializable()]
-    class Software
+    public class Software
     {
 
         #region private fields

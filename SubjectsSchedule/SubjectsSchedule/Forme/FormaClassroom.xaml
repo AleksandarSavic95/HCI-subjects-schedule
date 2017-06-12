@@ -11,13 +11,14 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid DockPanel.Dock="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <!-- Auto, jer su nazivi u prvoj koloni -->
@@ -25,24 +26,26 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="0" Text="Opis"/>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="1" Text="Broj radnih mijesta"/>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="2" Text="Operativni sistem(i)"/>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="3" Text="Instalirani softver" VerticalAlignment="Center"/>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="4" Text="Dodatni elementi"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="0" Text="Identifikator" />
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="1" Text="Opis"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="2" Text="Broj radnih mijesta"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="3" Text="Operativni sistem(i)"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="4" Text="Instalirani softver" VerticalAlignment="Center"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="5" Text="Dodatni elementi"/>
 
-        <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True"/>
+        <TextBox  Name="Identificator" Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True"/>
+        <TextBox  Name="Description" Margin="10, 5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True"/>
         <!-- AcceptsReturn="True" ? -->
-        <xctk:IntegerUpDown Margin="10, 5" Grid.Column="1" Grid.Row="1" Minimum="1" x:Name="brojMijestaUpDown" l:HelpProvider.HelpKey="Prezime"/>
+        <xctk:IntegerUpDown Margin="10, 5" Grid.Column="1" Grid.Row="2" Minimum="1" x:Name="brojMijestaUpDown" l:HelpProvider.HelpKey="Prezime" Value="12"/>
         <!-- ???? Margin="5" Grid.Column="1" Grid.Row="2" ... -->
-        <ComboBox Margin="10, 5" Grid.Column="1" Grid.Row="2" SelectedIndex="0">
+        <ComboBox Name="OperatingSystem" Margin="10, 5" Grid.Column="1" Grid.Row="3" SelectedIndex="0">
             <ComboBoxItem Content="Windows"></ComboBoxItem>
             <ComboBoxItem Content="Linux"></ComboBoxItem>
             <ComboBoxItem Content="Oba"></ComboBoxItem>
         </ComboBox>
 
         <!-- "Odaberite iz liste  =>" -->
-        <TextBlock Margin="0,5,10,5" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" Width="146">
+        <TextBlock Margin="10,5,0,5" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Width="146">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Margin="0, 0, 20, 0" VerticalAlignment="Center">
                     Odaberite iz liste
@@ -56,7 +59,7 @@
             ListBox + DataBase + prikaz odabranog u TextBoxu: https://www.youtube.com/watch?v=I5qvyyhUKfY
             IMA U KODU S VJEŽBI: Move items between to ListBoxes: http://csharphelper.com/blog/2015/11/move-items-between-two-listboxes-in-c/
             -->
-        <ListBox Margin="10, 5" Grid.Column="2" Grid.Row="1" Grid.RowSpan="4"
+        <ListBox Margin="10, 5" Grid.Column="2" Grid.Row="2" Grid.RowSpan="4"
                      Height="104" SelectionMode="Multiple">
             <!-- APSOLUTNA VISINA.. ne valja..
                 OnLoad nakačiti nešto: https://stackoverflow.com/a/16084207
@@ -74,11 +77,12 @@
 
         <!-- Stavljeno kao posljednje, jer se može preskočiti Enter-om -->
         <!-- TODO: da li ćemo praviti da se pamte posljednje selektovani CB-ovi i nakon zatvaranja forme -->
-        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-            <CheckBox Margin="10, 5, 5, 5" Content="Tabla" IsChecked="True"/>
-            <CheckBox Margin="5" Content="Projektor"/>
+        <!-- Ne bih to stavljao, ostavio bih default, ne deluje mi kao nesto sta moze puno da pomogne, a kontam moze da smara -->
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+            <CheckBox Name="TableNeeded" Margin="10, 5, 5, 5" Content="Tabla" IsChecked="True"/>
+            <CheckBox Name="ProjectorNeeded" Margin="5" Content="Projektor"/>
             <!-- pamtiti čekiranost u promjenljivoj? Binding? -->
-            <CheckBox Margin="5" Content="Pametna tabla"/>
+            <CheckBox Name="SmartTableNeeded" Margin="5" Content="Pametna tabla"/>
         </StackPanel>
 
         <!-- reset dugme, bez upisa u bazu? -->
@@ -93,7 +97,8 @@
 
         <StackPanel Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="1" Orientation="Horizontal">
             <Button Name="Potvrda" Padding="10" Margin="10" 
-                    MaxWidth="330" HorizontalAlignment="Center">
+                    MaxWidth="330" HorizontalAlignment="Center"
+                    Click="Potvrda_Click">
                 <StackPanel>
                     <TextBlock FontSize="14" HorizontalAlignment="Center">Potvrdi [ENTER]</TextBlock>
 

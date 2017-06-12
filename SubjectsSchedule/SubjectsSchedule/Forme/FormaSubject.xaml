@@ -22,6 +22,10 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <!-- Auto, jer su nazivi u prvoj koloni -->
@@ -29,29 +33,34 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="0" Text="Naziv"/>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="1" Text="Opis"/>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="2" Text="Smjer"/>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="3" Text="Operativni sistem"/>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="4" Text="Dužina termina" ToolTip="U časovima od po 45 minuta"/>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="5" Text="Broj termina" />
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="6" Text="Neophodan softver"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="0" Text="Identifikator"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="1" Text="Naziv"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="2" Text="Opis"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="3" Text="Velicina grupe" />
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="4" Text="Smjer"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="5" Text="Operativni sistem"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="6" Text="Dužina termina" ToolTip="U časovima od po 45 minuta"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="7" Text="Broj termina" />
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="8" Text="Neophodan softver"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="9" Text="Dodatni elemenit" />
 
-        <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Naziv"/>
-        <TextBox Margin="10,5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Opis"/>
+        <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Identifikator"/>
+        <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Naziv"/>
+        <TextBox Margin="10,5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Opis"/>
 
-        <ComboBox Margin="10,5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" l:HelpProvider.HelpKey="Indeks" x:Name="SmjerComboBox" />
+        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="3" Minimum="1" Maximum="64" x:Name="velicinaGrupeUpDown" l:HelpProvider.HelpKey="Prezime" />
+        <ComboBox Margin="10,5" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1" l:HelpProvider.HelpKey="Indeks" x:Name="SmjerComboBox" />
 
-        <ComboBox Margin="10,5" Grid.Column="1" Grid.Row="3" SelectedIndex="0" x:Name="OSComboBox">
+        <ComboBox Margin="10,5" Grid.Column="1" Grid.Row="5" SelectedIndex="0" x:Name="OSComboBox">
             <ComboBoxItem Content="Windows"/>
             <ComboBoxItem Content="Linux"/>
             <ComboBoxItem Content="Svejedno"/>
         </ComboBox>
 
-        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="4" Minimum="1" Maximum="10" x:Name="duzinaTerminaUpDown" Watermark="U časovima od 45min" l:HelpProvider.HelpKey="Prezime" />
-        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="5" Minimum="1" Maximum="10" x:Name="brojTerminaUpDown" l:HelpProvider.HelpKey="Prezime" />
+        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="6" Minimum="1" Maximum="10" x:Name="duzinaTerminaUpDown" Watermark="U časovima od 45min" l:HelpProvider.HelpKey="Prezime" />
+        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="7" Minimum="1" Maximum="10" x:Name="brojTerminaUpDown" l:HelpProvider.HelpKey="Prezime" />
 
-        <ListBox Margin="10,5" Grid.Column="2" Grid.Row="2" Grid.RowSpan="5" Height="140"
+        <ListBox Margin="10,5" Grid.Column="2" Grid.Row="4" Grid.RowSpan="5" Height="140"
                       SelectionMode="Multiple" VerticalAlignment="Top">
             <!-- APSOLUTNA VISINA.. ne valja..
                 OnLoad nakačiti nešto: https://stackoverflow.com/a/16084207
@@ -69,8 +78,15 @@
             <ListBoxItem>Osam</ListBoxItem>
         </ListBox>
 
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+            <CheckBox Name="TableNeeded" Margin="10, 5, 5, 5" Content="Tabla" IsChecked="True"/>
+            <CheckBox Name="ProjectorNeeded" Margin="5" Content="Projektor"/>
+            <!-- pamtiti čekiranost u promjenljivoj? Binding? -->
+            <CheckBox Name="SmartTableNeeded" Margin="5" Content="Pametna tabla"/>
+        </StackPanel>
+
         <!-- reset dugme, bez upisa u bazu? -->
-        <Button Grid.Column="0" Grid.Row="7" x:Name="Reset" Padding="10" Margin="10" 
+        <Button Grid.Column="0" Grid.Row="11" x:Name="Reset" Padding="10" Margin="10" 
 			MaxWidth="330" HorizontalAlignment="Center">
             <StackPanel>
                 <TextBlock FontSize="14"><Run Text="Isprazni polja"/></TextBlock>
@@ -79,9 +95,10 @@
             </StackPanel>
         </Button>
 
-        <StackPanel Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+        <StackPanel Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Button x:Name="Potvrda" Padding="10" Margin="10" 
-				MaxWidth="330" HorizontalAlignment="Center">
+				MaxWidth="330" HorizontalAlignment="Center"
+                    Click="Potvrda_Click">
                 <StackPanel>
                     <TextBlock FontSize="14" HorizontalAlignment="Center"><Run Text="Potvrdi [ENTER]"/></TextBlock>
 
@@ -98,7 +115,7 @@
                 </StackPanel> -->
         </StackPanel>
 
-        <Button Grid.Column="2" Grid.Row="7" x:Name="Izlaz" Padding="10" Margin="10" 
+        <Button Grid.Column="2" Grid.Row="11" x:Name="Izlaz" Padding="10" Margin="10" 
 			MaxWidth="330" HorizontalAlignment="Right">
             <StackPanel>
                 <TextBlock FontSize="14"><Run Text="Izlaz"/></TextBlock>

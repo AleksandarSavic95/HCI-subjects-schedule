@@ -18,6 +18,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <!-- Auto, jer su nazivi u prvoj koloni -->
@@ -25,27 +26,29 @@
             <ColumnDefinition Width="120" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="0" Text="Naziv"/>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="1" Text="Opis"/>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="2" Text="Proizvođač"/>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="3" Text="Za operativni sistem"/>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="4" Text="Godina izdavanja"/>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="5" Text="Cijena" VerticalAlignment="Center"/>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="6" Text="Sajt softvera"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="0" Text="Identifikator"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="1" Text="Naziv"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="2" Text="Opis"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="3" Text="Proizvođač"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="4" Text="Za operativni sistem"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="5" Text="Godina izdavanja"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="6" Text="Cijena" VerticalAlignment="Center"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="7" Text="Sajt softvera"/>
 
-        <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Naziv"/>
-        <TextBox Margin="10,5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Opis"/>
-        <TextBox Margin="10,5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Proizvodjac"/>
+        <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Identifikator"/>
+        <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Naziv"/>
+        <TextBox Margin="10,5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Opis"/>
+        <TextBox Margin="10,5" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Proizvodjac"/>
 
-        <ComboBox Margin="10,5" Grid.Column="1" Grid.Row="3" SelectedIndex="0" x:Name="OSComboBox">
+        <ComboBox Margin="10,5" Grid.Column="1" Grid.Row="4" SelectedIndex="0" x:Name="OSComboBox">
             <ComboBoxItem Content="Windows"></ComboBoxItem>
             <ComboBoxItem Content="Linux"></ComboBoxItem>
             <ComboBoxItem Content="Cross platform"></ComboBoxItem>
         </ComboBox>
 
-        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="4" Minimum="1950" Maximum="2017" x:Name="godinaIzdavanjaUpDown" l:HelpProvider.HelpKey="Prezime" VerticalAlignment="Top"/>
+        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="5" Minimum="1950" Maximum="2017" x:Name="godinaIzdavanjaUpDown" l:HelpProvider.HelpKey="Prezime" VerticalAlignment="Top" Value="2017"/>
         
-        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="5" Minimum="0" Maximum="2147483647" FormatString="C0" Increment="10" x:Name="cijenaUpDown" l:HelpProvider.HelpKey="Prezime" VerticalAlignment="Top">
+        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="6" Minimum="0" Maximum="2147483647"  Increment="10" x:Name="cijenaUpDown" l:HelpProvider.HelpKey="Prezime" VerticalAlignment="Top">
             <xctk:IntegerUpDown.Watermark>
                 <TextBlock HorizontalAlignment="Center" Padding="5, 0">
                     ↑+10 <TextBlock Width="10"/> ↓-10
@@ -53,10 +56,10 @@
             </xctk:IntegerUpDown.Watermark>
         </xctk:IntegerUpDown>
 
-        <TextBox Margin="10,5" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" x:Name="Sajt"/>
+        <TextBox Margin="10,5" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" x:Name="Sajt"/>
 
         <!-- reset dugme, bez upisa u bazu? -->
-        <Button Grid.Column="0" Grid.Row="7" Name="Reset" Padding="10" Margin="10" 
+        <Button Grid.Column="0" Grid.Row="8" Name="Reset" Padding="10" Margin="10" 
                     MaxWidth="330" HorizontalAlignment="Center">
             <StackPanel>
                 <TextBlock FontSize="14">Isprazni polja</TextBlock>
@@ -65,9 +68,10 @@
             </StackPanel>
         </Button>
 
-        <StackPanel Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+        <StackPanel Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Button Name="Potvrda" Padding="10" Margin="10" 
-                    MaxWidth="330" HorizontalAlignment="Center">
+                    MaxWidth="330" HorizontalAlignment="Center"
+                    Click="Potvrda_Click">
                 <StackPanel>
                     <TextBlock FontSize="14" HorizontalAlignment="Center">Potvrdi [ENTER]</TextBlock>
 
@@ -84,7 +88,7 @@
                 </StackPanel> -->
         </StackPanel>
 
-        <Button Grid.Column="2" Grid.Row="7" Name="Izlaz" Padding="10" Margin="10" 
+        <Button Grid.Column="2" Grid.Row="8" Name="Izlaz" Padding="10" Margin="10" 
                     MaxWidth="330" HorizontalAlignment="Right">
             <StackPanel>
                 <TextBlock FontSize="14">Izlaz</TextBlock>

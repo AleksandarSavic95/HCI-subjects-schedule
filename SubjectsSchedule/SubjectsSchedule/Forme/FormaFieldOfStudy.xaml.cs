@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SubjectsSchedule.Model;
+using System.Globalization;
 
 namespace SubjectsSchedule.Forme
 {
@@ -32,6 +34,10 @@ namespace SubjectsSchedule.Forme
             Console.WriteLine(Opis_Input.Text);
             Console.WriteLine(Datum_Input.Text);
             Console.WriteLine(Dugme_Button.ClickMode);
+
+            FieldOfStudyHanlder.Instance.Add(Id_Input.Text, Naziv_Input.Text, DateTime.ParseExact(Datum_Input.Text, "d.M.yyyy.", CultureInfo.InvariantCulture), Opis_Input.Text);
+            Console.WriteLine("{0}", FieldOfStudyHanlder.Instance.FindById(Id_Input.Text).Description);
+            MessageBox.Show("Smer uspesno dodat!");
             Console.WriteLine("aco");
         }
     }
