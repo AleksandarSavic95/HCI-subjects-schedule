@@ -75,7 +75,7 @@ namespace SubjectsSchedule.Schedules
                     Console.WriteLine("ItemCreated Event: Moj termin!");
                     Resource r = MainWindowParent.getResourceForClassroom(SelectedClassroom);
                     e.Item.Resources.Add(r); // dobro ovo??
-                    TerminHandler.Instance.AddTermin(SelectedClassroom.Id, e.Item as MyTermin);
+                    TerminHandler.Instance.AddTermin(e.Item as MyTermin);
                 }
                 else Console.WriteLine("ItemCreated Event nesto =/= MyTermin");
             };
@@ -185,7 +185,7 @@ namespace SubjectsSchedule.Schedules
         public void InitializeSubjectList(Classroom classroom = null)
         {
             Console.WriteLine("InitializeSubjectsList for: " + classroom.Id);
-            MainWindowParent.DataLoading = true; // evo i ovdje true
+            //MainWindowParent.DataLoading = true; // evo i ovdje true
 
             // TODO: popunjavanje liste predmeta za ucionicu [iz "baze"]
             Console.WriteLine("Ucitavanje podataka za odabranu ucionicu..." +
@@ -198,8 +198,9 @@ namespace SubjectsSchedule.Schedules
             {
                 Console.WriteLine("Nema proslijedjene ucionice!");
                 Console.WriteLine("Nema proslijedjene ucionice!");
-                classroom = new Classroom("1", "", 30, true, true, true, OS.C_BOTH);
-                classroom.InstalledSoftware.AddRange(new List<string>() { "1", "2", "3", "4" });
+                throw new Exception("NE MOZEE NUL!");
+                //classroom = new Classroom("1", "", 30, true, true, true, OS.C_BOTH);
+                //classroom.InstalledSoftware.AddRange(new List<string>() { "1", "2", "3", "4" });
             }
 
             SelectedClassroom = classroom;
@@ -212,8 +213,8 @@ namespace SubjectsSchedule.Schedules
             // */
 
             /* ako već postoje u Handler-u, zakomentarisati ovo */
-            FieldOfStudy fos1 = new FieldOfStudy("fos1", "SIIT", DateTime.Parse("25/05/2014"),"opisFOS1");
-            FieldOfStudy fos2 = new FieldOfStudy("fos2", "E3", DateTime.Parse("24/04/2015"), "opisFOS2");
+            //FieldOfStudy fos1 = new FieldOfStudy("fos1", "SIIT", DateTime.Parse("25/05/2014"),"opisFOS1");
+            //FieldOfStudy fos2 = new FieldOfStudy("fos2", "E3", DateTime.Parse("24/04/2015"), "opisFOS2");
 
             //SubjectHandler.Instance.Add("1", "subj1", fos1, "opis sub1", 20, 1, 2, false, true, true, OS.WINDOWS);
             //SubjectHandler.Instance.Add("2", "ISA", fos2, "oSubj2", 22, 2, 1, false, true, true, OS.SUBJ_WHATEVER);
@@ -241,8 +242,7 @@ namespace SubjectsSchedule.Schedules
             MyTermin deletedTermin = (MyTermin)e.Item;
             Subject deletedTerminSubject = deletedTermin.ForSubject;
 
-            TerminHandler.Instance.RemoveTermin(SelectedClassroom.Id, deletedTermin);
-
+            TerminHandler.Instance.RemoveTermin(deletedTermin);
             SubjectHandler.Instance.ChangeUnscheduledTermins(deletedTerminSubject.Id, false);
 
             UpdateSubjectRow(deletedTerminSubject);
@@ -343,10 +343,10 @@ namespace SubjectsSchedule.Schedules
                 }
                 if (!zauzeto) // ne može samo "else" zbog flag-a iznad
                 {
-                    MyTermin termin = new MyTermin(subject.Name, start, end);
-                    termin.ForSubject = subject;
+                    MyTermin termin = new MyTermin(subject.Name, start, end,SelectedClassroom, subject);
 
                     SubjectHandler.Instance.ChangeUnscheduledTermins(subject.Id);
+                    TerminHandler.Instance.AddTermin(termin);
                     
                     UpdateSubjectRow(subject);
 
@@ -364,9 +364,9 @@ namespace SubjectsSchedule.Schedules
             Subject itemsSubject = ((MyTermin)item).ForSubject;
             // broj nerapoređenih termina se povećava
             SubjectHandler.Instance.ChangeUnscheduledTermins(itemsSubject.Id, false);
-            
-            UpdateSubjectRow(itemsSubject);
+            TerminHandler.Instance.RemoveTermin((MyTermin)item);
 
+            UpdateSubjectRow(itemsSubject);
             kalendar.Schedule.Items.Remove(item);
         }
 
@@ -375,10 +375,10 @@ namespace SubjectsSchedule.Schedules
         private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             Console.WriteLine("ScheduleScheme IsVisibleChanged + " + ((bool)e.NewValue));
-            if ((bool)e.NewValue)
-                MainWindowParent.DataLoading = true;
-            else
-                MainWindowParent.DataLoading = false; // može samo MainWinPar.DataLoading = (bool)e.NewValue...
+            //if ((bool)e.NewValue)
+            //    MainWindowParent.DataLoading = true;
+            //else
+            //    MainWindowParent.DataLoading = false; // može samo MainWinPar.DataLoading = (bool)e.NewValue...
         }
 
         #region Bojenje redova u listi predmeta i prikaz TOolTip-ova

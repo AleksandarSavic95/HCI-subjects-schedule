@@ -71,19 +71,16 @@ namespace SubjectsSchedule.Schedules
         private void LoadTermins()
         {
             Console.WriteLine("Loading termins.... IZ JEDINSTVENOG RJECNIKA TERMINA!");
-            //foreach (var classroomTerminsPair in TerminHandler.Instance.TerminsByClassrooms)
-            //{
-            //    foreach (var termin in classroomTerminsPair.Value)
-            //    {
-            //        if (!termin.Resources.Contains(globalCalendar.Schedule.Resources[classroomTerminsPair.Key]))
-            //            termin.Resources.Add(globalCalendar.Schedule.Resources[classroomTerminsPair.Key]);
+            foreach (var terminPair in TerminHandler.Instance.TerminsByIds)
+            {
+                if (!terminPair.Value.Resources.Contains(globalCalendar.Schedule.Resources[terminPair.Key]))
+                    terminPair.Value.Resources.Add(globalCalendar.Schedule.Resources[terminPair.Key]);
 
-            //        foreach (var r in termin.Resources)
-            //        {
-            //            Console.WriteLine("Termin {0} ima resurs {1}", termin.HeaderText, r.Id);
-            //        }
-            //    }
-            //}
+                foreach (var r in terminPair.Value.Resources)
+                {
+                    Console.WriteLine("Termin {0} ima resurs {1}", terminPair.Value.HeaderText, r.Id);
+                }
+            }
         }
 
         /// <summary>
@@ -92,8 +89,8 @@ namespace SubjectsSchedule.Schedules
         public void PopulateResources()
         {
             Resource r;
-            Console.WriteLine("Populating global schedule's resources with {0} classrooms", ((MainWindow)Window.GetWindow(this)).ClassroomTabela.Classrooms.Count);
-            foreach (var c in ((MainWindow)Window.GetWindow(this)).ClassroomTabela.Classrooms)  // ClassroomHandler.Instance.Classrooms??/
+            Console.WriteLine("Populating global schedule's resources with {0} classrooms", ClassroomHandler.Instance.Classrooms.Count);
+            foreach (var c in ClassroomHandler.Instance.Classrooms)  // ((MainWindow)Window.GetWindow(this)).ClassroomTabela.Classrooms ??
             {
                 r = new Resource();
                 r.Name = c.Id;

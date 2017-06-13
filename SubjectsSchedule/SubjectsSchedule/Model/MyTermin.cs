@@ -61,6 +61,7 @@ namespace SubjectsSchedule.Model
             this.DescriptionText = string.Format("{0}\n{1} -- {2}", DescriptionCentering(start.DayOfWeek),
                     StartTime.ToString("HH:mm"), EndTime.ToString("HH:mm"));
         }
+
         /*
             |22:00 -- 22:00|  14 karaktera
             |  ponedeljak  | ponedeljak ima 2 razmaka
@@ -98,6 +99,12 @@ namespace SubjectsSchedule.Model
             this._forSubject = subject;
         }
 
+
+        public MyTermin(string id, string header, DateTime start, DateTime end,
+            Classroom classroom, Subject subject) : this(header, start, end, classroom, subject)
+        {
+            this.Id = id;
+        }
 
         /** Override the SaveTo and LoadFrom methods of the Appointment class
         * in order to serialize the custom property Kept. */

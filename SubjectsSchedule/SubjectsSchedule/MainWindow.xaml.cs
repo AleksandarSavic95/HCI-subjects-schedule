@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace SubjectsSchedule
 {
@@ -539,9 +540,8 @@ namespace SubjectsSchedule
         private void DockPanelLoaded(object sender, RoutedEventArgs e)
         {
             DataLoading = true;
-            Console.WriteLine("DATA LOADING = TRUE - DockPanelLoaded");
+            Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => InitializeClassroomsList()));
 
-            InitializeClassroomsList();
             RasporedUcionice.MainWindowParent = this;
             GlobalnaShema.PopulateResources();
 
@@ -550,37 +550,6 @@ namespace SubjectsSchedule
 
         private void InitializeClassroomsList()
         {
-            Button classroomButton;
-            foreach (var classroom in ClassroomHandler.Instance.Classrooms)
-            {
-                classroomButton = new Button();
-                classroomButton.Content = classroom.Id;
-                classroomButton.Click += ClassroomButton_Click;
-                classroomButton.Margin = new Thickness(0, 1, 0, 1);
-
-                // Kačimo objekat za dugme, da ga ne tražimo poslije u bazi
-                classroomButton.Tag = classroom;
-
-                ClassroomButtonList.Children.Add(classroomButton);
-            }
-            DataLoading = false;
-        }
-
-        private void InitializeClassroomsListOld()
-        {
-            DataLoading = true;
-            Console.WriteLine("DATA LOADING = TRUE - InitializeClassroomsListOld");
-            try
-            {
-                ClassroomHandler.Instance.Add("L-1", "prva", 16, true, false, false, OS.WINDOWS);
-                ClassroomHandler.Instance.Add("L-2", "druga", 22, true, true, false, OS.LINUX);
-                ClassroomHandler.Instance.Add("L-3", "treca", 14, true, true, true, OS.C_BOTH);
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("nisu dodate sve ucionice iz  t e s t  liste!");
-            }
-
             Button classroomButton;
             foreach (var classroom in ClassroomHandler.Instance.Classrooms)
             {
@@ -612,8 +581,10 @@ namespace SubjectsSchedule
             DataLoading = true; // false-ovaće ga RasporedUcionice... ljepota jedna xD
 
             this.HideAllForms();
+            GlobalnaShema.Visibility = Visibility.Collapsed;
 
-            RasporedUcionice.InitializeSubjectList(c);
+            Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() =>
+                RasporedUcionice.InitializeSubjectList(c)));
         }
 
         #region Prikaz poruke o učitavanju podataka
@@ -649,6 +620,7 @@ namespace SubjectsSchedule
         }
         #endregion
 
+        #region Show-ovi za forme i prikaze
         private void Predmeti_Click(object sender, RoutedEventArgs e)
         {
             Predmeti_Show();
@@ -759,6 +731,9 @@ namespace SubjectsSchedule
             HideAllForms();
             SubjectPrikaz.Visibility = Visibility.Visible;
         }
+
+        #endregion
+
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {

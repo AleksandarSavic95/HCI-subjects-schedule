@@ -71,12 +71,13 @@
         </StackPanel>
 
         <!-- Poruka "Učitavanje podataka" -->
-        <Canvas x:Name="messageDisplay" Visibility="{Binding DataLoading, Converter={utils:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
-                    VerticalAlignment="Stretch" Panel.ZIndex="3" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
-            <TextBlock Text="Učitavanje podataka..." Panel.ZIndex="5" TextAlignment="Center" Width="150" HorizontalAlignment="Right"
-					Canvas.Top="-35" Canvas.Left="-150"/>
+        <!-- {Binding DataLoading, Converter={utils:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged} -->
+        <Canvas x:Name="messageDisplay" Visibility="Visible"
+                    VerticalAlignment="Stretch" Panel.ZIndex="3" DockPanel.Dock="Top" HorizontalAlignment="Left">
+            <TextBlock Text="Učitavanje podataka..." Panel.ZIndex="-2" TextAlignment="Center" Width="150" 
+					Canvas.Top="45" Canvas.Left="20"/>
             <Rectangle Fill="Orange" Opacity="0.7" Width="150" Height="60" Panel.ZIndex="4"
-					Canvas.Top="-60" Canvas.Left="-150"/>
+					Canvas.Top="20" Canvas.Left="20"/>
         </Canvas>
 
         <!-- Dugmad za dodavanje entiteta -->
@@ -124,7 +125,7 @@
             </Button>
         </StackPanel>
 
-        <f:FormaClassroom DockPanel.Dock="Top" Visibility="Visible" HorizontalAlignment="Center" x:Name="ClassroomForma"/>
+        <f:FormaClassroom DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Center" x:Name="ClassroomForma"/>
         <f:FormaSubject DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SubjectForma"/>
         <f:FormaFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyForma"/>
         <f:FormaSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverForma"/>
@@ -139,9 +140,9 @@
         <p:PrikazFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyPrikaz" />
         <p:PrikazSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverPrikaz" />
 
-        <s:GlobalSchedule DockPanel.Dock="Top" Width="Auto" Visibility="Visible" x:Name="GlobalnaShema" HorizontalAlignment="Stretch">
+        <s:GlobalSchedule Panel.ZIndex="5" DockPanel.Dock="Top" Width="Auto" Visibility="Visible" x:Name="GlobalnaShema" HorizontalAlignment="Stretch">
         </s:GlobalSchedule>
-        <s:ScheduleScheme DockPanel.Dock="Top" Width="Auto" Visibility="Collapsed" x:Name="RasporedUcionice" HorizontalAlignment="Stretch"/>
+        <s:ScheduleScheme Panel.ZIndex="5" DockPanel.Dock="Top" Width="Auto" Visibility="Collapsed" x:Name="RasporedUcionice" HorizontalAlignment="Stretch"/>
     </DockPanel>
 </Window>
 
