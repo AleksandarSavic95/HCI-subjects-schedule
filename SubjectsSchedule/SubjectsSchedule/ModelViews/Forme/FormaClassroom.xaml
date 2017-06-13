@@ -19,6 +19,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <!-- Auto, jer su nazivi u prvoj koloni -->
@@ -86,17 +87,8 @@
             <CheckBox Name="SmartTableNeeded" Margin="5" Content="Pametna tabla" IsChecked="{Binding SelectedClassroom.SmartBoard, Mode=OneWay}"/>
         </StackPanel>
 
-        <!-- reset dugme, bez upisa u bazu? -->
-        <Button Grid.Column="0" Grid.Row="7" Name="Reset" Padding="10" Margin="10" 
-                    MaxWidth="330" HorizontalAlignment="Center">
-            <StackPanel>
-                <TextBlock FontSize="14">Isprazni polja</TextBlock>
-                <!-- <TextBlock FontSize="9" HorizontalAlignment="Center">bez potvrde unosa</TextBlock> -->
-                <TextBlock FontSize="10" HorizontalAlignment="Center">[ALT + ENTER]</TextBlock>
-            </StackPanel>
-        </Button>
-
-        <StackPanel Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="1" Orientation="Horizontal">
+        <TextBlock Grid.Row="7" Grid.ColumnSpan="3" Text="{Binding ValidationError}" TextAlignment="Center" FontSize="14" Foreground="Red" />
+        <StackPanel Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="1" Orientation="Horizontal">
             <Button Name="Potvrda" Padding="10" Margin="10" 
                     MaxWidth="330" HorizontalAlignment="Center"
                     Click="Potvrda_Click">

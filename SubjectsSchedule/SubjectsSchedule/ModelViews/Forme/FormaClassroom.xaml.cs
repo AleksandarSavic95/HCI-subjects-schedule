@@ -32,6 +32,21 @@ namespace SubjectsSchedule.ModelViews.Forme
             }
         }
 
+        private string _validationError;
+
+        public string ValidationError
+        {
+            get
+            {
+                return _validationError;
+            }
+            set
+            {
+                _validationError = value;
+                OnPropertyChanged("ValidationError");
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public virtual void OnPropertyChanged(string name)
@@ -49,12 +64,51 @@ namespace SubjectsSchedule.ModelViews.Forme
             DataContext = this; 
         }
 
+        private bool Validate()
+        {
+            if (string.IsNullOrWhiteSpace(Identificator.Text))
+            {
+                ValidationError = "Identifikator mora biti popunjen!";
+                return false;
+            }
+            else if (Identificator.Text.Length > 4)
+            {
+                ValidationError = "Identifikator mora biti do 4 karaktera!";
+                return false;
+            }
+            else if (SelectedClassroom == null || SelectedClassroom.Id != Identificator.Text)
+            {
+                if (ClassroomHandler.Instance.Has(Identificator.Text))
+                {
+                    ValidationError = "Ucionica sa identicnim identifikatorom vec postoji, promenite identifikator!";
+                    return false;
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(Description.Text))
+            {
+                ValidationError = "Opis mora biti popunjen!";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(brojMijestaUpDown.Text))
+            {
+                ValidationError = "Broj mesta mora biti popunjen!";
+                return false;
+            }
+
+            ValidationError = null;
+            return true;
+        }
+
         // Adding classroom
-        // TODO: Add validation for fields (requied fields and such validations)
         private void Potvrda_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Adding Classroom with data: {0}, {1}, {2}, {3}, {4}, {5}, {6}", Identificator.Text, Description.Text, Helper.ParseStringToInt(brojMijestaUpDown.Text),
                 Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded), Helper.GetOSFromString(OperatingSystem.Text));
+
+            if (!Validate())
+                return;
 
             if (string.IsNullOrEmpty(SelectedClassroom.Id))
                 ClassroomHandler.Instance.Add(Identificator.Text, Description.Text, Helper.ParseStringToInt(brojMijestaUpDown.Text),
@@ -65,7 +119,7 @@ namespace SubjectsSchedule.ModelViews.Forme
                     Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded),
                     Helper.GetOSFromString(OperatingSystem.Text), (MainWindow)Window.GetWindow(this));
 
-            MessageBox.Show("Ucionica uspesno dodata!");
+            ((MainWindow)Window.GetWindow(this)).Ucionice_Show();
         }
     }
 }

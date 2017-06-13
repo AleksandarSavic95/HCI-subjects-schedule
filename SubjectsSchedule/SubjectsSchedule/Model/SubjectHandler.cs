@@ -122,6 +122,11 @@ namespace SubjectsSchedule.Model
             context.NotifyAll("Subjects");
         }
 
+        public bool Has(string id)
+        {
+            return subjects.ContainsKey(id);
+        }
+
         public Subject FindById(string id)
         {
             return subjects[id];

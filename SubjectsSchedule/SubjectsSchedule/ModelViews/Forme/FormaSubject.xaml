@@ -26,6 +26,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <!-- Auto, jer su nazivi u prvoj koloni -->
@@ -85,8 +86,10 @@
             <CheckBox Name="SmartTableNeeded" Margin="5" Content="Pametna tabla" IsChecked="{Binding SelectedSubject.NeedsSmartBoard}"/>
         </StackPanel>
 
+        <TextBlock Grid.Row="11" Grid.ColumnSpan="3" Text="{Binding ValidationError}" TextAlignment="Center" FontSize="14" Foreground="Red" />
+
         <!-- reset dugme, bez upisa u bazu? -->
-        <Button Grid.Column="0" Grid.Row="11" x:Name="Reset" Padding="10" Margin="10" 
+        <Button Grid.Column="0" Grid.Row="12" x:Name="Reset" Padding="10" Margin="10" 
 			MaxWidth="330" HorizontalAlignment="Center">
             <StackPanel>
                 <TextBlock FontSize="14"><Run Text="Isprazni polja"/></TextBlock>
@@ -95,7 +98,7 @@
             </StackPanel>
         </Button>
 
-        <StackPanel Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+        <StackPanel Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Button x:Name="Potvrda" Padding="10" Margin="10" 
 				MaxWidth="330" HorizontalAlignment="Center"
                     Click="Potvrda_Click">
@@ -115,7 +118,7 @@
                 </StackPanel> -->
         </StackPanel>
 
-        <Button Grid.Column="2" Grid.Row="11" x:Name="Izlaz" Padding="10" Margin="10" 
+        <Button Grid.Column="2" Grid.Row="12" x:Name="Izlaz" Padding="10" Margin="10" 
 			MaxWidth="330" HorizontalAlignment="Right">
             <StackPanel>
                 <TextBlock FontSize="14"><Run Text="Izlaz"/></TextBlock>

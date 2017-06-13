@@ -521,26 +521,22 @@ namespace SubjectsSchedule
 
         private void Predmeti_Click(object sender, RoutedEventArgs e)
         {
-            HideAllForms();
-            SubjectTabela.Visibility = Visibility.Visible;
+            Predmeti_Show();
         }
 
         private void Smerovi_Click(object sender, RoutedEventArgs e)
         {
-            HideAllForms();
-            FieldOfStudyTabela.Visibility = Visibility.Visible;
+            Smerovi_Show();
         }
 
         private void Ucionice_Click(object sender, RoutedEventArgs e)
         {
-            HideAllForms();
-            ClassroomTabela.Visibility = Visibility.Visible;
+            Ucionice_Show();
         }
 
         private void Softveri_Click(object sender, RoutedEventArgs e)
         {
-            HideAllForms();
-            SoftverTabela.Visibility = Visibility.Visible;
+            Softveri_Show();
         }
 
         public void NotifyAll(string name)
@@ -560,6 +556,30 @@ namespace SubjectsSchedule
             FieldOfStudyForma.OnPropertyChanged(name);
             SubjectForma.OnPropertyChanged(name);
             SoftverForma.OnPropertyChanged(name);
+        }
+
+        public void Predmeti_Show()
+        {
+            HideAllForms();
+            SubjectTabela.Visibility = Visibility.Visible;
+        }
+
+        public void Smerovi_Show()
+        {
+            HideAllForms();
+            FieldOfStudyTabela.Visibility = Visibility.Visible;
+        }
+
+        public void Ucionice_Show()
+        {
+            HideAllForms();
+            ClassroomTabela.Visibility = Visibility.Visible;
+        }
+
+        public void Softveri_Show()
+        {
+            HideAllForms();
+            SoftverTabela.Visibility = Visibility.Visible;
         }
 
         public void NovaUcionica_Show()

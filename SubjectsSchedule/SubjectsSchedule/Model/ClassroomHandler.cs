@@ -119,7 +119,7 @@ namespace SubjectsSchedule.Model
 
         public bool Has(string id)
         {
-            return true ? classrooms[id] != null : false;
+            return classrooms.ContainsKey(id);
         }
 
         public Classroom FindById(string id)
