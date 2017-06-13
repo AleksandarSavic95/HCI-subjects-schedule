@@ -154,15 +154,13 @@
     <Compile Include="Schedules\GlobalSchedule.xaml.cs">
       <DependentUpon>GlobalSchedule.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Schedules\SceduleSchemeWeek.xaml.cs">
-      <DependentUpon>SceduleSchemeWeek.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Schedules\ScheduleScheme.xaml.cs">
       <DependentUpon>ScheduleScheme.xaml</DependentUpon>
     </Compile>
     <Compile Include="StudentHelpOld\StudentHelpOld.xaml.cs">
       <DependentUpon>StudentHelpOld.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\BoolToVisibilityConverter.cs" />
     <Compile Include="Utilities\Helper.cs" />
     <Compile Include="Utilities\MessageBoxManager.cs" />
     <Compile Include="Utilities\Questions.cs" />
@@ -244,10 +242,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Schedules\GlobalSchedule.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Schedules\SceduleSchemeWeek.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

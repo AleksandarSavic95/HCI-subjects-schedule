@@ -34,8 +34,11 @@
                 </Style>
             </DataGrid.CellStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="IdColumn" Header="Identifikator" Binding="{Binding Id}" Width="100" MinWidth="30"/>
-                <DataGridTextColumn x:Name="NameColumn" Header="Ime" Binding="{Binding Name}" Width="70" MinWidth="30"/>
+                <DataGridTextColumn x:Name="IdColumn" Header="Identifikator" Binding="{Binding Id}" Width="30" MinWidth="30"/>
+                <DataGridTextColumn x:Name="NameColumn" Header="Ime" Binding="{Binding Name}" Width="30" MinWidth="30"/>
+                <DataGridTextColumn x:Name="VelicinaGrupeColumn" Header="Velicina grupe" Binding="{Binding GroupSize}" Width="30" MinWidth="30" />
+                <DataGridTextColumn x:Name="SmerColumn" Header="Smer" Binding="{Binding FieldOfStudy.Name}" Width="30" MinWidth="30" />
+                <DataGridTextColumn x:Name="DuzinaTerminaColumn" Header="Duzina termina" Binding="{Binding ClassLength}" Width="30" MinWidth="30" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -53,6 +56,6 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Grid.Row="1" x:Name="NoviPredmet_Btn" Click="NoviPredmet_Btn_Click">Dodaj novi smer</Button>
+        <Button Grid.Row="1" x:Name="NoviPredmet_Btn" Click="NoviPredmet_Btn_Click">Dodaj novi predmet</Button>
     </Grid>
 </UserControl>

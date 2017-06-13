@@ -27,16 +27,11 @@ namespace SubjectsSchedule.Schedules
         {
             InitializeComponent();
 
-            //globalCalendar.IsEnabled = false;
-            //globalCalendar.IsManipulationEnabled = false;
+            // disable idem modification + AllowInPlaceEdit/Create = false
+            globalCalendar.ItemStartModifying += (s, e) => e.Confirm = false;
+            globalCalendar.ItemDeleting += (s, e) => e.Confirm = false;
 
-            //globalCalendar.ItemSettings.Cursor = Cursors.Hand;
-
-            // disable idem modification
-            globalCalendar.ItemStartModifying += (s, e) =>
-            {
-                e.Confirm = false;
-            };
+            //globalCalendar.ItemSelecting += (s, e) => e.Confirm = false; // nema mnogo svrhe..
         }
 
         private void GlobalSchedule_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -156,6 +151,23 @@ namespace SubjectsSchedule.Schedules
             globalCalendar.ItemLocations.Add(loc1);
             globalCalendar.ItemLocations.Add(loc2);
             globalCalendar.ItemLocations.Add(loc3);
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var grid = sender as Grid;
+            foreach (var res in grid.Resources)
+            {
+                Console.WriteLine(res);
+                Console.WriteLine(((MindFusion.Scheduling.Resource)res).Tag);
+                Console.WriteLine( ((Classroom) (((MindFusion.Scheduling.Resource)res).Tag)).Id);
+            }
+            var text = grid.Children[0] as TextBlock;
+            MessageBox.Show(text.Text);
+            MainWindow parent = (MainWindow)Window.GetWindow(this);
+            Classroom c = ClassroomHandler.Instance.FindById(text.Text);
+
+            parent.PrikazRasporedaUcionice(c);
         }
     }
 }

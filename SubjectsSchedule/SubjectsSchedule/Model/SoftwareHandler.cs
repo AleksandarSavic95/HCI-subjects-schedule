@@ -118,7 +118,7 @@ namespace SubjectsSchedule.Model
 
         public bool Has(string id)
         {
-            return true ? softwares[id] != null : false;
+            return softwares.ContainsKey(id);
         }
 
         public Software FindById(string id)

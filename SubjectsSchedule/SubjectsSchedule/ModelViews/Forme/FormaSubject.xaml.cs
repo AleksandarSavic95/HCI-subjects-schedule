@@ -40,6 +40,29 @@ namespace SubjectsSchedule.ModelViews.Forme
             }
         }
 
+        public List<Software> Softwares
+        {
+            get
+            {
+                return SoftwareHandler.Instance.Softwares;
+            }
+        }
+
+        private string _validationError;
+
+        public string ValidationError
+        {
+            get
+            {
+                return _validationError;
+            }
+            set
+            {
+                _validationError = value;
+                OnPropertyChanged("ValidationError");
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public virtual void OnPropertyChanged(string name)
@@ -54,31 +77,84 @@ namespace SubjectsSchedule.ModelViews.Forme
         {
             InitializeComponent();
 
-            //IsVisibleChanged += SetComboBoxItems;
-
             DataContext = this;
         }
 
-        private void SetComboBoxItems(object sender, DependencyPropertyChangedEventArgs args)
+        private bool Validate()
         {
-            Console.WriteLine("Here!, {0}", FieldOfStudyHanlder.Instance.FieldsOfStudy.Count);
-            SmjerComboBox.ItemsSource = FieldOfStudyHanlder.Instance.FieldsOfStudy;
-            SmjerComboBox.DisplayMemberPath = "Name";
-            SmjerComboBox.SelectedValuePath = "Id";
+            if (string.IsNullOrWhiteSpace(Identifikator.Text))
+            {
+                ValidationError = "Identifikator mora biti popunjen!";
+                return false;
+            }
+            else if (Identifikator.Text.Length > 4)
+            {
+                ValidationError = "Identifikator mora biti do 4 karaktera!";
+                return false;
+            }
+            else if (SelectedSubject == null || SelectedSubject.Id != Identifikator.Text)
+            {
+                if (SubjectHandler.Instance.Has(Identifikator.Text))
+                {
+                    ValidationError = "Ucionica sa identicnim identifikatorom vec postoji, promenite identifikator!";
+                    return false;
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(Opis.Text))
+            {
+                ValidationError = "Opis mora biti popunjen!";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(Naziv.Text))
+            {
+                ValidationError = "Naziv mora biti popunjen!";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(velicinaGrupeUpDown.Text)) {
+                ValidationError = "Velicina grupe mora biti popunjena!";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(duzinaTerminaUpDown.Text))
+            {
+                ValidationError = "Duzina termina mora biti popunjen!";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(brojTerminaUpDown.Text))
+            {
+                ValidationError = "Broj termina mora biti popunjen!";
+                return false;
+            }
+
+            if (SmjerComboBox.SelectedValue == null || string.IsNullOrWhiteSpace(SmjerComboBox.SelectedValue.ToString()))
+            {
+                ValidationError = "Smer mora biti odabran!";
+                return false;
+            }
+            else if (!FieldOfStudyHanlder.Instance.Has(SmjerComboBox.SelectedValue.ToString()))
+            {
+                ValidationError = "Nevalidan smer odabran!";
+                return false;
+            }
+
+            // TODO add validation: ukoliko postoji softver odabran, proveriti da li se operativni sistemi softera poklapaju
+            // sa operativnim sistemom koji zahteva predmet
+
+            ValidationError = null;
+            return true;
         }
 
         private void Potvrda_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(Identifikator.Text);
-            Console.WriteLine(Naziv.Text);
-            Console.WriteLine(Opis.Text);
-            Console.WriteLine(SmjerComboBox.SelectedValue);
-            Console.WriteLine(OSComboBox.Text);
-            Console.WriteLine(duzinaTerminaUpDown.Text);
-            Console.WriteLine(brojTerminaUpDown.Text);
+            if (!Validate())
+                return;
 
             if (string.IsNullOrEmpty(SelectedSubject.Id))
-                SubjectHandler.Instance.Add(Identifikator.Text, Naziv.Text, null, Opis.Text, Helper.ParseStringToInt(velicinaGrupeUpDown.Text),
+                SubjectHandler.Instance.Add(Identifikator.Text, Naziv.Text, FieldOfStudyHanlder.Instance.FindById(SmjerComboBox.SelectedValue.ToString()), Opis.Text, Helper.ParseStringToInt(velicinaGrupeUpDown.Text),
                     Helper.ParseStringToInt(duzinaTerminaUpDown.Text), Helper.ParseStringToInt(brojTerminaUpDown.Text),
                     Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded), Helper.GetOSFromString(OSComboBox.Text), (MainWindow)Window.GetWindow(this));
             else
@@ -86,7 +162,17 @@ namespace SubjectsSchedule.ModelViews.Forme
                     Helper.ParseStringToInt(duzinaTerminaUpDown.Text), Helper.ParseStringToInt(brojTerminaUpDown.Text),
                     Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded), Helper.GetOSFromString(OSComboBox.Text), (MainWindow)Window.GetWindow(this));
 
-            MessageBox.Show("Uspesno dodat predmet!");
+            if (SoftwaresList.SelectedItems != null && SoftwaresList.SelectedItems.Count > 0)
+            {
+                List<string> softwares = new List<string>();
+
+                foreach (Software s in SoftwaresList.SelectedItems)
+                    softwares.Add(s.Id);
+
+                SubjectHandler.Instance.FindById(Identifikator.Text).NeedsSoftware = softwares;
+            }
+
+            ((MainWindow)Window.GetWindow(this)).Predmeti_Show();
         }
     }
 }

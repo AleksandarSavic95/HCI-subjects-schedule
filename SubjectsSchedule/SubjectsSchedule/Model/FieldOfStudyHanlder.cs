@@ -118,9 +118,7 @@ namespace SubjectsSchedule.Model
 
         public bool Has(string id)
         {
-            FieldOfStudy fos = new FieldOfStudy();
-            
-            return fieldsOfStudy.TryGetValue(id, out fos);
+            return fieldsOfStudy.ContainsKey(id);
         }
 
         public FieldOfStudy FindById(string id)

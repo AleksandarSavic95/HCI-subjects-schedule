@@ -32,6 +32,21 @@ namespace SubjectsSchedule.ModelViews.Forme
             }
         }
 
+        private string _validationError;
+
+        public string ValidationError
+        {
+            get
+            {
+                return _validationError;
+            }
+            set
+            {
+                _validationError = value;
+                OnPropertyChanged("ValidationError");
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public virtual void OnPropertyChanged(string name)
@@ -49,8 +64,7 @@ namespace SubjectsSchedule.ModelViews.Forme
             DataContext = this;
         }
 
-        // TODO: cena should be double
-        private void Potvrda_Click(object sender, RoutedEventArgs e)
+        private bool Validate()
         {
             Console.WriteLine(Identifikator.Text);
             Console.WriteLine(Naziv.Text);
@@ -61,6 +75,70 @@ namespace SubjectsSchedule.ModelViews.Forme
             Console.WriteLine(cijenaUpDown.Text);
             Console.WriteLine(Sajt.Text);
 
+            if (string.IsNullOrWhiteSpace(Identifikator.Text))
+            {
+                ValidationError = "Identifikator mora biti popunjen!";
+                return false;
+            }
+            else if (Identifikator.Text.Length > 4)
+            {
+                ValidationError = "Identifikator mora biti do 4 karaktera!";
+                return false;
+            }
+            else if (SelectedSoftware == null || SelectedSoftware.Id != Identifikator.Text)
+            {
+                if (SoftwareHandler.Instance.Has(Identifikator.Text))
+                {
+                    ValidationError = "Ucionica sa identicnim identifikatorom vec postoji, promenite identifikator!";
+                    return false;
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(Naziv.Text))
+            {
+                ValidationError = "Naziv mora biti popunjen!";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(Opis.Text))
+            {
+                ValidationError = "Opis mora biti popunjen!";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(Proizvodjac.Text))
+            {
+                ValidationError = "Proizvodjac mora biti popunjen!";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(godinaIzdavanjaUpDown.Text))
+            {
+                ValidationError = "Godina izdavanja mora biti popunjen!";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(cijenaUpDown.Text))
+            {
+                ValidationError = "Cena mora biti popunjen!";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(Sajt.Text))
+            {
+                ValidationError = "Web sajt mora biti popunjen!";
+                return false;
+            }
+
+            ValidationError = null;
+            return true;
+        }
+
+        private void Potvrda_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Validate())
+                return;
+
             if (string.IsNullOrEmpty(SelectedSoftware.Id))
                 SoftwareHandler.Instance.Add(Identifikator.Text, Naziv.Text, Helper.GetOSFromString(OSComboBox.Text),
                     Proizvodjac.Text, Sajt.Text, godinaIzdavanjaUpDown.Text, Helper.ParseStringToDouble(cijenaUpDown.Text),
@@ -70,7 +148,7 @@ namespace SubjectsSchedule.ModelViews.Forme
                     Proizvodjac.Text, Sajt.Text, godinaIzdavanjaUpDown.Text, Helper.ParseStringToDouble(cijenaUpDown.Text),
                     Opis.Text, (MainWindow)Window.GetWindow(this));
 
-            MessageBox.Show("Uspesno dodat softver!");
+            ((MainWindow)Window.GetWindow(this)).Softveri_Show();
         }
     }
 }

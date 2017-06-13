@@ -19,6 +19,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <!-- Auto, jer su nazivi u prvoj koloni -->
@@ -58,9 +59,10 @@
         </xctk:IntegerUpDown>
 
         <TextBox Margin="10,5" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" x:Name="Sajt" Text="{Binding SelectedSoftware.WebSite, Mode=OneWay}"/>
+        <TextBlock Grid.Row="8" Grid.ColumnSpan="3" Text="{Binding ValidationError}" TextAlignment="Center" FontSize="14" Foreground="Red" />
 
         <!-- reset dugme, bez upisa u bazu? -->
-        <Button Grid.Column="0" Grid.Row="8" Name="Reset" Padding="10" Margin="10" 
+        <Button Grid.Column="0" Grid.Row="9" Name="Reset" Padding="10" Margin="10" 
                     MaxWidth="330" HorizontalAlignment="Center">
             <StackPanel>
                 <TextBlock FontSize="14">Isprazni polja</TextBlock>
@@ -69,7 +71,7 @@
             </StackPanel>
         </Button>
 
-        <StackPanel Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+        <StackPanel Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Button Name="Potvrda" Padding="10" Margin="10" 
                     MaxWidth="330" HorizontalAlignment="Center"
                     Click="Potvrda_Click">
@@ -88,15 +90,6 @@
                     <TextBlock Text="potvrdu i nastavak unošenja" />
                 </StackPanel> -->
         </StackPanel>
-
-        <Button Grid.Column="2" Grid.Row="8" Name="Izlaz" Padding="10" Margin="10" 
-                    MaxWidth="330" HorizontalAlignment="Right">
-            <StackPanel>
-                <TextBlock FontSize="14">Izlaz</TextBlock>
-                <!-- <TextBlock FontSize="9" HorizontalAlignment="Center">bez potvrde unosa</TextBlock> -->
-                <TextBlock FontSize="10" HorizontalAlignment="Center">[ESC]</TextBlock>
-            </StackPanel>
-        </Button>
     </Grid>
 </UserControl>
 

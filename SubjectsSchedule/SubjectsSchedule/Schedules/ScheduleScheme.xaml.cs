@@ -41,7 +41,6 @@ namespace SubjectsSchedule.Schedules
         public event PropertyChangedEventHandler PropertyChanged;
 
         private Classroom _selectedClassroom;
-
         public Classroom SelectedClassroom
         {
             get { return _selectedClassroom; }
@@ -57,6 +56,8 @@ namespace SubjectsSchedule.Schedules
 
         private bool mouseDown;
 
+        public MainWindow MainWindowParent;
+
         public ScheduleScheme()
         {
             PredmetiZaUcionicu = new ObservableCollection<Subject>();
@@ -70,7 +71,11 @@ namespace SubjectsSchedule.Schedules
             kalendar.ItemCreated += (s, e) =>
             {
                 if (e.Item is MyTermin) // ovo prije pisalo: kalendar.ResetDrag();
+                {
                     Console.WriteLine("ItemCreated Event: Moj termin!");
+                    Resource r = MainWindowParent.getResourceForClassroom(SelectedClassroom);
+                    e.Item.Resources.Add(r); // dobro ovo??
+                }
                 else Console.WriteLine("ItemCreated Event nesto =/= MyTermin");
             };
 
@@ -185,8 +190,6 @@ namespace SubjectsSchedule.Schedules
 
             /** Prikaz stranice za raspored učionice */
             PredmetiZaUcionicu.Clear();
-            this.Visibility = Visibility.Visible;
-
 
             if (classroom == null)
             {
@@ -217,6 +220,12 @@ namespace SubjectsSchedule.Schedules
 
             List<Subject> tmp = SubjectHandler.Instance.FindByClassroom(classroom); // RADI!
             if (tmp.Count > 0) tmp.ForEach(subj => AddToSubjectListAndUpdateRow(subj));
+
+            this.Visibility = Visibility.Visible;
+
+            // uklanjanje poruke o učitavanju podataka
+            MainWindow parent = (MainWindow)Window.GetWindow(this);
+            parent.DataLoading = false;
         }
 
         private void AddToSubjectListAndUpdateRow(Subject subj)
@@ -281,11 +290,8 @@ namespace SubjectsSchedule.Schedules
             e.Effects = DragDropEffects.None;
             
             if (e.Data.GetDataPresent(typeof(Subject))) {
-                Console.WriteLine("Subject! DragOver");
                 Subject subject = (Subject)e.Data.GetData(typeof(Subject));
-
                 DateTime? date = kalendar.GetDateAt(e.GetPosition(kalendar));
-                Console.WriteLine("\nsupsteno SUBJECT na datum: " + date);
 
                 if (date != null)
                     e.Effects = DragDropEffects.Copy;
@@ -331,17 +337,13 @@ namespace SubjectsSchedule.Schedules
                         zauzeto = false; // fleg za dodavanje novog
                     }
                 }
-                if (!zauzeto) // ne može else zbog flag-a iznad
+                if (!zauzeto) // ne može samo "else" zbog flag-a iznad
                 {
-                    Console.WriteLine(start.TimeOfDay.ToString());
-                    Console.WriteLine(start.ToString("HH:mm") + " - nezavršeno" + end.ToString("HH:mm"));
                     MyTermin termin = new MyTermin(subject.Name, start, end);
                     termin.ForSubject = subject;
 
-                    // broj nerapoređenih termina se smanjuje
                     SubjectHandler.Instance.ChangeUnscheduledTermins(subject.Id);
-
-                    // TODO: poboljšati (?) označavanje potpuno raspoređenog predmeta
+                    
                     UpdateSubjectRow(subject);
 
                     kalendar.Schedule.Items.Add(termin);
@@ -358,8 +360,7 @@ namespace SubjectsSchedule.Schedules
             Subject itemsSubject = ((MyTermin)item).ForSubject;
             // broj nerapoređenih termina se povećava
             SubjectHandler.Instance.ChangeUnscheduledTermins(itemsSubject.Id, false);
-
-            // TODO: poboljšati (?) označavanje NEraspoređenog predmeta ** kada postane NErasp. drugačije od već NErasp.?? **
+            
             UpdateSubjectRow(itemsSubject);
 
             kalendar.Schedule.Items.Remove(item);
@@ -372,6 +373,7 @@ namespace SubjectsSchedule.Schedules
             Console.WriteLine("ScheduleScheme IsVisibleChanged + " + ((bool)e.NewValue));
         }
 
+        #region Bojenje redova u listi predmeta i prikaz TOolTip-ova
         /// <summary>
         /// Asinhroni(?) poziv za bojenje svih redova u listi predmeta.
         /// <see cref="ColorMyRows"/>
@@ -414,24 +416,34 @@ namespace SubjectsSchedule.Schedules
             }
         }
 
+        /// <summary>
+        /// Mijenjamo boju i ToolTip reda u listi predmeta u skladu sa brojem NEraspoređenih termina.
+        /// </summary>
+        /// <param name="subject"></param>
         private void UpdateSubjectRow(Subject subject)
         {
+            DataGridRow row = SubjectsList.ItemContainerGenerator.ContainerFromItem(subject) as DataGridRow;
             if (subject.UnscheduledTermins < 1)
             {
-                DataGridRow row = SubjectsList.ItemContainerGenerator.ContainerFromItem(subject) as DataGridRow;
                 row.Background = Brushes.PaleGreen;
                 row.ToolTip = "Predmet " + subject.Name + " je raspoređen.";
-                //row.IsEnabled = false;
-                SubjectsList.UnselectAll();
             }
             else
             {
-                DataGridRow row = SubjectsList.ItemContainerGenerator.ContainerFromItem(subject) as DataGridRow;
                 row.Background = Brushes.PaleGoldenrod; // black'n gold baby :P
                 row.ToolTip = "Predmet " + subject.Name + " ima neraspoređene termine.";
-                //row.IsEnabled = true;
-                SubjectsList.UnselectAll();
             }
+            SubjectsList.UnselectAll();
+        }
+
+        #endregion
+
+        private void Schedule_Zatvori_Click(object sender, RoutedEventArgs e)
+        {
+            this.Visibility = Visibility.Collapsed;
+            SelectedClassroom = null;
+            MainWindowParent.GlobalnaShema.Visibility = Visibility.Visible;
+            MainWindowParent.DataLoading = true;
         }
     }
 }
