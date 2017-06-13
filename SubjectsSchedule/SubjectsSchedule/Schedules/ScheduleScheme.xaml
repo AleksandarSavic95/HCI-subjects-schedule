@@ -12,10 +12,10 @@
              d:DesignHeight="500" d:DesignWidth="600" IsVisibleChanged="UserControl_IsVisibleChanged"
     ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible">
     <!-- DataContext="{Binding RelativeSource={RelativeSource Self}}" -->
-    <Grid Loaded="ScheduleSchemeLoaded" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid Loaded="ScheduleSchemeLoaded" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="Auto" MinHeight="333"/>
+            <RowDefinition Height="164"/>
+            <RowDefinition Height="Auto" MinHeight="300"/>
             <RowDefinition Height="Auto" MinHeight="36"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -24,7 +24,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- info box -->
-        <StackPanel Grid.Column="0" Grid.Row="0" Margin="5, 5, 5, 20"
+        <StackPanel Grid.Column="0" Grid.Row="0" Margin="5" Panel.ZIndex="5"
                     TextBlock.FontSize="14" TextBlock.TextAlignment="Justify">
             <!-- ima i 48x48 -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
@@ -34,10 +34,9 @@
                 </TextBlock>
             </StackPanel>
             <TextBlock TextWrapping="Wrap">
-                U HELP!: Termine za održavanje nastave pravite tako što prevučete predmet iz liste na šemu rasporeda.
+                Termine za održavanje nastave pravite tako što prevučete predmet iz liste na šemu rasporeda.
                 <LineBreak/>
-                Fiksna količina teksta - provjeri Wraping i Alignment
-                <LineBreak/>
+                <!-- <LineBreak/> -->
             </TextBlock>
             <Grid TextBlock.FontSize="10" VerticalAlignment="Bottom">
                 <Grid.RowDefinitions>
@@ -63,7 +62,7 @@
             </Grid>
         </StackPanel>
 
-        <planner:Calendar x:Name="kalendar" Culture="sr"
+        <planner:Calendar x:Name="kalendar" Culture="sr"  Panel.ZIndex="5"
             AllowDrop="True" DragOver="kalendar_DragOver" Drop="kalendar_Drop"
             Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" MinWidth="300"
             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
@@ -126,7 +125,7 @@
 
         <!-- difference between ListBox and ListView
         https://stackoverflow.com/a/4703658/2101117 -->
-        <DataGrid x:Name="SubjectsList" Grid.Column="0" Grid.Row="1"
+        <DataGrid x:Name="SubjectsList" Grid.Column="0" Grid.Row="1"  Panel.ZIndex="5"
                   ItemsSource="{Binding PredmetiZaUcionicu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" SelectionUnit="FullRow"
                   ScrollViewer.CanContentScroll="True" IsReadOnly="True"
