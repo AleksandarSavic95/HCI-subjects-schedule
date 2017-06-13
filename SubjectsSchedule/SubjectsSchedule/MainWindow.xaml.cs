@@ -1,3 +1,4 @@
+using MindFusion.Scheduling;
 using SubjectsSchedule.Model;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace SubjectsSchedule
         private bool _enable;
 
         public static Thread demoModeThread;
+        public DemoMode.DemoModeWindow demoModeWindow;
 
         public bool MenuEnabled
         {
@@ -52,7 +54,7 @@ namespace SubjectsSchedule
         {
             InitializeComponent();
 
-            //newClassroom = new FormaClassroom.FormaClassroom();
+            DataLoading = true;
 
             try
             {
@@ -68,6 +70,22 @@ namespace SubjectsSchedule
             // Omogućuje postavku naziva za dugmad u messageBox-ovima
             // credits: https://www.codeproject.com/Articles/18399/Localizing-System-MessageBox
             System.Windows.Forms.MessageBoxManager.Register();
+
+            // prevent the window to cover the TaskBar: https://stackoverflow.com/a/35010001/2101117
+            MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+            MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
+        }
+
+        internal Resource getResourceForClassroom(Classroom selectedClassroom)
+        {
+            Resource retVal = GlobalnaShema.globalCalendar.ItemResources[selectedClassroom.Id];
+            Console.WriteLine("resurs za {0}: {1}", selectedClassroom.Id, retVal);
+            if (retVal == null)
+            {
+                Console.WriteLine("nadjeni Resource - null ~ nije nadjen?");
+                return new Resource();
+            }
+            return retVal;
         }
 
         private void Serialize()
@@ -80,11 +98,13 @@ namespace SubjectsSchedule
             // SoftwareHandler.Instance.Add("s1", "name2", OS.LINUX, "producer", "http://www.org.com", "2012", 300.00, "This is dummy description 3");
             // SubjectHandler.Instance.Add("s2", "name3", "f1", "This is dummy description 4", 21, 60, 3, true, false, false, OS.LINUX);
             
-            // TODO: maybe pull file paths to some global config file?
+            // TODO: maybe pull file paths to some global config file? - kasnije ;)
             FieldOfStudyHanlder.Instance.Serialize("study-fields.bin");
             ClassroomHandler.Instance.Serialize("classrooms.bin");
             SoftwareHandler.Instance.Serialize("softwares.bin");
             SubjectHandler.Instance.Serialize("subjects.bin");
+
+            TerminHandler.Instance.Serialize("termins.bin");
 
             Console.WriteLine("Serialization finished");
         }
@@ -97,6 +117,8 @@ namespace SubjectsSchedule
             ClassroomHandler.Instance.Deserialize("classrooms.bin");
             SoftwareHandler.Instance.Deserialize("softwares.bin");
             SubjectHandler.Instance.Deserialize("subjects.bin");
+
+            TerminHandler.Instance.Deserialize("termins.bin");
 
             // Testing
             // Console.WriteLine(FieldOfStudyHanlder.Instance.FieldsOfStudy[0]);
@@ -184,6 +206,16 @@ namespace SubjectsSchedule
             e.CanExecute = true;
         }
 
+        private void AbortDemo_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void AbortDemo_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            demoModeWindow.AbortDemo();
+        }
+
         #endregion
 
         #region PropertyChanged handling
@@ -205,12 +237,16 @@ namespace SubjectsSchedule
             //w.ShowDialog();
         }
 
-        private void demoMode(DemoMode.DemoModeWindow demoModeWindow)
+        private void demoMode() // DemoMode.DemoModeWindow demoModeWindow
         {
+            #region unos učionice
+
             Dispatcher.Invoke(() =>
-            { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber + ". Dodavanje učionice" 
-                + demoModeWindow.currentDemoDescription.Text; });
-            
+            { demoModeWindow.currentDemoDescription.Text = "I - Dodavanje učionice\n" 
+                + demoModeWindow.currentDemoDescription.Text; } );
+
+            Thread.Sleep(3000);
+
             Dispatcher.Invoke(() => {
                 ButtonAutomationPeer peer =
                 new ButtonAutomationPeer(dodajUcionicuDugme);
@@ -228,7 +264,9 @@ namespace SubjectsSchedule
 
             Dispatcher.Invoke(() =>
             { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
-                + ". Kliknemo na polje opisa učionice" + demoModeWindow.currentDemoDescription.Text; });
+                + ". Kliknemo na polje opisa učionice\n" + demoModeWindow.currentDemoDescription.Text; });
+
+            Thread.Sleep(3000);
 
             Dispatcher.Invoke(() => {
                 TextBoxAutomationPeer peer = new TextBoxAutomationPeer(ClassroomForma.Description);
@@ -244,15 +282,17 @@ namespace SubjectsSchedule
 
             Dispatcher.Invoke(() =>
             { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
-                + ". Unesemo broj radnika" + demoModeWindow.currentDemoDescription.Text; });
-            Thread.Sleep(2000);
+                + ". Unesemo broj radnika\n" + demoModeWindow.currentDemoDescription.Text; });
+            Thread.Sleep(2500);
 
             Dispatcher.Invoke(() => { ClassroomForma.brojMijestaUpDown.Value = 3; });
             Thread.Sleep(2000);
 
             Dispatcher.Invoke(() =>
             { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
-                + ". Odaberemo operativni sistem" + demoModeWindow.currentDemoDescription.Text; });
+                + ". Odaberemo operativni sistem\n" + demoModeWindow.currentDemoDescription.Text; });
+
+            Thread.Sleep(3000);
 
             Dispatcher.Invoke(() => {
                 ComboBoxAutomationPeer peer = new ComboBoxAutomationPeer(ClassroomForma.OperatingSystem);
@@ -261,7 +301,7 @@ namespace SubjectsSchedule
                     peer.GetPattern(PatternInterface.ExpandCollapse);
                 provider.Expand(); });
 
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
 
             Dispatcher.Invoke(() => { ClassroomForma.OperatingSystem.SelectedIndex = 2; });
 
@@ -275,11 +315,26 @@ namespace SubjectsSchedule
                 provider.Collapse();
             });
             
+            Thread.Sleep(3000);
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber
+                  + ". Odaberemo instalirani softver iz liste.\n" + demoModeWindow.currentDemoDescription.Text;
+            });
+            Thread.Sleep(5500);
+
+            Dispatcher.Invoke(() => {
+                ListBoxAutomationPeer peer = new ListBoxAutomationPeer(ClassroomForma.SoftwaresList);
+                peer.SetFocus();
+                ClassroomForma.SoftwaresList.SelectedIndex = 2; });
             Thread.Sleep(2000);
+            Dispatcher.Invoke(() => { ClassroomForma.SoftwaresList.SelectedIndex = 4; });
+
+            Thread.Sleep(3000);
             Dispatcher.Invoke(() =>
             { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
-                + ". Označimo opremu koja postoji. Tablu nemamo, ali imamo projektor." + demoModeWindow.currentDemoDescription.Text; });
-            Thread.Sleep(3000);
+                + ". Označimo opremu koja postoji. Tablu nemamo, ali imamo projektor.\n" + demoModeWindow.currentDemoDescription.Text; });
+            Thread.Sleep(5500);
 
             Dispatcher.Invoke(() => {
                 ClassroomForma.TableNeeded.IsChecked = false;
@@ -288,7 +343,7 @@ namespace SubjectsSchedule
             Thread.Sleep(2000);
             Dispatcher.Invoke(() =>
             { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
-                + ". Potvrdimo unos." + demoModeWindow.currentDemoDescription.Text; });
+                + ". Potvrdimo unos.\n" + demoModeWindow.currentDemoDescription.Text; });
             Thread.Sleep(3000);
             Dispatcher.Invoke(() =>
             {
@@ -296,33 +351,42 @@ namespace SubjectsSchedule
                 new ButtonAutomationPeer(ClassroomForma.Potvrda);
                 peer.SetFocus();
             });
-
-            Console.WriteLine("sad idemo na ENTER");
+            
             Thread.Sleep(2000);
-
             Dispatcher.Invoke(() =>
-            {
-                ButtonAutomationPeer peer =
-                new ButtonAutomationPeer(ClassroomForma.Potvrda);
-                IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke)
-                    as IInvokeProvider;
+            {   ButtonAutomationPeer peer = new ButtonAutomationPeer(ClassroomForma.Potvrda);
+                IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
                 invokeProv.Invoke();
+
+                demoModeWindow.demoNumber = 0;
             });
 
-            Thread.Sleep(2000);
-            Console.WriteLine("444444444444", "44444");
+            Thread.Sleep(1000);
+            Console.WriteLine("444444444444");
+
+            #endregion unos učionice
+
+
         }
 
         private void Demonstracioni_mod_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("Sada će aplikacija početi da Vam prikazuje funkcionalnosti." +
-            //    "\n\r Da prekinete prikaz, pritisnite dugme na tastaturi << SPACE >> ili kliknite \n\r na dugme u " +
-            //    "donjem desnom uglu ekrana.",
+            //MessageBox.Show("Sada će aplikacija početi da Vam prikazuje funkcionalnosti.\n" +
+            //    "\n\r U donjem desnom uglu Vašeg ekrana će biti prikazan prozor na kome \n" +
+            //    "će Vam se, po redu izvršavanja, prikazivati akcije koje budu izvršavane. \n\n" +
+            //    "Prekid prikaza funkcionalnosti možete izvršiti na dva načina: \n\n" + 
+            //    "  1. Pomoću tastature\n" +
+            //    "    Kombinacijom dugmadi CTRL i slova D\n" +
+            //    "  \n  2. Pomoću miša\n" +
+            //    "    Klikom na dugme < Prekid demonstracije > na dnu novootvorenog \n" +
+            //    "    prozora u desnom uglu ekrana.",
             //    "Početak demonstracije");
-            var demoModeWindow = new DemoMode.DemoModeWindow();
+
+            demoModeWindow = new DemoMode.DemoModeWindow();
             demoModeWindow.Show();
 
-            demoModeThread = new Thread( () => demoMode(demoModeWindow) );
+            //demoModeThread = new Thread( () => demoMode(demoModeWindow) );
+            demoModeThread = new Thread(new ThreadStart(demoMode));
             demoModeThread.SetApartmentState(ApartmentState.STA);
             demoModeThread.Start();
         }
@@ -344,15 +408,9 @@ namespace SubjectsSchedule
             w.ShowDialog();
         }
 
-        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
-        {
-            //var w = new DDrop.DragDropWindow();
-            //w.ShowDialog();
-        }
-
         private void MenuItem_Click_5(object sender, RoutedEventArgs e)
         {
-            //var w = new Kontrole.ToolbarTreeContext();
+            //var w = new DDrop.DragDropWindow();
             //w.ShowDialog();
         }
         #endregion
@@ -464,7 +522,6 @@ namespace SubjectsSchedule
             HideAllForms();
             SoftverForma.Visibility = Visibility.Visible;
         }
-#endregion
 
         private void PregledSheme_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -474,16 +531,21 @@ namespace SubjectsSchedule
         private void PregledSheme_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             HideAllForms();
+            Console.WriteLine("Ne treba ovo ili treba mijenjati!");
             RasporedUcionice.Visibility = Visibility.Visible;
         }
+        #endregion
 
         private void DockPanelLoaded(object sender, RoutedEventArgs e)
         {
             InitializeClassroomsList();
+            RasporedUcionice.MainWindowParent = this;
         }
 
         private void InitializeClassroomsList()
         {
+            DataLoading = true;
+            Console.WriteLine("DATA LOADING = TRUE");
             try
             {
                 ClassroomHandler.Instance.Add("L-1", "prva", 16, true, false, false, OS.WINDOWS);
@@ -492,7 +554,7 @@ namespace SubjectsSchedule
             }
             catch (Exception)
             {
-                Console.WriteLine("nisu dodate sve ucionice iz test liste!");
+                Console.WriteLine("nisu dodate sve ucionice iz  t e s t  liste!");
             }
 
             Button classroomButton;
@@ -500,7 +562,7 @@ namespace SubjectsSchedule
             {
                 classroomButton = new Button();
                 classroomButton.Content = classroom.Id;
-                classroomButton.Click += ClassroomButton_Click; ;
+                classroomButton.Click += ClassroomButton_Click;
                 classroomButton.Margin = new Thickness(0, 1, 0, 1);
 
                 // Kačimo objekat za dugme, da ga ne tražimo poslije u bazi
@@ -508,22 +570,59 @@ namespace SubjectsSchedule
 
                 ClassroomButtonList.Children.Add(classroomButton);
             }
+            DataLoading = false;
         }
 
         private void ClassroomButton_Click(object sender, RoutedEventArgs e)
         {
             Classroom c = (Classroom)((Button)e.Source).Tag;
+            PrikazRasporedaUcionice(c);
+        }
 
-            //string classroomId = (e.Source as Button).Content.ToString();
-            //Console.WriteLine("Klik na: " + classroomId + " ||| moze i Tag property..");
-            //Classroom c1 = ClassroomHandler.Instance.FindById(classroomId);
-
+        public void PrikazRasporedaUcionice(Classroom c)
+        {
             if (RasporedUcionice.SelectedClassroom == c)
                 return;
 
             this.HideAllForms();
+
+            DataLoading = true; // false-ovaće ga RasporedUcionice... ljepota jedna xD
+
             RasporedUcionice.InitializeSubjectList(c);
         }
+
+        #region Prikaz poruke o učitavanju podataka
+        private bool _isLoading;
+        public bool DataLoading
+        {
+            get
+            { return _isLoading; }
+
+            set
+            {
+                _isLoading = value;
+                Console.WriteLine("DataLoading se promijenilo!");
+                OnPropertyChanged("DataLoading");
+            }
+        }
+
+        private double popupLeft;
+        public double PopupLeft
+        {
+            get
+            {
+                //popupLeft = (this.ActualWidth / 2 - 50);
+                popupLeft = 100;
+                return popupLeft;
+            }
+
+            set
+            {
+                popupLeft = value;
+                OnPropertyChanged("PopupLeft");
+            }
+        }
+        #endregion
 
         private void Predmeti_Click(object sender, RoutedEventArgs e)
         {

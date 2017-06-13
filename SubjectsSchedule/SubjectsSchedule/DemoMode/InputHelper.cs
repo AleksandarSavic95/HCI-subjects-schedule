@@ -205,7 +205,7 @@ namespace SubjectsSchedule.InputHelper
                 case FlowDirection.RightToLeft:
                     elementMiddlePointToScreen = new Point(elementPointToScreen.X - convertedHalfWidth, elementPointToScreen.Y + convertedhalfHeight);
                     break;
-            }
+            }   
 
             System.Drawing.Point elementCenterPointToScreen = new System.Drawing.Point
                 (Convert.ToInt32(elementMiddlePointToScreen.X), Convert.ToInt32(elementMiddlePointToScreen.Y));

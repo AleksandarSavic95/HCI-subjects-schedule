@@ -8,10 +8,21 @@
         xmlns:t="clr-namespace:SubjectsSchedule.ModelViews.Tabele"
         xmlns:p="clr-namespace:SubjectsSchedule.ModelViews.Prikazi"
         mc:Ignorable="d"
-        Title="Demonstracioni mod - trenutna akcija" Height="271.134" Width="281.333" Topmost="True" ShowInTaskbar="False">
+        xmlns:cmd="clr-namespace:SubjectsSchedule.MyCommands"
+        Title="Demonstracioni mod - trenutna akcija" ResizeMode="NoResize" WindowStartupLocation="Manual"  WindowStyle="None" 
+         Height="300" Width="280" Topmost="True" ShowInTaskbar="False">
+    <Window.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommands.AbortDemo" CanExecute="AbortDemo_CanExecute" Executed="AbortDemo_Executed"></CommandBinding>
+    </Window.CommandBindings>
     <StackPanel>
         <TextBox x:Name="currentDemoDescription" IsReadOnly="True" TextWrapping="Wrap" 
-                 VerticalScrollBarVisibility="Visible" AcceptsReturn="True"  FontSize="16" Height="205" TextChanged="currentDemoDescription_TextChanged" />
-        <Button Width="Auto" Click="Button_Click" Content="Prekid demonstracije" Height="28"/>
+                 VerticalScrollBarVisibility="Visible" AcceptsReturn="True"  FontSize="16" Height="264" TextChanged="currentDemoDescription_TextChanged" />
+        <Button Width="Auto" Click="Button_Click" Command="" Height="36">
+            <StackPanel>
+                <TextBlock HorizontalAlignment="Center">Prekid demonstracije</TextBlock>
+                <TextBlock HorizontalAlignment="Center"><Bold>[Ctrl + D]</Bold></TextBlock>
+            </StackPanel>
+
+        </Button>
     </StackPanel>
 </Window>

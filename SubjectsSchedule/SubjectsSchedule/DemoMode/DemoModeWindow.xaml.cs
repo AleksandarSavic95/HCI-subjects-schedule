@@ -23,21 +23,42 @@ namespace SubjectsSchedule.DemoMode
         public DemoModeWindow()
         {
             InitializeComponent();
-            demoNumber = 1;
+            demoNumber = 0;
+            var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
+            this.Left = desktopWorkingArea.Right - this.Width;
+            this.Top = desktopWorkingArea.Bottom - this.Height;
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            AbortDemo();
+        }
+
+        public void AbortDemo()
+        {
             MainWindow.demoModeThread.Abort();
             Console.WriteLine("abortirao demoModeThread");
-            currentDemoDescription.Text = demoNumber + ". abortirao demoModeThread \n"
+            currentDemoDescription.Text = "\n Prekid demonstracije \n"
                 + currentDemoDescription.Text + "\n";
+
+            this.Close();
         }
 
         private void currentDemoDescription_TextChanged(object sender, TextChangedEventArgs e)
         {
             Console.WriteLine("textChanged u Demo modu, demoNumber ++");
             demoNumber++;
+        }
+
+        private void AbortDemo_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void AbortDemo_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            AbortDemo();
         }
     }
 }

@@ -176,5 +176,10 @@ namespace SubjectsSchedule.Model
         {
             return this.Id.Equals(((Classroom)obj).Id);
         }
+
+        public override int GetHashCode()
+        {
+            return this.Id.GetHashCode();
+        }
     }
 }
