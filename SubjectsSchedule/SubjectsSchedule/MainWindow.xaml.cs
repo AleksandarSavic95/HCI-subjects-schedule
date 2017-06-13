@@ -202,9 +202,85 @@ namespace SubjectsSchedule
         private void demoMode(DemoMode.DemoModeWindow demoModeWindow)
         {
             Dispatcher.Invoke(() =>
-            { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber + ". Dodavanje učionice" 
-                + demoModeWindow.currentDemoDescription.Text; });
-            
+            {
+                demoModeWindow.currentDemoDescription.Text = "\nII Pregled učionica\n"
+                  + demoModeWindow.currentDemoDescription.Text;
+            });
+
+            Thread.Sleep(3000);
+
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber + ". Odaberemo meni Tabele\n"
+                  + demoModeWindow.currentDemoDescription.Text;
+            });
+
+            Thread.Sleep(3000);
+
+
+            Dispatcher.Invoke(() => {
+                MenuItemAutomationPeer peer =
+                new MenuItemAutomationPeer(this.MeniTabele);
+                
+                IExpandCollapseProvider provider = (IExpandCollapseProvider)
+                    peer.GetPattern(PatternInterface.ExpandCollapse);
+                provider.Expand();
+            });
+
+            Thread.Sleep(2000);
+
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber + ". Odaberemo stavku Učionice\n"
+                  + demoModeWindow.currentDemoDescription.Text;
+            });
+
+            Thread.Sleep(2000);
+
+            Dispatcher.Invoke(() => {
+                MenuItemAutomationPeer peer = new MenuItemAutomationPeer(this.MeniItemUcionice);
+                peer.SetFocus();
+            });
+
+            Thread.Sleep(2000);
+
+            Dispatcher.Invoke(() => {
+                MenuItemAutomationPeer peer = new MenuItemAutomationPeer(this.MeniItemUcionice);
+                IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke)
+                    as IInvokeProvider;
+
+                peer.SetFocus();
+                invokeProv.Invoke();
+            });
+
+            Thread.Sleep(2000);
+
+            Dispatcher.Invoke(() =>
+            { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber + ". Sada vidimo tabelu sa učionicama" +
+                " gdje možemo svaku od njih obrisati ili izmijeniti" + demoModeWindow.currentDemoDescription.Text; });
+
+            Thread.Sleep(2000);
+
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber + ". Prvo ćemo izmijeniti jednu" +
+                  demoModeWindow.currentDemoDescription.Text;
+                
+                this.ClassroomTabela.ClassroomsList.SelectedItem = 1;
+                //ClassroomHandler.Instance.SelectedClassroom = ClassroomTabela.Classrooms[0];
+                var sender = new System.Windows.Controls.Button();
+                //for (var vis = sender as Visual; vis != null; vis = VisualTreeHelper.GetParent(vis) as Visual)
+                //    if (vis is DataGridRow)
+                //    {
+                        //var row = (DataGridRow)vis;
+                        ClassroomHandler.Instance.SetSelectedClassroom(ClassroomTabela.Classrooms[0], (MainWindow)Window.GetWindow(this));
+                    //    break;
+                    //}
+                ((MainWindow)Window.GetWindow(this)).NovaUcionica_Show();
+            });
+
+            Thread.Sleep(4000);
+
             Dispatcher.Invoke(() => {
                 ButtonAutomationPeer peer =
                 new ButtonAutomationPeer(dodajUcionicuDugme);
@@ -213,12 +289,9 @@ namespace SubjectsSchedule
 
                 peer.SetFocus();
                 invokeProv.Invoke();
-
-                // pomijeranje misa do komponente i klik na nju
-                //InputHelper.InputHelper.MoveMouse(Dispatcher, dodajUcionicuDugme);
             });
             
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
 
             Dispatcher.Invoke(() =>
             { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 

@@ -37,11 +37,11 @@
                 <MenuItem Header="_Custom komande" Command="cmd:CustomCommands.testKomanda"></MenuItem>
                 <MenuItem Header="_Ugradjene komande" Command="cmd:RoutedCommands.Ugradjene"></MenuItem>
             </MenuItem>
-            <MenuItem Header="_Tabele (ili Pregled?)" ToolTip="Pregled svih entiteta aplikacije">
+            <MenuItem x:Name="MeniTabele" Header="_Tabele (ili Pregled?)" ToolTip="Pregled svih entiteta aplikacije">
                 <MenuItem Header="_Predmeti" Click="Predmeti_Click" ></MenuItem>
                 <!--Click=""-->
                 <MenuItem Header="Smj_erovi" Click="Smerovi_Click" ></MenuItem>
-                <MenuItem Header="_Učionice" Click="Ucionice_Click" ></MenuItem>
+                <MenuItem x:Name="MeniItemUcionice" Header="_Učionice" Click="Ucionice_Click" ></MenuItem>
                 <MenuItem Header="_Softver" Click="Softveri_Click" ></MenuItem>
             </MenuItem>
             <!-- <MenuItem Header="_Grafika">
