@@ -56,6 +56,7 @@ namespace SubjectsSchedule.Model
         private ClassroomHandler()
         {
             classrooms = new Dictionary<string, Classroom>();
+            SelectedClassroom = null; // set default value
         }
 
         public void Serialize(string fileName)
