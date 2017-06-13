@@ -55,6 +55,7 @@ namespace SubjectsSchedule.Model
         private FieldOfStudyHanlder()
         {
             fieldsOfStudy = new Dictionary<string, FieldOfStudy>();
+            SelectedFieldOfStudy = null;
         }
 
         public void Serialize(string fileName)

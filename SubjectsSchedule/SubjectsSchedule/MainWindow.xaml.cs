@@ -538,16 +538,18 @@ namespace SubjectsSchedule
 
         private void DockPanelLoaded(object sender, RoutedEventArgs e)
         {
+            DataLoading = true;
+            Console.WriteLine("DATA LOADING = TRUE - DockPanelLoaded");
+
             InitializeClassroomsList();
             RasporedUcionice.MainWindowParent = this;
             GlobalnaShema.PopulateResources();
+
+            //SubjectHandler.Instance.ResetAllUncheduledTermins(); /// Reset svih rasporedjenih termina
         }
 
         private void InitializeClassroomsList()
         {
-            DataLoading = true;
-            Console.WriteLine("DATA LOADING = TRUE");
-
             Button classroomButton;
             foreach (var classroom in ClassroomHandler.Instance.Classrooms)
             {
@@ -567,7 +569,7 @@ namespace SubjectsSchedule
         private void InitializeClassroomsListOld()
         {
             DataLoading = true;
-            Console.WriteLine("DATA LOADING = TRUE");
+            Console.WriteLine("DATA LOADING = TRUE - InitializeClassroomsListOld");
             try
             {
                 ClassroomHandler.Instance.Add("L-1", "prva", 16, true, false, false, OS.WINDOWS);
@@ -606,7 +608,7 @@ namespace SubjectsSchedule
             if (RasporedUcionice.SelectedClassroom == c)
                 return;
 
-            Console.WriteLine("prikaz rasporeda ucionice DATAloading = TRUE");
+            Console.WriteLine("DATAloading = TRUE - PrikazRasporedaUcionice");
             DataLoading = true; // false-ovaće ga RasporedUcionice... ljepota jedna xD
 
             this.HideAllForms();

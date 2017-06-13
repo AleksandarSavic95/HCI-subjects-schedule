@@ -188,12 +188,14 @@ namespace SubjectsSchedule.Model
                 FindById(id).UnscheduledTermins += 1;
         }
 
+        /// samo za testiranje <see cref="MainWindow.DockPanelLoaded"/>
         public void ResetAllUncheduledTermins()
         {
-            foreach (var s in this.subjects.Values)
+            foreach (var s in subjects.Values)
             {
                 s.UnscheduledTermins = s.TerminNumber;
             }
+            Console.WriteLine("ResetAllUncheduledTermins\n\t~ Resetovano {0} predmeta.", subjects.Count);
         }
     }
 }

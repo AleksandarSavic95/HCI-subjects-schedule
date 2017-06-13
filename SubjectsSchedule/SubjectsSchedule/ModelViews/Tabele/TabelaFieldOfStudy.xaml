@@ -36,7 +36,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="IdColumn" Header="Identifikator" Binding="{Binding Id}" Width="100" MinWidth="30"/>
                 <DataGridTextColumn x:Name="NameColumn" Header="Ime" Binding="{Binding Name}" Width="70" MinWidth="30"/>
-                <DataGridTextColumn x:Name="DatumColumn" Header="Datum" Binding="{Binding Since}" Width="70" MinWidth="30"/>
+                <DataGridTextColumn x:Name="DatumColumn" Header="Datum" Binding="{Binding Since, StringFormat=dd.MM.yyyy}" Width="70" MinWidth="30"/>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

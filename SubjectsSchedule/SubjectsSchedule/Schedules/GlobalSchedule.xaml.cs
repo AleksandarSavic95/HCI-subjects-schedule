@@ -37,6 +37,7 @@ namespace SubjectsSchedule.Schedules
         private void GlobalSchedule_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             Console.WriteLine("GlobalSchedule_IsVisibleChanged!");
+            Console.WriteLine("sad da pozoves loadLermins!");
         }
 
         private void globalCalendar_Loaded(object sender, RoutedEventArgs e)
