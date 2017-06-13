@@ -22,9 +22,45 @@
                     MinWidth="50" EnableDayItems="False" ShowItemSpans="True"
                             ShowDayHeader="False">
                     <!-- SubHeaderSize="0" > -->
+                    <!-- General view style - turn off surrounding border. -->
+                    <planner:TimetableSettings.CalendarStyle>
+                        <planner:CalendarStyle BorderThickness="0" />
+                    </planner:TimetableSettings.CalendarStyle>
+
+                    <!-- General selection style - make selection invisible. -->
+                    <planner:TimetableSettings.SelectedElementsStyle>
+                        <planner:CalendarStyle Background="Transparent" BorderBrush="Transparent" />
+                    </planner:TimetableSettings.SelectedElementsStyle>
+
+                    <!-- The style of the main header. -->
+                    <planner:TimetableSettings.HeaderStyle>
+                        <planner:CalendarStyle Background="#F0F0F0" Foreground="Black" BorderBrush="#E0E0E0" BorderThickness="0,1,1,0" FontFamily="Calibri" FontWeight="Normal" FontSize="12" LineBrush="#E0E0E0" />
+                    </planner:TimetableSettings.HeaderStyle>
+
+                    <!-- The style of the subheaders - there are no subheaders but this still affects the background of the area above the scrollbar.  -->
+                    <planner:TimetableSettings.SubHeaderStyle>
+                        <planner:CalendarStyle Background="#F0F0F0" />
+                    </planner:TimetableSettings.SubHeaderStyle>
+
+                    <!-- The style of the timeline. -->
+                    <planner:TimetableSettings.TimelineStyle>
+                        <planner:CalendarStyle Background="#F0F0F0" Foreground="Black" BorderBrush="#E0E0E0" BorderThickness="1" FontFamily="Calibri" FontWeight="Normal" FontSize="12" LineBrush="#E0E0E0" />
+                    </planner:TimetableSettings.TimelineStyle>
+
+                    <!-- The style of the cells. -->
+                    <planner:TimetableSettings.CellStyle>
+                        <planner:CalendarStyle Background="#F5F5F5" BorderBrush="#E0E0E0" BorderThickness="0,1,1,1" />
+                    </planner:TimetableSettings.CellStyle>
+
+                    <!-- The style of the cells in the work-time interval. -->
+                    <planner:TimetableSettings.WorkTimeCellStyle>
+                        <planner:CalendarStyle Background="#F5F5F5" BorderBrush="#E0E0E0" BorderThickness="0,1,1,1" />
+                    </planner:TimetableSettings.WorkTimeCellStyle>
+
+                    <!-- Enable subheader text click -->
                     <planner:TimetableSettings.ColumnSubheaderTemplate>
                         <DataTemplate>
-                            <Grid MouseDown="Grid_MouseDown" Cursor="Hand" Background="Transparent" HorizontalAlignment="Stretch">
+                            <Grid MouseDown="Grid_MouseDown" Cursor="Hand" Background="#E0E0E0" HorizontalAlignment="Stretch">
                                 <TextBlock Text="{Binding Text}" Grid.Column="1" HorizontalAlignment="Stretch">
                                     <TextBlock.ToolTip>
                                         <TextBlock>

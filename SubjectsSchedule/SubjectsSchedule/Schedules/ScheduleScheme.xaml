@@ -9,14 +9,14 @@
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     x:Class="SubjectsSchedule.Schedules.ScheduleScheme"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" IsVisibleChanged="UserControl_IsVisibleChanged"
-    >
+             d:DesignHeight="450" d:DesignWidth="700" IsVisibleChanged="UserControl_IsVisibleChanged"
+    ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible">
     <!-- DataContext="{Binding RelativeSource={RelativeSource Self}}" -->
     <Grid Loaded="ScheduleSchemeLoaded">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition />
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="Auto" MinHeight="333"/>
+            <RowDefinition Height="Auto" MinHeight="36"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="170" />
@@ -34,7 +34,7 @@
                 </TextBlock>
             </StackPanel>
             <TextBlock TextWrapping="Wrap">
-                Termine za održavanje nastave pravite tako što prevučete predmet iz liste na šemu rasporeda.
+                U HELP!: Termine za održavanje nastave pravite tako što prevučete predmet iz liste na šemu rasporeda.
                 <LineBreak/>
                 Fiksna količina teksta - provjeri Wraping i Alignment
                 <LineBreak/>
@@ -63,13 +63,6 @@
             </Grid>
         </StackPanel>
 
-        <!-- Drag & Drop:
-        ~ Performing a Drag-and-Drop Operation in Windows Forms:
-        https://msdn.microsoft.com/en-us/library/za0zx9y0(v=vs.110).aspx
-        
-        ~ Drag and Drop - e.Data.GetData using a base class
-        https://stackoverflow.com/a/2731674/2101117
-        -->
         <planner:Calendar x:Name="kalendar" Margin="0,0,0,10" Culture="sr"
             AllowDrop="True" DragOver="kalendar_DragOver" Drop="kalendar_Drop"
             Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
@@ -86,7 +79,12 @@
                 <planner:WeekRangeSettings VisibleRows="7" UseLayoutRounding="False"/>
             </planner:Calendar.WeekRangeSettings>
             <planner:Calendar.TimetableSettings>
-                <planner:TimetableSettings CellSize="20" MinItemSize="10" ShowWorkTime="False" WorkTimeStart="7:0:0" WorkTimeEnd="22:0:0" StartTime="420" SnapUnit="Minute" TwelveHourFormat="False" HeaderDateFormat="dddd" ShowDayHeader="False" ShowAM="True" ShowMinutesInHourHeaders="True" ShowPadding="False" SubHeaderSize="0" TimelineSize="60" CellTime="0:15:0" EnableCollisions="False" EnableSnapping="True" SnapUnitCount="5" EndTime="1320" MinWidth="50" Width="50" EnableDayItems="False" ShowItemSpans="True" ToolTip="{StaticResource HelpMessage}" ColumnBandSize="0">
+                <planner:TimetableSettings CellSize="40" MinItemSize="20" StartTime="420" EndTime="1320" SnapUnitCount="5" SnapUnit="Minute"
+                    HeaderDateFormat="dddd" ShowDayHeader="False" TwelveHourFormat="False" ShowAM="True" ShowMinutesInHourHeaders="True"
+                    ShowPadding="False" SubHeaderSize="0" TimelineSize="60" CellTime="0:15:0"
+                    EnableCollisions="False" EnableSnapping="True"
+                    ShowWorkTime="False" WorkTimeStart="7:0:0" WorkTimeEnd="22:0:0" MinWidth="50" Width="50"
+                    EnableDayItems="False" ShowItemSpans="True" ToolTip="{StaticResource HelpMessage}" ColumnBandSize="0">
                     <!-- General view style - turn off surrounding border. -->
                     <planner:TimetableSettings.CalendarStyle>
                         <planner:CalendarStyle BorderThickness="0" />
@@ -128,7 +126,6 @@
         <!-- difference between ListBox and ListView
         https://stackoverflow.com/a/4703658/2101117 -->
         <DataGrid x:Name="SubjectsList" Grid.Column="0" Grid.Row="1"
-                  Height="242"
                   ItemsSource="{Binding PredmetiZaUcionicu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" SelectionUnit="FullRow"
                   ScrollViewer.CanContentScroll="True" IsReadOnly="True"
@@ -171,7 +168,7 @@
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Column="0" Grid.Row="2" Margin="5" FontSize="16">
+        <Button Grid.Column="0" Grid.Row="2" Margin="5" FontSize="16" Click="Schedule_Zatvori_Click" VerticalAlignment="Bottom" Height="25">
             Zatvori
         </Button>
     </Grid>

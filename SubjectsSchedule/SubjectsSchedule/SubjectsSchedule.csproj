@@ -136,6 +136,7 @@
     <Compile Include="StudentHelpOld\StudentHelpOld.xaml.cs">
       <DependentUpon>StudentHelpOld.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\BoolToVisibilityConverter.cs" />
     <Compile Include="Utilities\MessageBoxManager.cs" />
     <Compile Include="Utilities\Questions.cs" />
     <Page Include="DemoMode\DemoModeWindow.xaml">

@@ -1,4 +1,5 @@
-﻿using SubjectsSchedule.Model;
+﻿using MindFusion.Scheduling;
+using SubjectsSchedule.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -53,7 +54,7 @@ namespace SubjectsSchedule
         {
             InitializeComponent();
 
-            //newClassroom = new FormaClassroom.FormaClassroom();
+            DataLoading = true;
 
             Serialize();
             Deserialize();
@@ -63,6 +64,18 @@ namespace SubjectsSchedule
             // Omogućuje postavku naziva za dugmad u messageBox-ovima
             // credits: https://www.codeproject.com/Articles/18399/Localizing-System-MessageBox
             System.Windows.Forms.MessageBoxManager.Register();
+        }
+
+        internal Resource getResourceForClassroom(Classroom selectedClassroom)
+        {
+            Resource retVal = GlobalnaShema.globalCalendar.ItemResources[selectedClassroom.Id];
+            Console.WriteLine("resurs za {0}: {1}", selectedClassroom.Id, retVal);
+            if (retVal == null)
+            {
+                Console.WriteLine("nadjeni Resource - null ~ nije nadjen?");
+                return new Resource();
+            }
+            return retVal;
         }
 
         private void Serialize()
@@ -75,11 +88,13 @@ namespace SubjectsSchedule
             // SoftwareHandler.Instance.Add("s1", "name2", OS.LINUX, "producer", "http://www.org.com", "2012", 300.00, "This is dummy description 3");
             // SubjectHandler.Instance.Add("s2", "name3", "f1", "This is dummy description 4", 21, 60, 3, true, false, false, OS.LINUX);
             
-            // TODO: maybe pull file paths to some global config file?
+            // TODO: maybe pull file paths to some global config file? - kasnije ;)
             FieldOfStudyHanlder.Instance.Serialize("study-fields.bin");
             ClassroomHandler.Instance.Serialize("classrooms.bin");
             SoftwareHandler.Instance.Serialize("softwares.bin");
             SubjectHandler.Instance.Serialize("subjects.bin");
+
+            TerminHandler.Instance.Serialize("termins.bin");
 
             Console.WriteLine("Serialization finished");
         }
@@ -92,6 +107,8 @@ namespace SubjectsSchedule
             ClassroomHandler.Instance.Deserialize("classrooms.bin");
             SoftwareHandler.Instance.Deserialize("softwares.bin");
             SubjectHandler.Instance.Deserialize("subjects.bin");
+
+            TerminHandler.Instance.Deserialize("termins.bin");
 
             // Testing
             // Console.WriteLine(FieldOfStudyHanlder.Instance.FieldsOfStudy[0]);
@@ -177,6 +194,16 @@ namespace SubjectsSchedule
         private void Ugradjene_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
+        }
+
+        private void AbortDemo_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void AbortDemo_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            demoModeWindow.AbortDemo();
         }
 
         #endregion
@@ -370,15 +397,9 @@ namespace SubjectsSchedule
             w.ShowDialog();
         }
 
-        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
-        {
-            //var w = new DDrop.DragDropWindow();
-            //w.ShowDialog();
-        }
-
         private void MenuItem_Click_5(object sender, RoutedEventArgs e)
         {
-            //var w = new Kontrole.ToolbarTreeContext();
+            //var w = new DDrop.DragDropWindow();
             //w.ShowDialog();
         }
         #endregion
@@ -479,7 +500,6 @@ namespace SubjectsSchedule
             HideAllForms();
             SoftverForma.Visibility = Visibility.Visible;
         }
-#endregion
 
         private void PregledSheme_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -489,16 +509,21 @@ namespace SubjectsSchedule
         private void PregledSheme_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             HideAllForms();
+            Console.WriteLine("Ne treba ovo ili treba mijenjati!");
             RasporedUcionice.Visibility = Visibility.Visible;
         }
+        #endregion
 
         private void DockPanelLoaded(object sender, RoutedEventArgs e)
         {
             InitializeClassroomsList();
+            RasporedUcionice.MainWindowParent = this;
         }
 
         private void InitializeClassroomsList()
         {
+            DataLoading = true;
+            Console.WriteLine("DATA LOADING = TRUE");
             try
             {
                 ClassroomHandler.Instance.Add("L-1", "prva", 16, true, false, false, OS.WINDOWS);
@@ -507,7 +532,7 @@ namespace SubjectsSchedule
             }
             catch (Exception)
             {
-                Console.WriteLine("nisu dodate sve ucionice iz test liste!");
+                Console.WriteLine("nisu dodate sve ucionice iz  t e s t  liste!");
             }
 
             Button classroomButton;
@@ -523,16 +548,12 @@ namespace SubjectsSchedule
 
                 ClassroomButtonList.Children.Add(classroomButton);
             }
+            DataLoading = false;
         }
 
         private void ClassroomButton_Click(object sender, RoutedEventArgs e)
         {
             Classroom c = (Classroom)((Button)e.Source).Tag;
-
-            //string classroomId = (e.Source as Button).Content.ToString();
-            //Console.WriteLine("Klik na: " + classroomId + " ||| moze i Tag property..");
-            //Classroom c1 = ClassroomHandler.Instance.FindById(classroomId);
-
             PrikazRasporedaUcionice(c);
         }
 
@@ -542,17 +563,43 @@ namespace SubjectsSchedule
                 return;
 
             this.HideAllForms();
+
+            DataLoading = true; // false-ovaće ga RasporedUcionice... ljepota jedna xD
+
             RasporedUcionice.InitializeSubjectList(c);
         }
 
-        private void AbortDemo_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        #region Prikaz poruke o učitavanju podataka
+        private bool _isLoading;
+        public bool DataLoading
         {
-            e.CanExecute = true;
+            get
+            { return _isLoading; }
+
+            set
+            {
+                _isLoading = value;
+                Console.WriteLine("DataLoading se promijenilo!");
+                OnPropertyChanged("DataLoading");
+            }
         }
 
-        private void AbortDemo_Executed(object sender, ExecutedRoutedEventArgs e)
+        private double popupLeft;
+        public double PopupLeft
         {
-            demoModeWindow.AbortDemo();
+            get
+            {
+                //popupLeft = (this.ActualWidth / 2 - 50);
+                popupLeft = 100;
+                return popupLeft;
+            }
+
+            set
+            {
+                popupLeft = value;
+                OnPropertyChanged("PopupLeft");
+            }
         }
+        #endregion
     }
 }
