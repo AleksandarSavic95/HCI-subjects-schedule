@@ -14,6 +14,9 @@
             CurrentView="Timetable" AllowInplaceEdit="False" AllowInplaceCreate="False"
             ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible"
             GroupType="GroupByLocations" ToolTip="{StaticResource HelpMessage}">
+            <planner:Calendar.ItemSettings>
+                <planner:ItemSettings MinHeight="40" MinWidth="40" ClipToBounds="True" ResizeBandSize="0"/>
+            </planner:Calendar.ItemSettings>
             <planner:Calendar.TimetableSettings>
                 <planner:TimetableSettings StartTime="420" EndTime="1320"
                     CellTime="0:15:0" CellSize="40" MinItemSize="60" TimelineSize="60" MinWidth="70" 

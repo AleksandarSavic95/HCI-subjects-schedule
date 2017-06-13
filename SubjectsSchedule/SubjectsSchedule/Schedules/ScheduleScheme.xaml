@@ -73,7 +73,7 @@
             ScrollViewer.VerticalScrollBarVisibility="Visible"
             Theme="Silver" ItemDeleted="kalendar_ItemDeleted">
             <planner:Calendar.ItemSettings>
-                <planner:ItemSettings MinHeight="10" MinWidth="10" ClipToBounds="True" ResizeBandSize="0"/>
+                <planner:ItemSettings MinHeight="40" MinWidth="40" ClipToBounds="True" ResizeBandSize="0"/>
             </planner:Calendar.ItemSettings>
             <!-- onemogućavanje kreiranja i izmjene sadržaja termina -->
             <planner:Calendar.WeekRangeSettings>

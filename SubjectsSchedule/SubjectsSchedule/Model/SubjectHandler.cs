@@ -187,5 +187,13 @@ namespace SubjectsSchedule.Model
             else
                 FindById(id).UnscheduledTermins += 1;
         }
+
+        public void ResetAllUncheduledTermins()
+        {
+            foreach (var s in this.subjects.Values)
+            {
+                s.UnscheduledTermins = s.TerminNumber;
+            }
+        }
     }
 }

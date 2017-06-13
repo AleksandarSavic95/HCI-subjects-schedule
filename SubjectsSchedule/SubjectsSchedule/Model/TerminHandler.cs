@@ -56,9 +56,23 @@ namespace SubjectsSchedule.Model
             }
         }
 
-        public void Add(string id, MyTermin termin)
+        public void AddTermin(string classroomId, MyTermin termin)
         {
-            _terminsByClassrooms[id].Add(termin);
+            try
+            {
+                _terminsByClassrooms[classroomId].Add(termin);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Neuspjeli pokusaj dodavanja termina {0} u ucionici {1}", termin.HeaderText, classroomId);
+                Console.WriteLine("Razlog: " + e.Message + "\n");
+                //throw;
+            }
+        }
+
+        public void AddClassroom(string classroomId)
+        {
+            _terminsByClassrooms.Add(classroomId, new List<MyTermin>());
         }
 
         public void Add(string id, string header, DateTime start, DateTime end, Classroom classroom, Subject subject)
@@ -73,6 +87,20 @@ namespace SubjectsSchedule.Model
         public void Remove(string id)
         {
             _terminsByClassrooms.Remove(id);
+        }
+
+        public void RemoveTermin(string classroomId, MyTermin termin)
+        {
+            try
+            {
+                _terminsByClassrooms[classroomId].Remove(termin);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Neuspjeli pokusaj brisanja termina {0} u ucionici {1}", termin.HeaderText, classroomId);
+                Console.WriteLine("Razlog: " + e.Message + "\n");
+                //throw;
+            }
         }
     }
 }

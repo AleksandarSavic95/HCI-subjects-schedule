@@ -172,5 +172,17 @@ namespace SubjectsSchedule.Model
 
         private Classroom _inClassroom;
         private Subject _forSubject;
+
+
+        /** podrska za poredjenje i rad sa kolekcijom (?) */
+        public override bool Equals(object obj)
+        {
+            return this.Id.Equals(((MyTermin)obj).Id);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Id.GetHashCode();
+        }
     }
 }

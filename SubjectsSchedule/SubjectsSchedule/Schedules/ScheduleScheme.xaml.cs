@@ -75,6 +75,7 @@ namespace SubjectsSchedule.Schedules
                     Console.WriteLine("ItemCreated Event: Moj termin!");
                     Resource r = MainWindowParent.getResourceForClassroom(SelectedClassroom);
                     e.Item.Resources.Add(r); // dobro ovo??
+                    TerminHandler.Instance.AddTermin(SelectedClassroom.Id, e.Item as MyTermin);
                 }
                 else Console.WriteLine("ItemCreated Event nesto =/= MyTermin");
             };
@@ -240,6 +241,8 @@ namespace SubjectsSchedule.Schedules
             MyTermin deletedTermin = (MyTermin)e.Item;
             Subject deletedTerminSubject = deletedTermin.ForSubject;
 
+            TerminHandler.Instance.RemoveTermin(SelectedClassroom.Id, deletedTermin);
+
             SubjectHandler.Instance.ChangeUnscheduledTermins(deletedTerminSubject.Id, false);
 
             UpdateSubjectRow(deletedTerminSubject);
@@ -372,6 +375,10 @@ namespace SubjectsSchedule.Schedules
         private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             Console.WriteLine("ScheduleScheme IsVisibleChanged + " + ((bool)e.NewValue));
+            if ((bool)e.NewValue)
+                MainWindowParent.DataLoading = true;
+            else
+                MainWindowParent.DataLoading = false; // može samo MainWinPar.DataLoading = (bool)e.NewValue...
         }
 
         #region Bojenje redova u listi predmeta i prikaz TOolTip-ova
