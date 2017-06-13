@@ -79,20 +79,6 @@
 					Canvas.Top="-60" Canvas.Left="-150"/>
         </Canvas>
 
-        <f:FormaClassroom DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="ClassroomForma"/>
-        <f:FormaSubject DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SubjectForma"/>
-        <f:FormaFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyForma"/>
-        <f:FormaSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverForma"/>
-
-        <t:TabelaClassroom DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="ClassroomTabela" />
-        <t:TabelaSubject DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SubjectTabela" />
-        <t:TabelaFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyTabela" />
-        <t:TabelaSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverTabela" />
-
-        <p:PrikazClassroom DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="ClassroomPrikaz" />
-        <p:PrikazSubject DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SubjectPrikaz" />
-        <p:PrikazFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyPrikaz" />
-        <p:PrikazSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverPrikaz" />
         <!-- Dugmad za dodavanje entiteta -->
         <StackPanel DockPanel.Dock="Right" MinWidth="80" Width="90" HorizontalAlignment="Right">
             <!-- icon: http://www.iconarchive.com/show/ios7-icons-by-icons8/Science-Classroom-icon.html -->
@@ -137,6 +123,21 @@
                 </StackPanel>
             </Button>
         </StackPanel>
+
+        <f:FormaClassroom DockPanel.Dock="Top" Visibility="Visible" HorizontalAlignment="Center" x:Name="ClassroomForma"/>
+        <f:FormaSubject DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SubjectForma"/>
+        <f:FormaFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyForma"/>
+        <f:FormaSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverForma"/>
+
+        <t:TabelaClassroom DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="ClassroomTabela" />
+        <t:TabelaSubject DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SubjectTabela" />
+        <t:TabelaFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyTabela" />
+        <t:TabelaSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverTabela" />
+
+        <p:PrikazClassroom DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="ClassroomPrikaz" />
+        <p:PrikazSubject DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SubjectPrikaz" />
+        <p:PrikazFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyPrikaz" />
+        <p:PrikazSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverPrikaz" />
 
         <s:GlobalSchedule DockPanel.Dock="Top" Width="Auto" Visibility="Visible" x:Name="GlobalnaShema" HorizontalAlignment="Stretch">
         </s:GlobalSchedule>
