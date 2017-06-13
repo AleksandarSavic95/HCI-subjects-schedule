@@ -21,14 +21,42 @@ namespace SubjectsSchedule.ModelViews.Forme
     /// <summary>
     /// Interaction logic for FormaSubject.xaml
     /// </summary>
-    public partial class FormaSubject : UserControl
+    public partial class FormaSubject : UserControl, INotifyPropertyChanged
     {
+
+        public Subject SelectedSubject
+        {
+            get
+            {
+                return SubjectHandler.Instance.SelectedSubject;
+            }
+        }
+
+        public List<FieldOfStudy> FieldsOfStudy
+        {
+            get
+            {
+                return FieldOfStudyHanlder.Instance.FieldsOfStudy;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
 
         public FormaSubject()
         {
             InitializeComponent();
 
-            IsVisibleChanged += SetComboBoxItems;
+            //IsVisibleChanged += SetComboBoxItems;
+
+            DataContext = this;
         }
 
         private void SetComboBoxItems(object sender, DependencyPropertyChangedEventArgs args)
@@ -49,9 +77,14 @@ namespace SubjectsSchedule.ModelViews.Forme
             Console.WriteLine(duzinaTerminaUpDown.Text);
             Console.WriteLine(brojTerminaUpDown.Text);
 
-            SubjectHandler.Instance.TryAdd(Identifikator.Text, Naziv.Text, null, Opis.Text, Helper.ParseStringToInt(velicinaGrupeUpDown.Text),
-                Helper.ParseStringToInt(duzinaTerminaUpDown.Text), Helper.ParseStringToInt(brojTerminaUpDown.Text),
-                Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded), Helper.GetOSFromString(OSComboBox.Text));
+            if (string.IsNullOrEmpty(SelectedSubject.Id))
+                SubjectHandler.Instance.Add(Identifikator.Text, Naziv.Text, null, Opis.Text, Helper.ParseStringToInt(velicinaGrupeUpDown.Text),
+                    Helper.ParseStringToInt(duzinaTerminaUpDown.Text), Helper.ParseStringToInt(brojTerminaUpDown.Text),
+                    Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded), Helper.GetOSFromString(OSComboBox.Text), (MainWindow)Window.GetWindow(this));
+            else
+                SubjectHandler.Instance.Update(SelectedSubject.Id, Identifikator.Text, Naziv.Text, null, Opis.Text, Helper.ParseStringToInt(velicinaGrupeUpDown.Text),
+                    Helper.ParseStringToInt(duzinaTerminaUpDown.Text), Helper.ParseStringToInt(brojTerminaUpDown.Text),
+                    Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded), Helper.GetOSFromString(OSComboBox.Text), (MainWindow)Window.GetWindow(this));
 
             MessageBox.Show("Uspesno dodat predmet!");
         }

@@ -7,6 +7,52 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <!-- Auto, jer su nazivi u prvoj koloni -->
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <TextBlock Margin="5" Grid.Column="0" Grid.Row="0" Text="Identifikator"/>
+    <TextBlock Margin="5" Grid.Column="0" Grid.Row="1" Text="Naziv"/>
+    <TextBlock Margin="5" Grid.Column="0" Grid.Row="2" Text="Opis"/>
+    <TextBlock Margin="5" Grid.Column="0" Grid.Row="3" Text="Velicina grupe" />
+    <TextBlock Margin="5" Grid.Column="0" Grid.Row="4" Text="Smjer"/>
+    <TextBlock Margin="5" Grid.Column="0" Grid.Row="5" Text="Operativni sistem"/>
+    <TextBlock Margin="5" Grid.Column="0" Grid.Row="6" Text="Dužina termina" ToolTip="U časovima od po 45 minuta"/>
+    <TextBlock Margin="5" Grid.Column="0" Grid.Row="7" Text="Broj termina" />
+    <TextBlock Margin="5" Grid.Column="0" Grid.Row="8" Text="Neophodan softver"/>
+    <TextBlock Margin="5" Grid.Column="0" Grid.Row="9" Text="Dodatni elemenit" />
+
+        <TextBlock Margin="5" Grid.Column="1" Grid.Row="0" Text="{Binding SelectedSubject.Id}"/>
+        <TextBlock Margin="5" Grid.Column="1" Grid.Row="1" Text="{Binding SelectedSubject.Name}"/>
+        <TextBlock Margin="5" Grid.Column="1" Grid.Row="2" Text="{Binding SelectedSubject.Description}"/>
+        <TextBlock Margin="5" Grid.Column="1" Grid.Row="3" Text="{Binding SelectedSubject.GroupSize}" />
+        <TextBlock Margin="5" Grid.Column="1" Grid.Row="4" Text="{Binding SelectedSubject.FieldOfStudy.Name}"/>
+        <TextBlock Margin="5" Grid.Column="1" Grid.Row="5" Text="{Binding SelectedSubject.NeedsOS}"/>
+        <TextBlock Margin="5" Grid.Column="1" Grid.Row="6" Text="{Binding SelectedSubject.ClassLength}" ToolTip="U časovima od po 45 minuta"/>
+        <TextBlock Margin="5" Grid.Column="1" Grid.Row="7" Text="{Binding SelectedSubject.TerminNumber}" />
+        <TextBlock Margin="5" Grid.Column="1" Grid.Row="8" Text="Neophodan softver"/>
+        
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+            <CheckBox IsEnabled="False" Name="TableNeeded" Margin="10, 5, 5, 5" Content="Tabla" IsChecked="{Binding SelectedSubject.NeedsBoard}"/>
+            <CheckBox IsEnabled="False" Name="ProjectorNeeded" Margin="5" Content="Projektor" IsChecked="{Binding SelectedSubject.NeedsProjector}"/>
+            <!-- pamtiti čekiranost u promjenljivoj? Binding? -->
+            <CheckBox IsEnabled="False" Name="SmartTableNeeded" Margin="5" Content="Pametna tabla" IsChecked="{Binding SelectedSubject.NeedsSmartBoard}"/>
+        </StackPanel>
     </Grid>
 </UserControl>

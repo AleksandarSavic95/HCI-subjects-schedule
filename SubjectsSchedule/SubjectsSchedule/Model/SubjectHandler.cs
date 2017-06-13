@@ -23,12 +23,32 @@ namespace SubjectsSchedule.Model
         }
 
         private Dictionary<string, Subject> subjects;
+        private Subject selectedSubject;
 
         public List<Subject> Subjects
         {
             get
             {
                 return subjects.Values.ToList();
+            }
+        }
+
+        public Subject SelectedSubject
+        {
+            get
+            {
+                return selectedSubject;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    selectedSubject = new Subject();
+
+                    // set defaults
+                }
+                else
+                    selectedSubject = subjects[value.Id];
             }
         }
 
@@ -55,19 +75,51 @@ namespace SubjectsSchedule.Model
             }
         }
 
-        public void TryAdd(string id, string name, FieldOfStudy fieldOfStudy, string description, int groupSize, int classLength,
+        public void Add(string id, string name, FieldOfStudy fieldOfStudy, string description, int groupSize, int classLength,
             int terminNumber, bool needsProjector, bool needsBoard, bool needsSmartBoard, OS needsOS)
         {
-            try
+            subjects.Add(id, new Subject(id, name, fieldOfStudy,
+                description, groupSize, classLength, terminNumber,
+                needsProjector, needsBoard, needsSmartBoard, needsOS));
+        }
+
+        public void Add(string id, string name, FieldOfStudy fieldOfStudy, string description, int groupSize, int classLength,
+            int terminNumber, bool needsProjector, bool needsBoard, bool needsSmartBoard, OS needsOS, MainWindow context)
+        {
+            Add(id, name, fieldOfStudy, description, groupSize, classLength, terminNumber, needsProjector, needsBoard, needsSmartBoard, needsOS);
+            context.NotifyAll("Subjects");
+        }
+
+        public void SetSelectedSubject(Subject subject, MainWindow context)
+        {
+            SelectedSubject = subject;
+            context.NotifyAll("SelectedSubject");
+        }
+
+        public void SetSelectedSubject(string id, MainWindow context)
+        {
+            SetSelectedSubject(FindById(id), context);
+        }
+
+        public void Update(string id, string newId, string name, FieldOfStudy fieldOfStudy, string description, int groupSize, int classLength,
+            int terminNumber, bool needsProjector, bool needsBoard, bool needsSmartBoard, OS needsOS)
+        {
+            if (id != newId)
             {
-                subjects.Add(id, new Subject(id, name, fieldOfStudy,
-                    description, groupSize, classLength, terminNumber,
-                    needsProjector, needsBoard, needsSmartBoard, needsOS));
+                Remove(id);
+                Add(id, name, fieldOfStudy, description, groupSize, classLength, terminNumber, needsProjector, needsBoard, needsSmartBoard, needsOS);
             }
-            catch (Exception e)
-            {
-                Console.WriteLine("Nije dodat predmet sa ID = " + id + ". Razlog:\n" + e.Message);
-            }
+            else
+                subjects[id] = new Subject(id, name, fieldOfStudy, description, groupSize, classLength, terminNumber, needsProjector, needsBoard, needsSmartBoard, needsOS);
+        }
+
+        public void Update(string id, string newId, string name, FieldOfStudy fieldOfStudy, string description, int groupSize, int classLength,
+            int terminNumber, bool needsProjector, bool needsBoard, bool needsSmartBoard, OS needsOS, MainWindow context)
+        {
+            Update(id, newId, name, fieldOfStudy, description, groupSize, classLength, terminNumber, needsProjector, needsBoard, needsSmartBoard, needsOS);
+            SetSelectedSubject(newId, context);
+            // may exists list change
+            context.NotifyAll("Subjects");
         }
 
         public Subject FindById(string id)
@@ -99,6 +151,12 @@ namespace SubjectsSchedule.Model
         public void Remove(string id)
         {
             subjects.Remove(id);
+        }
+
+        public void Remove(string id, MainWindow context)
+        {
+            Remove(id);
+            context.NotifyAll("Subjects");
         }
 
         /// <summary>

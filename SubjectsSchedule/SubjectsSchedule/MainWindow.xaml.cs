@@ -548,17 +548,17 @@ namespace SubjectsSchedule
             Console.WriteLine("Notifying all with {0}", name);
             ClassroomTabela.OnPropertyChanged(name);
             FieldOfStudyTabela.OnPropertyChanged(name);
-            //SubjectTabela.OnPropertyChanged(name);
+            SubjectTabela.OnPropertyChanged(name);
             SoftverTabela.OnPropertyChanged(name);
 
             ClassroomPrikaz.OnPropertyChanged(name);
             FieldOfStudyPrikaz.OnPropertyChanged(name);
-            //SubjectPrikaz.OnPropertyChanged(name);
+            SubjectPrikaz.OnPropertyChanged(name);
             SoftverPrikaz.OnPropertyChanged(name);
 
             ClassroomForma.OnPropertyChanged(name);
             FieldOfStudyForma.OnPropertyChanged(name);
-            //SubjectForma.OnPropertyChanged(name);
+            SubjectForma.OnPropertyChanged(name);
             SoftverForma.OnPropertyChanged(name);
         }
 

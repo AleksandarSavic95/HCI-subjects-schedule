@@ -44,12 +44,12 @@
         <TextBlock Margin="5" Grid.Column="0" Grid.Row="8" Text="Neophodan softver"/>
         <TextBlock Margin="5" Grid.Column="0" Grid.Row="9" Text="Dodatni elemenit" />
 
-        <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Identifikator"/>
-        <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Naziv"/>
-        <TextBox Margin="10,5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Opis"/>
+        <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Identifikator"  Text="{Binding SelectedSubject.Id}"/>
+        <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Naziv"  Text="{Binding SelectedSubject.Name}"/>
+        <TextBox Margin="10,5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Opis" Text="{Binding SelectedSubject.Description}"/>
 
-        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="3" Minimum="1" Maximum="64" x:Name="velicinaGrupeUpDown" l:HelpProvider.HelpKey="Prezime" />
-        <ComboBox Margin="10,5" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1" l:HelpProvider.HelpKey="Indeks" x:Name="SmjerComboBox" />
+        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="3" Minimum="1" Maximum="64" x:Name="velicinaGrupeUpDown" l:HelpProvider.HelpKey="Prezime" Text="{Binding SelectedSubject.GroupSize}" />
+        <ComboBox Margin="10,5" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1" l:HelpProvider.HelpKey="Indeks" x:Name="SmjerComboBox" ItemsSource="{Binding FieldsOfStudy}" DisplayMemberPath="Name" SelectedValuePath="Id" />
 
         <ComboBox Margin="10,5" Grid.Column="1" Grid.Row="5" SelectedIndex="0" x:Name="OSComboBox">
             <ComboBoxItem Content="Windows"/>
@@ -57,8 +57,8 @@
             <ComboBoxItem Content="Svejedno"/>
         </ComboBox>
 
-        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="6" Minimum="1" Maximum="10" x:Name="duzinaTerminaUpDown" Watermark="U časovima od 45min" l:HelpProvider.HelpKey="Prezime" />
-        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="7" Minimum="1" Maximum="10" x:Name="brojTerminaUpDown" l:HelpProvider.HelpKey="Prezime" />
+        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="6" Minimum="1" Maximum="10" x:Name="duzinaTerminaUpDown" Watermark="U časovima od 45min" l:HelpProvider.HelpKey="Prezime" Text="{Binding SelectedSubject.ClassLength}" />
+        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="7" Minimum="1" Maximum="10" x:Name="brojTerminaUpDown" l:HelpProvider.HelpKey="Prezime" Text="{Binding SelectedSubject.TerminNumber}" />
 
         <ListBox Margin="10,5" Grid.Column="2" Grid.Row="4" Grid.RowSpan="5" Height="140"
                       SelectionMode="Multiple" VerticalAlignment="Top">
@@ -79,10 +79,10 @@
         </ListBox>
 
         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-            <CheckBox Name="TableNeeded" Margin="10, 5, 5, 5" Content="Tabla" IsChecked="True"/>
-            <CheckBox Name="ProjectorNeeded" Margin="5" Content="Projektor"/>
+            <CheckBox Name="TableNeeded" Margin="10, 5, 5, 5" Content="Tabla" IsChecked="{Binding SelectedSubject.NeedsBoard}"/>
+            <CheckBox Name="ProjectorNeeded" Margin="5" Content="Projektor" IsChecked="{Binding SelectedSubject.NeedsProjector}"/>
             <!-- pamtiti čekiranost u promjenljivoj? Binding? -->
-            <CheckBox Name="SmartTableNeeded" Margin="5" Content="Pametna tabla"/>
+            <CheckBox Name="SmartTableNeeded" Margin="5" Content="Pametna tabla" IsChecked="{Binding SelectedSubject.NeedsSmartBoard}"/>
         </StackPanel>
 
         <!-- reset dugme, bez upisa u bazu? -->
