@@ -105,7 +105,7 @@ namespace SubjectsSchedule.ModelViews.Forme
             else
             {
                 DateTime mock = new DateTime();
-                if (!DateTime.TryParseExact(Datum_Input.Text, "%d.%M.%yyyy.", CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out mock))
+                if (!DateTime.TryParseExact(Datum_Input.Text, "%d.%M.%yyyy.", CultureInfo.InvariantCulture, DateTimeStyles.None, out mock))
                 {
                     ValidationError = "Format datuma mora biti u formatu \"20.10.2010\"!";
                     return false;

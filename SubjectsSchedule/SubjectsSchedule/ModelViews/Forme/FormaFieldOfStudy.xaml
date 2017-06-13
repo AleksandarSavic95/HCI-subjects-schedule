@@ -9,7 +9,7 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              d:DesignHeight="300" d:DesignWidth="400">
     <UserControl.Resources>
-        <Style TargetType="{x:Type DatePickerTextBox}">
+        <!--<Style TargetType="{x:Type DatePickerTextBox}">
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate>
@@ -19,7 +19,7 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-        </Style>
+        </Style>-->
     </UserControl.Resources>
     <Grid x:Name="___No_Name_" VerticalAlignment="Center">
         <Grid.RowDefinitions>
@@ -44,7 +44,7 @@
         <TextBox x:Name="Id_Input" Grid.Column="1" Grid.Row="0" Margin="10,5" Grid.ColumnSpan="2" Text="{Binding SelectedFieldOfStudy.Id, Mode=OneWay}"/>
         <TextBox x:Name="Naziv_Input" Grid.Column="1" Grid.Row="1" Margin="10,5" Grid.ColumnSpan="2" Text="{Binding SelectedFieldOfStudy.Name, Mode=OneWay}"/>
         <TextBox x:Name="Opis_Input" Grid.Column="1" Grid.Row="2" Margin="10,5" Grid.ColumnSpan="2" Text="{Binding SelectedFieldOfStudy.Description, Mode=OneWay}"/>
-        <DatePicker x:Name="Datum_Input" Grid.Column="1" Grid.Row="3" Margin="10,5" Grid.ColumnSpan="1" Text="{Binding SelectedFieldOfStudy.Since, Mode=OneWay}" Language="sr"/>
+        <DatePicker x:Name="Datum_Input" Grid.Column="1" Grid.Row="3" Margin="10,5" Grid.ColumnSpan="1" Text="{Binding SelectedFieldOfStudy.Since, Mode=OneWay}" Language="sr" DisplayDateStart="01.01.1950" DisplayDateEnd="06.13.2017"/>
 
         <TextBlock Grid.Row="4" Grid.ColumnSpan="3" Text="{Binding ValidationError}" TextAlignment="Center" FontSize="14" Foreground="Red" />
         

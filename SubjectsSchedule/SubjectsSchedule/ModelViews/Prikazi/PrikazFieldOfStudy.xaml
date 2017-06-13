@@ -6,6 +6,9 @@
              xmlns:local="clr-namespace:SubjectsSchedule.ModelViews.Prikazi"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
     <Grid DockPanel.Dock="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -28,7 +31,7 @@
         <TextBlock x:Name="Id_Input" Grid.Column="1" Grid.Row="0" Margin="10,5" Grid.ColumnSpan="2" Text="{Binding SelectedFieldOfStudy.Id, Mode=OneWay}"/>
         <TextBlock x:Name="Naziv_Input" Grid.Column="1" Grid.Row="1" Margin="10,5" Grid.ColumnSpan="2" Text="{Binding SelectedFieldOfStudy.Name, Mode=OneWay}"/>
         <TextBlock x:Name="Opis_Input" Grid.Column="1" Grid.Row="2" Margin="10,5" Grid.ColumnSpan="2" Text="{Binding SelectedFieldOfStudy.Description, Mode=OneWay}"/>
-        <DatePicker IsEnabled="False" x:Name="Datum_Input" Grid.Column="1" Grid.Row="3" Margin="10,5" Grid.ColumnSpan="1" Text="{Binding SelectedFieldOfStudy.Since, Mode=OneWay}" />
+        <DatePicker IsEnabled="False" x:Name="Datum_Input" Grid.Column="1" Grid.Row="3" Margin="10,5" Grid.ColumnSpan="1" Text="{Binding SelectedFieldOfStudy.Since, StringFormat=dd.MM.yyyy, Mode=OneWay}" />
 
     </Grid>
 </UserControl>
