@@ -12,6 +12,7 @@
         xmlns:cmd="clr-namespace:SubjectsSchedule.MyCommands"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="MainWindow" Height="500" Width="900"
+        Closing="Window_Closing"
         l:HelpProvider.HelpKey="Forma">
     <!-- Global commands: https://stackoverflow.com/a/4710197 -->
     <Window.CommandBindings>

@@ -54,8 +54,14 @@ namespace SubjectsSchedule
 
             //newClassroom = new FormaClassroom.FormaClassroom();
 
-            // Serialize();
-            // Deserialize();
+            try
+            {
+                Deserialize();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Unable to load data...");
+            }
 
             this.DataContext = this;
 
@@ -628,6 +634,12 @@ namespace SubjectsSchedule
         {
             HideAllForms();
             SubjectPrikaz.Visibility = Visibility.Visible;
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            // TODO maybe move this to separate thread?
+            Serialize();
         }
     }
 }
