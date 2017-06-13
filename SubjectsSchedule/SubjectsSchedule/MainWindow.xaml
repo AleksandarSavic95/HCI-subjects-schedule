@@ -124,20 +124,20 @@
             </Button>
         </StackPanel>
 
-        <f:FormaClassroom DockPanel.Dock="Top" Visibility="Visible" HorizontalAlignment="Center" x:Name="ClassroomForma"/>
-        <f:FormaSubject DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SubjectForma"/>
-        <f:FormaFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyForma"/>
-        <f:FormaSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverForma"/>
+        <f:FormaClassroom DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="ClassroomForma"/>
+        <f:FormaSubject  DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="SubjectForma"/>
+        <f:FormaFieldOfStudy  DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="FieldOfStudyForma"/>
+        <f:FormaSoftver  DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="SoftverForma"/>
 
-        <t:TabelaClassroom DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="ClassroomTabela" />
-        <t:TabelaSubject DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SubjectTabela" />
-        <t:TabelaFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyTabela" />
-        <t:TabelaSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverTabela" />
+        <t:TabelaClassroom DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="ClassroomTabela" />
+        <t:TabelaSubject  DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="SubjectTabela" />
+        <t:TabelaFieldOfStudy  DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="FieldOfStudyTabela" />
+        <t:TabelaSoftver  DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="SoftverTabela" />
 
-        <p:PrikazClassroom DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="ClassroomPrikaz" />
-        <p:PrikazSubject DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SubjectPrikaz" />
-        <p:PrikazFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyPrikaz" />
-        <p:PrikazSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverPrikaz" />
+        <p:PrikazClassroom  DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="ClassroomPrikaz" />
+        <p:PrikazSubject DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="SubjectPrikaz" />
+        <p:PrikazFieldOfStudy DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="FieldOfStudyPrikaz" />
+        <p:PrikazSoftver  DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="SoftverPrikaz" />
 
         <s:GlobalSchedule DockPanel.Dock="Top" Width="Auto" Visibility="Visible" x:Name="GlobalnaShema" HorizontalAlignment="Stretch">
         </s:GlobalSchedule>
