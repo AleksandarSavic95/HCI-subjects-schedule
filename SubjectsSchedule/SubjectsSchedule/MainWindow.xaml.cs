@@ -545,25 +545,46 @@ namespace SubjectsSchedule
             RasporedUcionice.MainWindowParent = this;
             GlobalnaShema.PopulateResources();
 
-            //SubjectHandler.Instance.ResetAllUncheduledTermins(); /// Reset svih rasporedjenih termina
+            if (TerminHandler.Instance.TerminsByIds.Count == 0)
+                SubjectHandler.Instance.ResetAllUncheduledTermins(); /// Reset svih rasporedjenih termina
         }
 
         private void InitializeClassroomsList()
         {
-            Button classroomButton;
             foreach (var classroom in ClassroomHandler.Instance.Classrooms)
-            {
-                classroomButton = new Button();
-                classroomButton.Content = classroom.Id;
-                classroomButton.Click += ClassroomButton_Click;
-                classroomButton.Margin = new Thickness(0, 1, 0, 1);
-
-                // Kačimo objekat za dugme, da ga ne tražimo poslije u bazi
-                classroomButton.Tag = classroom;
-
-                ClassroomButtonList.Children.Add(classroomButton);
-            }
+                AddClassroomButton(classroom);
             DataLoading = false;
+        }
+
+        /// <summary>
+        /// Dodavanje dugmeta ciji naziv odgovara nazivu ucionice, a Tag objekat samoj instanci.
+        /// </summary>
+        /// <param name="classroom"></param>
+        public void AddClassroomButton(Classroom classroom)
+        {
+            Button classroomButton = new Button();
+            classroomButton.Content = classroom.Id;
+            classroomButton.Click += ClassroomButton_Click;
+            classroomButton.Margin = new Thickness(0, 1, 0, 1);
+
+            // Kačimo objekat za dugme, da ga ne tražimo poslije u bazi
+            classroomButton.Tag = classroom;
+
+            ClassroomButtonList.Children.Add(classroomButton);
+        }
+
+        private void RemoveClassroomButton(Classroom classroom)
+        {
+            Button cButton;
+            for (int i = 0; i < ClassroomButtonList.Children.Count; i++)
+            {
+                cButton = (Button)ClassroomButtonList.Children[i];
+                if (((Classroom)cButton.Tag).Id == classroom.Id)
+                {
+                    ClassroomButtonList.Children.RemoveAt(i);
+                    break;
+                }
+            }
         }
 
         private void ClassroomButton_Click(object sender, RoutedEventArgs e)

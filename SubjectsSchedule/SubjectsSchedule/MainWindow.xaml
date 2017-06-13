@@ -71,8 +71,8 @@
         </StackPanel>
 
         <!-- Poruka "Učitavanje podataka" -->
-        <!-- {Binding DataLoading, Converter={utils:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged} -->
-        <Canvas x:Name="messageDisplay" Visibility="Visible"
+        <!--  -->
+        <Canvas x:Name="messageDisplay" Visibility="{Binding DataLoading, Converter={utils:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                     VerticalAlignment="Stretch" Panel.ZIndex="3" DockPanel.Dock="Top" HorizontalAlignment="Left">
             <TextBlock Text="Učitavanje podataka..." Panel.ZIndex="-2" TextAlignment="Center" Width="150" 
 					Canvas.Top="45" Canvas.Left="20"/>
