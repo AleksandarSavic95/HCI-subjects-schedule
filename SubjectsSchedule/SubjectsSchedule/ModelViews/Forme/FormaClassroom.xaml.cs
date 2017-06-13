@@ -145,5 +145,10 @@ namespace SubjectsSchedule.ModelViews.Forme
 
             ((MainWindow)Window.GetWindow(this)).Ucionice_Show();
         }
+
+        private void Back(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Window.GetWindow(this)).Ucionice_Show();
+        }
     }
 }

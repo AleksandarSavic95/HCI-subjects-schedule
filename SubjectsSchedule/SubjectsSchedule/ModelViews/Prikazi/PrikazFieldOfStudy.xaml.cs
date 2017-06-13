@@ -46,5 +46,10 @@ namespace SubjectsSchedule.ModelViews.Prikazi
 
             DataContext = this;
         }
+
+        private void Back(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Window.GetWindow(this)).Smerovi_Show();
+        }
     }
 }

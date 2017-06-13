@@ -16,7 +16,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <!-- Auto, jer su nazivi u prvoj koloni -->
                 <ColumnDefinition Width="Auto" />
@@ -46,5 +47,9 @@
                 <!-- pamtiti čekiranost u promjenljivoj? Binding? -->
             <CheckBox Name="SmartTableNeeded" Margin="5" IsChecked="{Binding SelectedClassroom.SmartBoard}" Content="Pametna tabla" IsEnabled="False"/>
             </StackPanel>
-        </Grid>
+
+        <Button Grid.Row="7" Grid.Column="0" Name="Nazad" Margin="10,5" Padding="10" Click="Back">
+            Nazad
+        </Button>
+    </Grid>
 </UserControl>

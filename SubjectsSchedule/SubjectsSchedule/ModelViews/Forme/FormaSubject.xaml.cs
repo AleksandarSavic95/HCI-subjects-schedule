@@ -174,5 +174,10 @@ namespace SubjectsSchedule.ModelViews.Forme
 
             ((MainWindow)Window.GetWindow(this)).Predmeti_Show();
         }
+
+        private void Back(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Window.GetWindow(this)).Softveri_Show();
+        }
     }
 }

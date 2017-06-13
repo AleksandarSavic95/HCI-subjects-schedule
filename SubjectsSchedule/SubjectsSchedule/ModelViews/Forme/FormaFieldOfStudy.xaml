@@ -21,7 +21,7 @@
             </Setter>
         </Style>-->
     </UserControl.Resources>
-    <Grid x:Name="___No_Name_" VerticalAlignment="Center">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -47,9 +47,12 @@
         <DatePicker x:Name="Datum_Input" Grid.Column="1" Grid.Row="3" Margin="10,5" Grid.ColumnSpan="1" Text="{Binding SelectedFieldOfStudy.Since, Mode=OneWay}" Language="sr" DisplayDateStart="01.01.1950" DisplayDateEnd="06.13.2017"/>
 
         <TextBlock Grid.Row="4" Grid.ColumnSpan="3" Text="{Binding ValidationError}" TextAlignment="Center" FontSize="14" Foreground="Red" />
-        
+
+        <Button Grid.Row="5" Grid.Column="0" Name="Nazad" Margin="10,5" Padding="10" Click="Back">
+            Nazad
+        </Button>
         <Button x:Name="Dugme_Button" Margin="10,5" Padding="10" Grid.Column="1" Grid.Row="5" Click="Button_Click">
-            Dodaj smer
+            Potvrdi
         </Button>
     </Grid>
 </UserControl>

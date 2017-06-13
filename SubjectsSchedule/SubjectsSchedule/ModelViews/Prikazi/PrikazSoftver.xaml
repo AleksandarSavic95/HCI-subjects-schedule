@@ -43,5 +43,9 @@
         <TextBlock Margin="10,5" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding SelectedSoftware.OperatingSystem, Mode=OneWay}" />
 
         <TextBlock Margin="10,5" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" x:Name="Sajt" Text="{Binding SelectedSoftware.WebSite, Mode=OneWay}"/>
+
+        <Button Grid.Row="8" Grid.Column="0" Name="Nazad" Margin="10,5" Padding="10" Click="Back">
+            Nazad
+        </Button>
     </Grid>
 </UserControl>

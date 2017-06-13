@@ -54,5 +54,9 @@
             <!-- pamtiti čekiranost u promjenljivoj? Binding? -->
             <CheckBox IsEnabled="False" Name="SmartTableNeeded" Margin="5" Content="Pametna tabla" IsChecked="{Binding SelectedSubject.NeedsSmartBoard}"/>
         </StackPanel>
+
+        <Button Grid.Row="11" Grid.Column="0" Name="Nazad" Margin="10,5" Padding="10" Click="Back">
+            Nazad
+        </Button>
     </Grid>
 </UserControl>
