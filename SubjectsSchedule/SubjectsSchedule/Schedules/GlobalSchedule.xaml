@@ -12,14 +12,15 @@
     <Grid Loaded="globalCalendar_Loaded">
         <planner:Calendar x:Name="globalCalendar" Culture="sr" Theme="Silver"
             CurrentView="Timetable" AllowInplaceEdit="False" AllowInplaceCreate="False"
-            ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" GroupType="GroupByLocations" ToolTip="{StaticResource HelpMessage}">
+            ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible"
+            GroupType="GroupByLocations" ToolTip="{StaticResource HelpMessage}">
             <planner:Calendar.TimetableSettings>
                 <planner:TimetableSettings StartTime="420" EndTime="1320"
-                    CellTime="0:15:0" CellSize="40" MinItemSize="20" 
+                    CellTime="0:15:0" CellSize="40" MinItemSize="60" TimelineSize="60" MinWidth="70" 
                     EnableSnapping="True" SnapUnitCount="5" SnapUnit="Minute" TwelveHourFormat="False"
                     HeaderDateFormat="dddd" ShowAM="True" ShowMinutesInHourHeaders="True"
-                    ShowPadding="False" TimelineSize="60" EnableCollisions="False"
-                    MinWidth="50" EnableDayItems="False" ShowItemSpans="True"
+                    ShowPadding="False" EnableCollisions="False"
+                    EnableDayItems="False" ShowItemSpans="True"
                             ShowDayHeader="False">
                     <!-- SubHeaderSize="0" > -->
                     <!-- General view style - turn off surrounding border. -->

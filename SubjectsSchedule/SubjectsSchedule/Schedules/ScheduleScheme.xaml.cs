@@ -174,6 +174,7 @@ namespace SubjectsSchedule.Schedules
                 kalendar.TimetableSettings.Dates.Add(ScheduleDays.workDays[i]);
 
             kalendar.EndInit();
+            MainWindowParent = (MainWindow)Window.GetWindow(this);
         }
 
         /// <summary>
@@ -183,6 +184,7 @@ namespace SubjectsSchedule.Schedules
         public void InitializeSubjectList(Classroom classroom = null)
         {
             Console.WriteLine("InitializeSubjectsList for: " + classroom.Id);
+            MainWindowParent.DataLoading = true; // evo i ovdje true
 
             // TODO: popunjavanje liste predmeta za ucionicu [iz "baze"]
             Console.WriteLine("Ucitavanje podataka za odabranu ucionicu..." +
@@ -212,10 +214,10 @@ namespace SubjectsSchedule.Schedules
             FieldOfStudy fos1 = new FieldOfStudy("fos1", "SIIT", DateTime.Parse("25/05/2014"),"opisFOS1");
             FieldOfStudy fos2 = new FieldOfStudy("fos2", "E3", DateTime.Parse("24/04/2015"), "opisFOS2");
 
-            SubjectHandler.Instance.Add("1", "subj1", fos1, "opis sub1", 20, 1, 2, false, true, true, OS.WINDOWS);
-            SubjectHandler.Instance.Add("2", "ISA", fos2, "oSubj2", 22, 2, 1, false, true, true, OS.SUBJ_WHATEVER);
-            SubjectHandler.Instance.Add("3", "bazePod", fos1, "oSubj3", 18, 3, 1, true, true, false, OS.WINDOWS);
-            SubjectHandler.Instance.Add("4", "HCI", fos2, "Interakcija covjek-racunar", 16, 2, 2, false, false, false, OS.SUBJ_WHATEVER);
+            //SubjectHandler.Instance.Add("1", "subj1", fos1, "opis sub1", 20, 1, 2, false, true, true, OS.WINDOWS);
+            //SubjectHandler.Instance.Add("2", "ISA", fos2, "oSubj2", 22, 2, 1, false, true, true, OS.SUBJ_WHATEVER);
+            //SubjectHandler.Instance.Add("3", "bazePod", fos1, "oSubj3", 18, 3, 1, true, true, false, OS.WINDOWS);
+            //SubjectHandler.Instance.Add("4", "HCI", fos2, "Interakcija covjek-racunar", 16, 2, 2, false, false, false, OS.SUBJ_WHATEVER);
             // */
 
             List<Subject> tmp = SubjectHandler.Instance.FindByClassroom(classroom); // RADI!
@@ -224,8 +226,7 @@ namespace SubjectsSchedule.Schedules
             this.Visibility = Visibility.Visible;
 
             // uklanjanje poruke o učitavanju podataka
-            MainWindow parent = (MainWindow)Window.GetWindow(this);
-            parent.DataLoading = false;
+            MainWindowParent.DataLoading = false;
         }
 
         private void AddToSubjectListAndUpdateRow(Subject subj)

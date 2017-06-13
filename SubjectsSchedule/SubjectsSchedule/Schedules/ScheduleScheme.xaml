@@ -9,10 +9,10 @@
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     x:Class="SubjectsSchedule.Schedules.ScheduleScheme"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="700" IsVisibleChanged="UserControl_IsVisibleChanged"
+             d:DesignHeight="500" d:DesignWidth="600" IsVisibleChanged="UserControl_IsVisibleChanged"
     ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible">
     <!-- DataContext="{Binding RelativeSource={RelativeSource Self}}" -->
-    <Grid Loaded="ScheduleSchemeLoaded">
+    <Grid Loaded="ScheduleSchemeLoaded" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="Auto" MinHeight="333"/>
@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="170" />
-            <ColumnDefinition />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <!-- info box -->
@@ -65,13 +65,13 @@
 
         <planner:Calendar x:Name="kalendar" Culture="sr"
             AllowDrop="True" DragOver="kalendar_DragOver" Drop="kalendar_Drop"
-            Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
-            VerticalAlignment="Top"
+            Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" MinWidth="300"
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
             CurrentView="Timetable" ItemClick="kalendar_ItemClick"
             AllowInplaceCreate="False" AllowInplaceEdit="False"
             ScrollViewer.HorizontalScrollBarVisibility="Visible"
             ScrollViewer.VerticalScrollBarVisibility="Visible"
-                          Theme="Silver" ItemDeleted="kalendar_ItemDeleted" HorizontalAlignment="Left" Width="520" Height="440">
+            Theme="Silver" ItemDeleted="kalendar_ItemDeleted">
             <planner:Calendar.ItemSettings>
                 <planner:ItemSettings MinHeight="10" MinWidth="10" ClipToBounds="True" ResizeBandSize="0"/>
             </planner:Calendar.ItemSettings>

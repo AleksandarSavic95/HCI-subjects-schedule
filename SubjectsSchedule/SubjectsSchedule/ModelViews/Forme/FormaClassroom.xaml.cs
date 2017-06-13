@@ -122,9 +122,12 @@ namespace SubjectsSchedule.ModelViews.Forme
                 return;
 
             if (string.IsNullOrEmpty(SelectedClassroom.Id))
+            {
                 ClassroomHandler.Instance.Add(Identificator.Text, Description.Text, Helper.ParseStringToInt(brojMijestaUpDown.Text),
                     Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded),
                     Helper.GetOSFromString(OperatingSystem.Text), (MainWindow)Window.GetWindow(this));
+                
+            }
             else
                 ClassroomHandler.Instance.Update(SelectedClassroom.Id, Identificator.Text, Description.Text, Helper.ParseStringToInt(brojMijestaUpDown.Text),
                     Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded),

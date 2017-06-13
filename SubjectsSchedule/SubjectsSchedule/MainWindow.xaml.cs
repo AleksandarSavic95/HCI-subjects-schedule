@@ -540,9 +540,31 @@ namespace SubjectsSchedule
         {
             InitializeClassroomsList();
             RasporedUcionice.MainWindowParent = this;
+            GlobalnaShema.PopulateResources();
         }
 
         private void InitializeClassroomsList()
+        {
+            DataLoading = true;
+            Console.WriteLine("DATA LOADING = TRUE");
+
+            Button classroomButton;
+            foreach (var classroom in ClassroomHandler.Instance.Classrooms)
+            {
+                classroomButton = new Button();
+                classroomButton.Content = classroom.Id;
+                classroomButton.Click += ClassroomButton_Click;
+                classroomButton.Margin = new Thickness(0, 1, 0, 1);
+
+                // Kačimo objekat za dugme, da ga ne tražimo poslije u bazi
+                classroomButton.Tag = classroom;
+
+                ClassroomButtonList.Children.Add(classroomButton);
+            }
+            DataLoading = false;
+        }
+
+        private void InitializeClassroomsListOld()
         {
             DataLoading = true;
             Console.WriteLine("DATA LOADING = TRUE");
@@ -584,9 +606,10 @@ namespace SubjectsSchedule
             if (RasporedUcionice.SelectedClassroom == c)
                 return;
 
-            this.HideAllForms();
-
+            Console.WriteLine("prikaz rasporeda ucionice DATAloading = TRUE");
             DataLoading = true; // false-ovaće ga RasporedUcionice... ljepota jedna xD
+
+            this.HideAllForms();
 
             RasporedUcionice.InitializeSubjectList(c);
         }

@@ -50,19 +50,57 @@ namespace SubjectsSchedule.Schedules
 
             globalCalendar.EndInit();
 
-            DefineResources();
-
+            //DefineResources();
             DefineLocations();
 
+            //PopulateResources();
+
             /* Appointments creation START */
-            CreateAppointments();
+            //CreateAppointments();
+            LoadTermins();
 
             // Enable grouping by locations or resources
             //globalCalendar.GroupType = GroupType.GroupByLocations;
             globalCalendar.GroupType = GroupType.GroupByResources;
 
             // Da mora da drži ALT da bi pomjerio u kolonu sa drugim resursom/lokacijom
-            globalCalendar.ItemChangeReferenceKey = ModifierKeys.Alt;
+            //globalCalendar.ItemChangeReferenceKey = ModifierKeys.Alt | ModifierKeys.Control;
+        }
+
+        private void LoadTermins()
+        {
+            Console.WriteLine("Loading termins....");
+            foreach (var classroomTerminsPair in TerminHandler.Instance.TerminsByClassrooms)
+            {
+                foreach (var termin in classroomTerminsPair.Value)
+                {
+                    if (!termin.Resources.Contains(globalCalendar.Schedule.Resources[classroomTerminsPair.Key]))
+                        termin.Resources.Add(globalCalendar.Schedule.Resources[classroomTerminsPair.Key]);
+
+                    foreach (var r in termin.Resources)
+                    {
+                        Console.WriteLine("Termin {0} ima resurs {1}", termin.HeaderText, r.Id);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Ucitavanje ucionica u resurse globalnog kalendara. Po tim resursima se grupisu elementi.
+        /// </summary>
+        public void PopulateResources()
+        {
+            Resource r;
+            Console.WriteLine("Populating global schedule's resources with {0} classrooms", ((MainWindow)Window.GetWindow(this)).ClassroomTabela.Classrooms.Count);
+            foreach (var c in ((MainWindow)Window.GetWindow(this)).ClassroomTabela.Classrooms)  // ClassroomHandler.Instance.Classrooms??/
+            {
+                r = new Resource();
+                r.Name = c.Id;
+                r.Tag = c;
+                r.Id = c.Id;
+                globalCalendar.Schedule.Resources.Add(r);
+                globalCalendar.ItemResources.Add(r);
+            }
         }
 
         private void CreateAppointments()

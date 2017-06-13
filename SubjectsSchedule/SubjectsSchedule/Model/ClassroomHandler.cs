@@ -76,15 +76,18 @@ namespace SubjectsSchedule.Model
             }
         }
 
-        public void Add(string id, string description, int seats, bool projector, bool board, bool smartBoard, OS operatingSystem)
+        public Classroom Add(string id, string description, int seats, bool projector, bool board, bool smartBoard, OS operatingSystem)
         {
-            classrooms.Add(id, new Classroom(id, description, seats, projector, board, smartBoard, operatingSystem));
+            Classroom toAdd = new Classroom(id, description, seats, projector, board, smartBoard, operatingSystem);
+            classrooms.Add(id, toAdd);
+            return toAdd;
         }
 
-        public void Add(string id, string description, int seats, bool projector, bool board, bool smartBoard, OS operatingSystem, MainWindow context)
+        public Classroom Add(string id, string description, int seats, bool projector, bool board, bool smartBoard, OS operatingSystem, MainWindow context)
         {
-            Add(id, description, seats, projector, board, smartBoard, operatingSystem);
+            Classroom added = Add(id, description, seats, projector, board, smartBoard, operatingSystem);
             context.NotifyAll("Classrooms");
+            return added;
         }
 
         public void SetSelectedClassroom(Classroom classRoom, MainWindow context)
