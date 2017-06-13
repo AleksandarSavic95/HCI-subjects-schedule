@@ -64,6 +64,10 @@ namespace SubjectsSchedule
             // Omogućuje postavku naziva za dugmad u messageBox-ovima
             // credits: https://www.codeproject.com/Articles/18399/Localizing-System-MessageBox
             System.Windows.Forms.MessageBoxManager.Register();
+
+            // prevent the window to cover the TaskBar: https://stackoverflow.com/a/35010001/2101117
+            MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+            MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
         }
 
         internal Resource getResourceForClassroom(Classroom selectedClassroom)

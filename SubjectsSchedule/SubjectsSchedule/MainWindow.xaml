@@ -81,8 +81,6 @@
         <f:FormaFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyForma"/>
         <f:FormaSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverForma"/>
 
-        <s:ScheduleScheme DockPanel.Dock="Left" Width="Auto" Visibility="Collapsed" x:Name="RasporedUcionice"/>
-
         <!-- Dugmad za dodavanje entiteta -->
         <StackPanel DockPanel.Dock="Right" MinWidth="80" Width="90" HorizontalAlignment="Right">
             <!-- icon: http://www.iconarchive.com/show/ios7-icons-by-icons8/Science-Classroom-icon.html -->
@@ -127,9 +125,10 @@
                 </StackPanel>
             </Button>
         </StackPanel>
-        
+
         <s:GlobalSchedule DockPanel.Dock="Top" Width="Auto" Visibility="Visible" x:Name="GlobalnaShema" HorizontalAlignment="Stretch">
         </s:GlobalSchedule>
+        <s:ScheduleScheme DockPanel.Dock="Top" Width="Auto" Visibility="Collapsed" x:Name="RasporedUcionice" HorizontalAlignment="Stretch"/>
     </DockPanel>
 </Window>
 
