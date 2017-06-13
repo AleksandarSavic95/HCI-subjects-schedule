@@ -34,8 +34,12 @@
                 </Style>
             </DataGrid.CellStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="IdColumn" Header="Identifikator" Binding="{Binding Id}" Width="100" MinWidth="30"/>
-                <DataGridTextColumn x:Name="NameColumn" Header="Ime" Binding="{Binding Name}" Width="70" MinWidth="30"/>
+                <DataGridTextColumn x:Name="IdColumn" Header="Identifikator" Binding="{Binding Id}" Width="30" MinWidth="30"/>
+                <DataGridTextColumn x:Name="NameColumn" Header="Ime" Binding="{Binding Name}" Width="30" MinWidth="30"/>
+                <DataGridTextColumn x:Name="ProizvodjacColumn" Header="Proizvodjac" Binding="{Binding Producer}" Width="30" MinWidth="30"/>
+                <DataGridTextColumn x:Name="GodinaColumn" Header="Godina" Binding="{Binding Year}" Width="30" MinWidth="30"/>
+                <DataGridTextColumn x:Name="CenaColumn" Header="Cena" Binding="{Binding Price}" Width="30" MinWidth="30"/>
+                <DataGridTextColumn x:Name="SajtColumn" Header="Sajt" Binding="{Binding WebSite}" Width="30" MinWidth="30"/>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

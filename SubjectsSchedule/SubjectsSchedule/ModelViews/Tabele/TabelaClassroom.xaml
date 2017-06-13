@@ -35,7 +35,7 @@
             </DataGrid.CellStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="IdColumn" Header="Identifikator" Binding="{Binding Id}" Width="100" MinWidth="30"/>
-                <DataGridTextColumn x:Name="DescColumn" Header="Opis" Binding="{Binding Description}" Width="70" MinWidth="30"/>
+                <DataGridTextColumn x:Name="DescColumn" Header="Br. Radnih mesta" Binding="{Binding Seats}" Width="70" MinWidth="30"/>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
