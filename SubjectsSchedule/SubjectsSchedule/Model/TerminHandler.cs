@@ -22,19 +22,20 @@ namespace SubjectsSchedule.Model
             }
         }
 
-        private Dictionary<string, List<MyTermin>> _terminsByClassrooms;
+        public Dictionary<string, List<string>> TerminsByClassrooms { get; set; }
 
-        public Dictionary<string, List<MyTermin>> TerminsByClassrooms { get; set; }
+        public Dictionary<string, List<string>> TerminsBySubjects { get; set; }
 
-        public List<MyTermin> GetTerminsInClassroom(string classroomId)
+
+        public List<string> GetTerminsInClassroom(string classroomId)
         {
-            return _terminsByClassrooms[classroomId];
+            return TerminsByClassrooms[classroomId];
         }
 
         private TerminHandler()
         {
-            _terminsByClassrooms = new Dictionary<string, List<MyTermin>>();
-            TerminsByClassrooms = _terminsByClassrooms;
+            TerminsByClassrooms = new Dictionary<string, List<string>>();
+            TerminsBySubjects = new Dictionary<string, List<string>>();
 
         }
 
@@ -43,7 +44,7 @@ namespace SubjectsSchedule.Model
             using (Stream file = File.Open(fileName, FileMode.Create))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                formatter.Serialize(file, _terminsByClassrooms);
+                formatter.Serialize(file, TerminsByClassrooms);
             }
         }
 
@@ -52,7 +53,7 @@ namespace SubjectsSchedule.Model
             using (Stream file = File.Open(fileName, FileMode.Open))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                _terminsByClassrooms = (Dictionary<string, List<MyTermin>>)formatter.Deserialize(file);
+                TerminsByClassrooms = (Dictionary<string, List<string>>)formatter.Deserialize(file);
             }
         }
 
@@ -60,7 +61,7 @@ namespace SubjectsSchedule.Model
         {
             try
             {
-                _terminsByClassrooms[classroomId].Add(termin);
+                TerminsByClassrooms[classroomId].Add(termin.Id);
             }
             catch (Exception e)
             {
@@ -72,12 +73,13 @@ namespace SubjectsSchedule.Model
 
         public void AddClassroom(string classroomId)
         {
-            _terminsByClassrooms.Add(classroomId, new List<MyTermin>());
+            TerminsByClassrooms.Add(classroomId, new List<string>());
         }
 
         public void Add(string id, string header, DateTime start, DateTime end, Classroom classroom, Subject subject)
         {
-            _terminsByClassrooms[id].Add(new MyTermin(header, start, end, classroom, subject));
+            Console.WriteLine("TerminHandler add sa konstruktorom - fali new MyTermin(....)!");
+            TerminsByClassrooms[id].Add(id);
         }
 
         /// <summary>
@@ -86,14 +88,14 @@ namespace SubjectsSchedule.Model
         /// <param name="id">id učionice koja se briše</param>
         public void Remove(string id)
         {
-            _terminsByClassrooms.Remove(id);
+            TerminsByClassrooms.Remove(id);
         }
 
         public void RemoveTermin(string classroomId, MyTermin termin)
         {
             try
             {
-                _terminsByClassrooms[classroomId].Remove(termin);
+                TerminsByClassrooms[classroomId].Remove(termin.Id);
             }
             catch (Exception e)
             {

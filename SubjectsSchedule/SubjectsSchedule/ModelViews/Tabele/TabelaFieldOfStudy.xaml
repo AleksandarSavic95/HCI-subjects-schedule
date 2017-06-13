@@ -11,8 +11,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <DataGrid x:Name="FieldsOfStudyList" Grid.Column="0" Grid.Row="0"
-                  Height="242"
+        <DataGrid x:Name="FieldsOfStudyList" Grid.Column="0" Grid.Row="0" VerticalAlignment="Stretch"
                   ItemsSource="{Binding FieldsOfStudy, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" SelectionUnit="FullRow"
                   ScrollViewer.CanContentScroll="True" IsReadOnly="True"

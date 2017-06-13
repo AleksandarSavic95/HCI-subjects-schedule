@@ -70,20 +70,20 @@ namespace SubjectsSchedule.Schedules
 
         private void LoadTermins()
         {
-            Console.WriteLine("Loading termins....");
-            foreach (var classroomTerminsPair in TerminHandler.Instance.TerminsByClassrooms)
-            {
-                foreach (var termin in classroomTerminsPair.Value)
-                {
-                    if (!termin.Resources.Contains(globalCalendar.Schedule.Resources[classroomTerminsPair.Key]))
-                        termin.Resources.Add(globalCalendar.Schedule.Resources[classroomTerminsPair.Key]);
+            Console.WriteLine("Loading termins.... IZ JEDINSTVENOG RJECNIKA TERMINA!");
+            //foreach (var classroomTerminsPair in TerminHandler.Instance.TerminsByClassrooms)
+            //{
+            //    foreach (var termin in classroomTerminsPair.Value)
+            //    {
+            //        if (!termin.Resources.Contains(globalCalendar.Schedule.Resources[classroomTerminsPair.Key]))
+            //            termin.Resources.Add(globalCalendar.Schedule.Resources[classroomTerminsPair.Key]);
 
-                    foreach (var r in termin.Resources)
-                    {
-                        Console.WriteLine("Termin {0} ima resurs {1}", termin.HeaderText, r.Id);
-                    }
-                }
-            }
+            //        foreach (var r in termin.Resources)
+            //        {
+            //            Console.WriteLine("Termin {0} ima resurs {1}", termin.HeaderText, r.Id);
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>
