@@ -40,6 +40,14 @@ namespace SubjectsSchedule.ModelViews.Forme
             }
         }
 
+        public List<Software> Softwares
+        {
+            get
+            {
+                return SoftwareHandler.Instance.Softwares;
+            }
+        }
+
         private string _validationError;
 
         public string ValidationError
@@ -74,14 +82,6 @@ namespace SubjectsSchedule.ModelViews.Forme
 
         private bool Validate()
         {
-            Console.WriteLine(Identifikator.Text);
-            Console.WriteLine(Naziv.Text);
-            Console.WriteLine(Opis.Text);
-            Console.WriteLine(SmjerComboBox.SelectedValue);
-            Console.WriteLine(OSComboBox.Text);
-            Console.WriteLine(duzinaTerminaUpDown.Text);
-            Console.WriteLine(brojTerminaUpDown.Text);
-
             if (string.IsNullOrWhiteSpace(Identifikator.Text))
             {
                 ValidationError = "Identifikator mora biti popunjen!";
@@ -141,6 +141,9 @@ namespace SubjectsSchedule.ModelViews.Forme
                 return false;
             }
 
+            // TODO add validation: ukoliko postoji softver odabran, proveriti da li se operativni sistemi softera poklapaju
+            // sa operativnim sistemom koji zahteva predmet
+
             ValidationError = null;
             return true;
         }
@@ -158,6 +161,16 @@ namespace SubjectsSchedule.ModelViews.Forme
                 SubjectHandler.Instance.Update(SelectedSubject.Id, Identifikator.Text, Naziv.Text, null, Opis.Text, Helper.ParseStringToInt(velicinaGrupeUpDown.Text),
                     Helper.ParseStringToInt(duzinaTerminaUpDown.Text), Helper.ParseStringToInt(brojTerminaUpDown.Text),
                     Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded), Helper.GetOSFromString(OSComboBox.Text), (MainWindow)Window.GetWindow(this));
+
+            if (SoftwaresList.SelectedItems != null && SoftwaresList.SelectedItems.Count > 0)
+            {
+                List<string> softwares = new List<string>();
+
+                foreach (Software s in SoftwaresList.SelectedItems)
+                    softwares.Add(s.Id);
+
+                SubjectHandler.Instance.FindById(Identifikator.Text).NeedsSoftware = softwares;
+            }
 
             ((MainWindow)Window.GetWindow(this)).Predmeti_Show();
         }

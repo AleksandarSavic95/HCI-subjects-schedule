@@ -61,20 +61,16 @@
             ListBox + DataBase + prikaz odabranog u TextBoxu: https://www.youtube.com/watch?v=I5qvyyhUKfY
             IMA U KODU S VJEŽBI: Move items between to ListBoxes: http://csharphelper.com/blog/2015/11/move-items-between-two-listboxes-in-c/
             -->
-        <ListBox Margin="10, 5" Grid.Column="2" Grid.Row="2" Grid.RowSpan="4"
-                     Height="104" SelectionMode="Multiple">
-            <!-- APSOLUTNA VISINA.. ne valja..
-                OnLoad nakačiti nešto: https://stackoverflow.com/a/16084207
-                Postaviti visinu itema na (ListBox.Height/brojItema): https://stackoverflow.com/a/26558478
-                Treći pokušaj: https://stackoverflow.com/a/841618
-                -->
-            <ListBoxItem>Jedan</ListBoxItem>
-            <ListBoxItem>Dva</ListBoxItem>
-            <ListBoxItem>Tri</ListBoxItem>
-            <ListBoxItem>Četiri</ListBoxItem>
-            <ListBoxItem>Sedam</ListBoxItem>
-            <ListBoxItem>Deset</ListBoxItem>
-            <ListBoxItem>Osam</ListBoxItem>
+
+        <ListBox x:Name="SoftwaresList"  Margin="10,5" Grid.Column="2" Grid.Row="2" Grid.RowSpan="4" Height="140"
+                      SelectionMode="Multiple" VerticalAlignment="Top" ItemsSource="{Binding Softwares}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=Name}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
 
         <!-- Stavljeno kao posljednje, jer se može preskočiti Enter-om -->
@@ -88,6 +84,7 @@
         </StackPanel>
 
         <TextBlock Grid.Row="7" Grid.ColumnSpan="3" Text="{Binding ValidationError}" TextAlignment="Center" FontSize="14" Foreground="Red" />
+
         <StackPanel Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="1" Orientation="Horizontal">
             <Button Name="Potvrda" Padding="10" Margin="10" 
                     MaxWidth="330" HorizontalAlignment="Center"

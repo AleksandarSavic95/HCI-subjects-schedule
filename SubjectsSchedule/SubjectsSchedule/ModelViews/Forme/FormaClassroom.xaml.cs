@@ -32,6 +32,14 @@ namespace SubjectsSchedule.ModelViews.Forme
             }
         }
 
+        public List<Software> Softwares
+        {
+            get
+            {
+                return SoftwareHandler.Instance.Softwares;
+            }
+        }
+
         private string _validationError;
 
         public string ValidationError
@@ -97,6 +105,9 @@ namespace SubjectsSchedule.ModelViews.Forme
                 return false;
             }
 
+            // TODO add validation: ukoliko postoji softver odabran, proveriti da li se operativni sistemi softera poklapaju
+            // sa operativnim sistemom koji zahteva ucionica
+
             ValidationError = null;
             return true;
         }
@@ -118,6 +129,16 @@ namespace SubjectsSchedule.ModelViews.Forme
                 ClassroomHandler.Instance.Update(SelectedClassroom.Id, Identificator.Text, Description.Text, Helper.ParseStringToInt(brojMijestaUpDown.Text),
                     Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded),
                     Helper.GetOSFromString(OperatingSystem.Text), (MainWindow)Window.GetWindow(this));
+
+            if (SoftwaresList.SelectedItems != null && SoftwaresList.SelectedItems.Count > 0)
+            {
+                List<string> softwares = new List<string>();
+
+                foreach (Software s in SoftwaresList.SelectedItems)
+                    softwares.Add(s.Id);
+
+                ClassroomHandler.Instance.FindById(Identificator.Text).InstalledSoftware = softwares;
+            }
 
             ((MainWindow)Window.GetWindow(this)).Ucionice_Show();
         }

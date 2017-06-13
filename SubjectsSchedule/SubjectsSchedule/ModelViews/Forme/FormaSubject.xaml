@@ -61,22 +61,15 @@
         <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="6" Minimum="1" Maximum="10" x:Name="duzinaTerminaUpDown" Watermark="U časovima od 45min" l:HelpProvider.HelpKey="Prezime" Text="{Binding SelectedSubject.ClassLength}" />
         <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="7" Minimum="1" Maximum="10" x:Name="brojTerminaUpDown" l:HelpProvider.HelpKey="Prezime" Text="{Binding SelectedSubject.TerminNumber}" />
 
-        <ListBox Margin="10,5" Grid.Column="2" Grid.Row="4" Grid.RowSpan="5" Height="140"
-                      SelectionMode="Multiple" VerticalAlignment="Top">
-            <!-- APSOLUTNA VISINA.. ne valja..
-                OnLoad nakačiti nešto: https://stackoverflow.com/a/16084207
-                Postaviti visinu itema na (ListBox.Height/brojItema): https://stackoverflow.com/a/26558478
-                Treći pokušaj: https://stackoverflow.com/a/841618
-                -->
-            <ListBoxItem>Jedan</ListBoxItem>
-            <ListBoxItem>Dva</ListBoxItem>
-            <ListBoxItem>Tri</ListBoxItem>
-            <ListBoxItem>Četiri</ListBoxItem>
-            <ListBoxItem>Sedam</ListBoxItem>
-            <ListBoxItem>Deset</ListBoxItem>
-            <ListBoxItem>Osam</ListBoxItem>
-            <ListBoxItem>Osam</ListBoxItem>
-            <ListBoxItem>Osam</ListBoxItem>
+        <ListBox x:Name="SoftwaresList"  Margin="10,5" Grid.Column="2" Grid.Row="4" Grid.RowSpan="5" Height="140"
+                      SelectionMode="Multiple" VerticalAlignment="Top" ItemsSource="{Binding Softwares}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=Name}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
 
         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" HorizontalAlignment="Center">
