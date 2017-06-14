@@ -27,14 +27,11 @@ namespace SubjectsSchedule
             HelpViewer hh = new HelpViewer(key, originator);
             System.Console.WriteLine("KEY JE : "  + key);
 
+            hh.Width = 400;
+            hh.Height = 400;
+
             if (key == "TabelaClassroom") { 
                 hh.Width = 570;
-                hh.Height = 400;
-            }
-            else if (key == "Forma")
-            {
-                hh.Width = 400;
-                hh.Height = 400;
             }
 
             hh.Show();

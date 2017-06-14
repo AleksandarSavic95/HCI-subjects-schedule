@@ -5,12 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SubjectsSchedule.Schedules"
              xmlns:planner="http://mindfusion.eu/scheduling/wpf"
+            xmlns:l="clr-namespace:SubjectsSchedule"
     xmlns:Globalization="clr-namespace:System.Globalization;assembly=mscorlib"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     x:Class="SubjectsSchedule.Schedules.ScheduleScheme"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="600" IsVisibleChanged="UserControl_IsVisibleChanged"
-    ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+    ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible"
+    x:Name="UserControl">
     <!-- DataContext="{Binding RelativeSource={RelativeSource Self}}" -->
     <Grid Loaded="ScheduleSchemeLoaded" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
         <Grid.RowDefinitions>
@@ -173,7 +175,7 @@
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Column="0" Grid.Row="2" Margin="5" FontSize="16" Click="Schedule_Zatvori_Click" VerticalAlignment="Bottom" Height="25">
+        <Button x:Name="ButtonZatvori" l:HelpProvider.HelpKey="RasporedJedneUcionice" Grid.Column="0" Grid.Row="2" Margin="5" FontSize="16" Click="Schedule_Zatvori_Click" VerticalAlignment="Bottom" Height="25">
             Zatvori
         </Button>
     </Grid>
