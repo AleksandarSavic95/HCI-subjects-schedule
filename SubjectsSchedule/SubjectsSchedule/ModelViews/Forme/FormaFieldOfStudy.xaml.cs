@@ -107,12 +107,12 @@ namespace SubjectsSchedule.ModelViews.Forme
                 DateTime mock = new DateTime();
                 if (!DateTime.TryParseExact(Datum_Input.Text, "%d.%M.%yyyy.", CultureInfo.InvariantCulture, DateTimeStyles.None, out mock))
                 {
-                    ValidationError = "Format datuma mora biti u formatu \"20.10.2010\"!";
+                    ValidationError = "Format datuma mora biti u formatu \"20.10.2010\"! a sada \n je " + Datum_Input.Text;
                     return false;
                 }
                 else if (mock.Year < 1950)
                 {
-                    ValidationError = "Datum ne moze biti pre 1950-te godine!";
+                    ValidationError = "Datum ne moze biti pre 1950-te godine!" + mock.Year + " l " + mock.Day;
                     return false;
                 }
             }

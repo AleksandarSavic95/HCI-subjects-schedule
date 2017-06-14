@@ -14,7 +14,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Closing="Window_Closing"
         Title="MainWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized" ResizeMode="CanMinimize"
-        l:HelpProvider.HelpKey="Index">
+        l:HelpProvider.HelpKey="Indeks">
     <!-- Global commands: https://stackoverflow.com/a/4710197 -->
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed"/>
@@ -72,7 +72,7 @@
 
         <!-- Poruka "Učitavanje podataka" -->
         <!-- {Binding DataLoading, Converter={utils:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged} -->
-        <Canvas x:Name="messageDisplay" Visibility="Visible"
+        <Canvas x:Name="messageDisplay" Visibility="Collapsed"
                     VerticalAlignment="Stretch" Panel.ZIndex="3" DockPanel.Dock="Top" HorizontalAlignment="Left">
             <TextBlock Text="Učitavanje podataka..." Panel.ZIndex="-2" TextAlignment="Center" Width="150" 
 					Canvas.Top="45" Canvas.Left="20"/>
@@ -140,7 +140,7 @@
         <p:PrikazFieldOfStudy DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="FieldOfStudyPrikaz" />
         <p:PrikazSoftver  DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="SoftverPrikaz" />
 
-        <s:GlobalSchedule Panel.ZIndex="5" DockPanel.Dock="Top" Width="Auto" Visibility="Visible" x:Name="GlobalnaShema" HorizontalAlignment="Stretch">
+        <s:GlobalSchedule l:HelpProvider.HelpKey="Indeks" Panel.ZIndex="5" DockPanel.Dock="Top" Width="Auto" Visibility="Visible" x:Name="GlobalnaShema" HorizontalAlignment="Stretch">
         </s:GlobalSchedule>
         <s:ScheduleScheme Panel.ZIndex="5" DockPanel.Dock="Top" Width="Auto" Visibility="Collapsed" x:Name="RasporedUcionice" HorizontalAlignment="Stretch"/>
     </DockPanel>
