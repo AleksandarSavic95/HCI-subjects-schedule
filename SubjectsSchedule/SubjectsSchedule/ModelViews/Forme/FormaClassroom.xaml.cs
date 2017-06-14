@@ -128,6 +128,8 @@ namespace SubjectsSchedule.ModelViews.Forme
                     Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded),
                     Helper.GetOSFromString(OperatingSystem.Text), (MainWindow)Window.GetWindow(this));
 
+                TerminHandler.Instance.AddClassroom(created.Id);
+
                 ((MainWindow)Window.GetWindow(this)).AddClassroomButton(created);
             }
             else
@@ -145,6 +147,11 @@ namespace SubjectsSchedule.ModelViews.Forme
                 ClassroomHandler.Instance.FindById(Identificator.Text).InstalledSoftware = softwares;
             }
 
+            ((MainWindow)Window.GetWindow(this)).Ucionice_Show();
+        }
+
+        private void Back(object sender, RoutedEventArgs e)
+        {
             ((MainWindow)Window.GetWindow(this)).Ucionice_Show();
         }
     }

@@ -32,12 +32,26 @@ namespace SubjectsSchedule.Schedules
             globalCalendar.ItemDeleting += (s, e) => e.Confirm = false;
 
             //globalCalendar.ItemSelecting += (s, e) => e.Confirm = false; // nema mnogo svrhe..
+            //Schedule.RegisterItemClass(typeof(MyTermin), ",mytermin", 1);//ima vec..
+            globalCalendar.InteractiveItemType = typeof(MyTermin);
         }
 
         private void GlobalSchedule_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             Console.WriteLine("GlobalSchedule_IsVisibleChanged!");
             Console.WriteLine("sad da pozoves loadLermins!");
+            //UpdateGlobal();
+        }
+
+        /// <summary>
+        /// Azuriranje globalne seme rasporeda. Nema potrebe za ovom metodom,
+        /// jer se sema azurira prilikom azuriranja svakog pojedinacnog itema.
+        /// </summary>
+        public void UpdateGlobal()
+        {
+            foreach (var t in TerminHandler.Instance.TerminsByIds.Values)
+                if (!globalCalendar.Schedule.Items.Contains(t.Id))
+                    globalCalendar.Schedule.Items.Add(t);
         }
 
         private void globalCalendar_Loaded(object sender, RoutedEventArgs e)
@@ -51,14 +65,18 @@ namespace SubjectsSchedule.Schedules
 
             globalCalendar.EndInit();
 
+            //DefineLocations();
+            /// nema potrebe zbog PopulateResources..
             //DefineResources();
-            DefineLocations();
 
+            /// poziva se iz <see cref="MainWindow.DockPanelLoaded"/>
             //PopulateResources();
 
             /* Appointments creation START */
-            //CreateAppointments();
-            LoadTermins();
+            //CreateAppointments(); // stavljeno u svrhu testiranja u PopulateResources
+
+            /// poziva se iz <see cref="MainWindow.DockPanelLoaded"/>
+            //LoadTerminsToGlobal();
 
             // Enable grouping by locations or resources
             //globalCalendar.GroupType = GroupType.GroupByLocations;
@@ -68,9 +86,11 @@ namespace SubjectsSchedule.Schedules
             //globalCalendar.ItemChangeReferenceKey = ModifierKeys.Alt | ModifierKeys.Control;
         }
 
-        private void LoadTermins()
+        // ucitavanje termina prvi put
+        public void LoadTerminsToGlobal()
         {
             Console.WriteLine("Loading termins.... IZ JEDINSTVENOG RJECNIKA TERMINA!");
+            globalCalendar.Schedule.Items.Clear();
             foreach (var terminPair in TerminHandler.Instance.TerminsByIds)
             {
                 if (!terminPair.Value.Resources.Contains(globalCalendar.Schedule.Resources[terminPair.Key]))
@@ -80,6 +100,7 @@ namespace SubjectsSchedule.Schedules
                 {
                     Console.WriteLine("Termin {0} ima resurs {1}", terminPair.Value.HeaderText, r.Id);
                 }
+                globalCalendar.Schedule.Items.Add(terminPair.Value);
             }
         }
 
@@ -99,6 +120,8 @@ namespace SubjectsSchedule.Schedules
                 globalCalendar.Schedule.Resources.Add(r);
                 globalCalendar.ItemResources.Add(r);
             }
+            /// Testiranje
+            //CreateAppointments();
         }
 
         private void CreateAppointments()
@@ -108,7 +131,7 @@ namespace SubjectsSchedule.Schedules
             app1.DescriptionText = "app1 desc";
             app1.StartTime = ScheduleDays.workDays[0].AddHours(8); // isto vrijeme
             app1.EndTime = ScheduleDays.workDays[0].AddHours(8).AddMinutes(45);
-            app1.Location = globalCalendar.Schedule.Locations[0]; // PRVA lokacija!
+            //app1.Location = globalCalendar.Schedule.Locations[0]; // PRVA lokacija!
             app1.Resources.Add(globalCalendar.Schedule.Resources[0]);
 
             Appointment app2 = new Appointment();
@@ -116,7 +139,7 @@ namespace SubjectsSchedule.Schedules
             app2.DescriptionText = "app2 desc";
             app2.StartTime = ScheduleDays.workDays[0].AddHours(8); // isto vrijeme
             app2.EndTime = ScheduleDays.workDays[0].AddHours(8).AddMinutes(45);
-            app2.Location = globalCalendar.Schedule.Locations[1]; // DRUGA lokacija!
+            //app2.Location = globalCalendar.Schedule.Locations[1]; // DRUGA lokacija!
             app2.Resources.Add(globalCalendar.Schedule.Resources[1]);
 
             Appointment app3 = new Appointment();
@@ -124,8 +147,8 @@ namespace SubjectsSchedule.Schedules
             app3.DescriptionText = "app3 desc";
             app3.StartTime = ScheduleDays.workDays[3].AddHours(9); // razl. vrijeme
             app3.EndTime = ScheduleDays.workDays[3].AddHours(9).AddMinutes(45);
-            app3.Location = globalCalendar.Schedule.Locations[1]; // DRUGA lokacija!
-            app3.Resources.Add(globalCalendar.Schedule.Resources[2]);
+            //app3.Location = globalCalendar.Schedule.Locations[1]; // DRUGA lokacija!
+            app3.Resources.Add(globalCalendar.Schedule.Resources[1]);
 
             globalCalendar.Schedule.Items.Add(app1);
             globalCalendar.Schedule.Items.Add(app2);
@@ -138,6 +161,25 @@ namespace SubjectsSchedule.Schedules
             MyTermin termin = new MyTermin("app3", start, end);
             termin.Resources.Add(globalCalendar.Schedule.Resources[1]);
             globalCalendar.Schedule.Items.Add(termin);
+        }
+
+        /// <summary>
+        /// Ažuriranje termina ili brisanje ako je <code>deleted = true</code>.
+        /// </summary>
+        /// <param name="myTermin">termin koji ažuriramo</param>
+        /// <param name="deleted">da li je obrisan u raporedu učionice</param>
+        internal void UpdateTermin(MyTermin myTermin, bool deleted = false)
+        {
+            Console.WriteLine("Prije azuriranja ima {0} itema.", globalCalendar.Schedule.Items.Count);
+            if (!deleted)
+            {
+                Console.WriteLine("Trazimo termin {0}", myTermin.Id);
+                Console.WriteLine("stara lokacija je: {0} - {1}", myTermin.StartTime, myTermin.EndTime);
+            }
+            else
+                globalCalendar.Schedule.Items.Remove(myTermin);
+
+            Console.WriteLine("Posliej ima {0} itema.", globalCalendar.Schedule.Items.Count);
         }
 
         private void DefineResources()
@@ -199,11 +241,48 @@ namespace SubjectsSchedule.Schedules
                 Console.WriteLine( ((Classroom) (((MindFusion.Scheduling.Resource)res).Tag)).Id);
             }
             var text = grid.Children[0] as TextBlock;
-            MessageBox.Show(text.Text);
+            MessageBox.Show("Prikaz rasporeda za ucionicu: " + text.Text);
             MainWindow parent = (MainWindow)Window.GetWindow(this);
             Classroom c = ClassroomHandler.Instance.FindById(text.Text);
 
             parent.PrikazRasporedaUcionice(c);
+        }
+
+        private void GlobalCalendar_LayoutUpdated(object sender, EventArgs e)
+        {
+            //Console.WriteLine("GlobalCalendar_LayoutUpdated!");
+            //Console.WriteLine(globalCalendar.Schedule.Items.Count);
+        }
+
+        /// <summary>
+        /// Kopira termin sa rasporeda učionice na globalni raspored, uz dodavanje resusra.
+        /// </summary>
+        /// <param name="termin">termin koji se kopira</param>
+        internal void CopyItem(MyTermin termin)
+        {
+            Console.WriteLine("Copy MyTermin sa id: " + termin.Id + " uz dodavanje resura "+ 
+                globalCalendar.Schedule.Resources[termin.InClassroom.Id].Name);
+
+            termin.Resources.Add(GetResourceForClassroom(termin.InClassroom.Id));
+
+            globalCalendar.Schedule.Items.Add(termin);
+        }
+
+        internal Resource GetResourceForClassroom(string selectedClassroomId)
+        {
+            //
+            Resource retVal1 = globalCalendar.ItemResources[selectedClassroomId];
+            Resource retVal2 = globalCalendar.Schedule.Resources[selectedClassroomId]; // ???
+
+            Console.WriteLine("resurs za {0}: {1}~itemresoruces | {2}~sched.resources",
+                selectedClassroomId, retVal1.Id, retVal2.Id);
+
+            if (retVal1 == null)
+            {
+                Console.WriteLine("nadjeni Resource - null ~ nije nadjen?");
+                return new Resource();
+            }
+            return retVal1;
         }
     }
 }

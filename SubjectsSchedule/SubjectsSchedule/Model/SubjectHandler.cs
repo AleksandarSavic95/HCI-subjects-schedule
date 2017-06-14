@@ -55,6 +55,7 @@ namespace SubjectsSchedule.Model
         private SubjectHandler()
         {
             subjects = new Dictionary<string, Subject>();
+            SelectedSubject = null;
         }
 
         public void Serialize(string fileName)
@@ -73,21 +74,28 @@ namespace SubjectsSchedule.Model
                 BinaryFormatter formatter = new BinaryFormatter();
                 subjects = ( Dictionary<string, Subject> ) formatter.Deserialize(file);
             }
+
+            foreach (var subjId in subjects.Keys)
+                TerminHandler.Instance.AddSubject(subjId);
         }
 
-        public void Add(string id, string name, FieldOfStudy fieldOfStudy, string description, int groupSize, int classLength,
+        public Subject Add(string id, string name, FieldOfStudy fieldOfStudy, string description, int groupSize, int classLength,
             int terminNumber, bool needsProjector, bool needsBoard, bool needsSmartBoard, OS needsOS)
         {
-            subjects.Add(id, new Subject(id, name, fieldOfStudy,
+            Subject toAdd = new Subject(id, name, fieldOfStudy,
                 description, groupSize, classLength, terminNumber,
-                needsProjector, needsBoard, needsSmartBoard, needsOS));
+                needsProjector, needsBoard, needsSmartBoard, needsOS);
+            subjects.Add(id, toAdd);
+            return toAdd;
         }
 
-        public void Add(string id, string name, FieldOfStudy fieldOfStudy, string description, int groupSize, int classLength,
+        public Subject Add(string id, string name, FieldOfStudy fieldOfStudy, string description, int groupSize, int classLength,
             int terminNumber, bool needsProjector, bool needsBoard, bool needsSmartBoard, OS needsOS, MainWindow context)
         {
-            Add(id, name, fieldOfStudy, description, groupSize, classLength, terminNumber, needsProjector, needsBoard, needsSmartBoard, needsOS);
+            Subject added = Add(id, name, fieldOfStudy, description, groupSize, classLength, terminNumber, needsProjector, needsBoard, needsSmartBoard, needsOS);
             context.NotifyAll("Subjects");
+            TerminHandler.Instance.AddSubject(id);
+            return added;
         }
 
         public void SetSelectedSubject(Subject subject, MainWindow context)

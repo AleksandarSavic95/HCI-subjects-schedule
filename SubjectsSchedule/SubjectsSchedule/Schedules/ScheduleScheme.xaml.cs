@@ -41,7 +41,7 @@ namespace SubjectsSchedule.Schedules
         public event PropertyChangedEventHandler PropertyChanged;
 
         private Classroom _selectedClassroom;
-        public Classroom SelectedClassroom
+        public Classroom SelectedScheduleClassroom
         {
             get { return _selectedClassroom; }
             set
@@ -49,7 +49,7 @@ namespace SubjectsSchedule.Schedules
                 if (value != _selectedClassroom)
                 {
                     _selectedClassroom = value;
-                    OnPropertyChanged("SelectedClassroom");
+                    OnPropertyChanged("SelectedScheduleClassroom");
                 }
             }
         }
@@ -67,18 +67,22 @@ namespace SubjectsSchedule.Schedules
 
             // Da na kalendaru pravimo termine tipa MyTermin, a ne Appointment
             kalendar.InteractiveItemType = typeof(MyTermin);
-            
+
+
+            /** desava se ako se termini prave interaktivno, sto je kod nas onemoguceno
             kalendar.ItemCreated += (s, e) =>
             {
                 if (e.Item is MyTermin) // ovo prije pisalo: kalendar.ResetDrag();
                 {
-                    Console.WriteLine("ItemCreated Event: Moj termin!");
-                    Resource r = MainWindowParent.getResourceForClassroom(SelectedClassroom);
+                    Console.WriteLine("SemaUcionice##ItemCreated Event: Moj termin!");
+                    Resource r = MainWindowParent.GetResourceForClassroom(SelectedScheduleClassroom);
                     e.Item.Resources.Add(r); // dobro ovo??
+                    (Window.GetWindow(this) as MainWindow).GlobalnaShema.globalCalendar.Schedule.Items.Add(e.Item as MyTermin);
                     TerminHandler.Instance.AddTermin(e.Item as MyTermin);
                 }
                 else Console.WriteLine("ItemCreated Event nesto =/= MyTermin");
             };
+            // */
 
             #region Pomijeranje postejećeg termina - na druge termine i van vremena [7-22h]
             kalendar.ItemModified += (s, e) =>
@@ -122,8 +126,9 @@ namespace SubjectsSchedule.Schedules
                     }
                     // ako je slobodno, samo poruka o izlasku iz opsega [7-22]
                     else
-                        if (TooEarlyOrTooLate.Length > 22) // ima prekoračenja
-                            MessageBox.Show(TooEarlyOrTooLate);
+                        // prikazuje se ako je uključen prikaz obavještenja
+                        if (TooEarlyOrTooLate.Length > 22 && MainWindowParent.Obavjestenja["TooEarlyOrTooLate"])
+                            MessageBox.Show(TooEarlyOrTooLate + "\nOvo obavještenje možete isključiti u meniju \"Obavještenja\".");
 
                     if (!zauzeto)
                     {
@@ -135,6 +140,8 @@ namespace SubjectsSchedule.Schedules
                         e.Item.StartTime = e.OldStartTime;
                         e.Item.EndTime = e.OldEndTime;
                     }
+
+                    MainWindowParent.GlobalnaShema.UpdateTermin(e.Item as MyTermin);
                 }
 
             };
@@ -175,6 +182,8 @@ namespace SubjectsSchedule.Schedules
                 kalendar.TimetableSettings.Dates.Add(ScheduleDays.workDays[i]);
 
             kalendar.EndInit();
+
+            // Samo ovdje se inicijalizuje! Je l' ovo dobar Trenutak?
             MainWindowParent = (MainWindow)Window.GetWindow(this);
         }
 
@@ -197,13 +206,12 @@ namespace SubjectsSchedule.Schedules
             if (classroom == null)
             {
                 Console.WriteLine("Nema proslijedjene ucionice!");
-                Console.WriteLine("Nema proslijedjene ucionice!");
-                throw new Exception("NE MOZEE NUL!");
+                throw new Exception("\nne moze null!\n");
                 //classroom = new Classroom("1", "", 30, true, true, true, OS.C_BOTH);
                 //classroom.InstalledSoftware.AddRange(new List<string>() { "1", "2", "3", "4" });
             }
 
-            SelectedClassroom = classroom;
+            SelectedScheduleClassroom = classroom;
 
             /* ako NE postoje u Handler-u, zakomentarisati ovo *
             PredmetiZaUcionicu.Add(new Subject("1", "subj1", "1", "oSubj1", 20, 1, 2, false, true, true, OS.WINDOWS));
@@ -244,6 +252,8 @@ namespace SubjectsSchedule.Schedules
 
             TerminHandler.Instance.RemoveTermin(deletedTermin);
             SubjectHandler.Instance.ChangeUnscheduledTermins(deletedTerminSubject.Id, false);
+
+            (Window.GetWindow(this) as MainWindow).GlobalnaShema.globalCalendar.Schedule.Items.Remove(deletedTermin);
 
             UpdateSubjectRow(deletedTerminSubject);
 
@@ -343,13 +353,19 @@ namespace SubjectsSchedule.Schedules
                 }
                 if (!zauzeto) // ne može samo "else" zbog flag-a iznad
                 {
-                    MyTermin termin = new MyTermin(subject.Name, start, end,SelectedClassroom, subject);
+                    MyTermin termin = new MyTermin(subject.Name, start, end,SelectedScheduleClassroom, subject);
+
+                    /// Radi se ovo u <see cref="GlobalSchedule.CopyItem"/>
+                    //termin.Resources.Add(MainWindowParent.GetResourceForClassroom(SelectedScheduleClassroom));
 
                     SubjectHandler.Instance.ChangeUnscheduledTermins(subject.Id);
                     TerminHandler.Instance.AddTermin(termin);
+
+                    (Window.GetWindow(this) as MainWindow).GlobalnaShema.CopyItem(termin);
+                    //(Application.Current.Windows[0] as MainWindow).GlobalnaShema.CopyItem(termin);
                     
                     UpdateSubjectRow(subject);
-
+                    Console.WriteLine("Dodat termin sa id: " + termin.Id);
                     kalendar.Schedule.Items.Add(termin);
                 }
             }
@@ -362,11 +378,14 @@ namespace SubjectsSchedule.Schedules
         private void RemoveFromCalendar(Item item)
         {
             Subject itemsSubject = ((MyTermin)item).ForSubject;
+
             // broj nerapoređenih termina se povećava
             SubjectHandler.Instance.ChangeUnscheduledTermins(itemsSubject.Id, false);
             TerminHandler.Instance.RemoveTermin((MyTermin)item);
 
             UpdateSubjectRow(itemsSubject);
+
+            MainWindowParent.GlobalnaShema.globalCalendar.Schedule.Items.Remove(item);
             kalendar.Schedule.Items.Remove(item);
         }
 
@@ -448,10 +467,28 @@ namespace SubjectsSchedule.Schedules
 
         private void Schedule_Zatvori_Click(object sender, RoutedEventArgs e)
         {
+            Console.WriteLine("Gasimo raspored ucionice {0} koja sadrzi {1} termina, a u TerminHandleru ima {2}",
+                SelectedScheduleClassroom.Id, kalendar.Schedule.Items.Count, TerminHandler.Instance.TerminsByClassrooms[SelectedScheduleClassroom.Id].Count);
+
             this.Visibility = Visibility.Collapsed;
-            SelectedClassroom = null;
-            MainWindowParent.GlobalnaShema.Visibility = Visibility.Visible;
+            SelectedScheduleClassroom = null;
+
             MainWindowParent.DataLoading = true;
+            MainWindowParent.GlobalnaShema.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Reset pa učitavanje svih termina za odabranu učionicu,
+        /// korištenjem <see cref="TerminHandler"/>-a.
+        /// </summary>
+        internal void LoadTermins()
+        {
+            kalendar.Schedule.Items.Clear();
+
+            foreach (var termin in TerminHandler.Instance.GetTerminsInClassroom(SelectedScheduleClassroom.Id))
+                kalendar.Schedule.Items.Add(termin);
+
+            Console.WriteLine("Loaded {0} termins for classroom {1}", kalendar.Schedule.Items.Count, SelectedScheduleClassroom.Id);
         }
     }
 }

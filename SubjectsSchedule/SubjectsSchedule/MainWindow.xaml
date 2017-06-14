@@ -55,7 +55,19 @@
             <MenuItem Header="_Staro">
                 <MenuItem Header="_Student forma" Click="MenuItem_Click_3"></MenuItem>
             </MenuItem>
-            <MenuItem Header="_Pomoć [F1]">
+        <MenuItem Header="_Obavještenja" ItemsSource="{Binding Obavjestenja}"
+            ToolTip="Podešavanje dodatnih obavještenja o akcijama korisnika">
+            <MenuItem.ItemContainerStyle>
+                <Style TargetType="{x:Type MenuItem}">
+                    <Setter Property="IsCheckable" Value="true"/>
+                    <Setter Property="Header" Value="{Binding Key, Mode=OneWay}"/>
+                    <Setter Property="IsChecked" Value="{Binding Value, Mode=OneWay}"/>
+                    <EventSetter Event="Click" Handler="Podesavanja_ItemCheck"/>
+                </Style>
+            </MenuItem.ItemContainerStyle>
+        </MenuItem>
+            <MenuItem>
+                <MenuItem.Header>_Pomoć [F1]</MenuItem.Header> <!-- dodavanje slike sa ?-->
                 <MenuItem Header="_Demonstracioni mod" Click="Demonstracioni_mod_Click"></MenuItem>
                 <MenuItem Header="_Toolbar, Tree, i Kontekstni Meniji" Click="MenuItem_Click_5"></MenuItem>
             </MenuItem>
@@ -71,7 +83,7 @@
         </StackPanel>
 
         <!-- Poruka "Učitavanje podataka" -->
-        <!--  -->
+        <!-- https://www.mindstick.com/Forum/1415/how-can-i-hide-the-popup-when-mouse-click-on-anywhere-outside-using-wpf -->
         <Canvas x:Name="messageDisplay" Visibility="{Binding DataLoading, Converter={utils:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                     VerticalAlignment="Stretch" Panel.ZIndex="3" DockPanel.Dock="Top" HorizontalAlignment="Left">
             <TextBlock Text="Učitavanje podataka..." Panel.ZIndex="-2" TextAlignment="Center" Width="150" 
@@ -125,20 +137,20 @@
             </Button>
         </StackPanel>
 
-        <f:FormaClassroom DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Center" x:Name="ClassroomForma"/>
-        <f:FormaSubject DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SubjectForma"/>
-        <f:FormaFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyForma"/>
-        <f:FormaSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverForma"/>
+        <f:FormaClassroom DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="ClassroomForma"/>
+        <f:FormaSubject  DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="SubjectForma"/>
+        <f:FormaFieldOfStudy  DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="FieldOfStudyForma"/>
+        <f:FormaSoftver  DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="SoftverForma"/>
 
-        <t:TabelaClassroom DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="ClassroomTabela" />
-        <t:TabelaSubject DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SubjectTabela" />
-        <t:TabelaFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyTabela" />
-        <t:TabelaSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverTabela" />
+        <t:TabelaClassroom DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="ClassroomTabela" />
+        <t:TabelaSubject  DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="SubjectTabela" />
+        <t:TabelaFieldOfStudy  DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="FieldOfStudyTabela" />
+        <t:TabelaSoftver  DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="SoftverTabela" />
 
-        <p:PrikazClassroom DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="ClassroomPrikaz" />
-        <p:PrikazSubject DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SubjectPrikaz" />
-        <p:PrikazFieldOfStudy DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="FieldOfStudyPrikaz" />
-        <p:PrikazSoftver DockPanel.Dock="Left" Width="400" Visibility="Collapsed" x:Name="SoftverPrikaz" />
+        <p:PrikazClassroom  DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="ClassroomPrikaz" />
+        <p:PrikazSubject DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="SubjectPrikaz" />
+        <p:PrikazFieldOfStudy DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="FieldOfStudyPrikaz" />
+        <p:PrikazSoftver  DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="SoftverPrikaz" />
 
         <s:GlobalSchedule Panel.ZIndex="5" DockPanel.Dock="Top" Width="Auto" Visibility="Visible" x:Name="GlobalnaShema" HorizontalAlignment="Stretch">
         </s:GlobalSchedule>

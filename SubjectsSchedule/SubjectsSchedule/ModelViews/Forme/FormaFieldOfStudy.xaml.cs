@@ -133,5 +133,10 @@ namespace SubjectsSchedule.ModelViews.Forme
 
             ((MainWindow)Window.GetWindow(this)).Smerovi_Show();
         }
+
+        private void Back(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Window.GetWindow(this)).Smerovi_Show();
+        }
     }
 }

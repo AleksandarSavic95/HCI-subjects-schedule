@@ -13,6 +13,7 @@ using System.Xml;
 namespace SubjectsSchedule.Model
 {
     //[ItemPresenter(typeof(CustomAppointmentPresenter))]
+    [Serializable]
     class MyTermin : Appointment
     {
         public MyTermin()
@@ -107,7 +108,7 @@ namespace SubjectsSchedule.Model
         }
 
         /** Override the SaveTo and LoadFrom methods of the Appointment class
-        * in order to serialize the custom property Kept. */
+        * in order to serialize any custom properties. */
         public override void SaveTo(XmlElement element, XmlSerializationContext context)
         {
             base.SaveTo(element, context);
@@ -184,7 +185,7 @@ namespace SubjectsSchedule.Model
         /** podrska za poredjenje i rad sa kolekcijom (?) */
         public override bool Equals(object obj)
         {
-            return this.Id.Equals(((MyTermin)obj).Id);
+            return this.Id.Equals(((Item)obj).Id);
         }
 
         public override int GetHashCode()

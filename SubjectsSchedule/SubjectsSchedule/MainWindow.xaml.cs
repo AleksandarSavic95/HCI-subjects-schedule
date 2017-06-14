@@ -68,6 +68,12 @@ namespace SubjectsSchedule
 
             this.DataContext = this;
 
+            Obavjestenja = new Dictionary<string, bool>()
+            {
+                { "TooEarlyOrTooLate", true}
+                // ostala obavjestenja..
+            };
+
             // Omogućuje postavku naziva za dugmad u messageBox-ovima
             // credits: https://www.codeproject.com/Articles/18399/Localizing-System-MessageBox
             System.Windows.Forms.MessageBoxManager.Register();
@@ -77,17 +83,14 @@ namespace SubjectsSchedule
             MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
         }
 
-        internal Resource getResourceForClassroom(Classroom selectedClassroom)
-        {
-            Resource retVal = GlobalnaShema.globalCalendar.ItemResources[selectedClassroom.Id];
-            Console.WriteLine("resurs za {0}: {1}", selectedClassroom.Id, retVal);
-            if (retVal == null)
-            {
-                Console.WriteLine("nadjeni Resource - null ~ nije nadjen?");
-                return new Resource();
-            }
-            return retVal;
-        }
+        /// <summary>
+        /// Mapa u kojoj su kljucevi opisi obavjestenja,
+        /// a vrijednosti indikatori da li su ukljucena
+        /// (<code>true</code>) ili iskljucena (<code>false</code>).
+        /// Nece biti serijalizovana, jer je bolje da sva obavjestenja na pocetku
+        /// svakog pokretanja aplikacije budu ukljucena, pa se lako mogu iskljuciti.
+        /// </summary>
+        public Dictionary<string, bool> Obavjestenja { get; set; }
 
         private void Serialize()
         {
@@ -105,6 +108,7 @@ namespace SubjectsSchedule
             SoftwareHandler.Instance.Serialize("softwares.bin");
             SubjectHandler.Instance.Serialize("subjects.bin");
 
+            // Pogledati dokumentaciju ove metode
             TerminHandler.Instance.Serialize("termins.bin");
 
             Console.WriteLine("Serialization finished");
@@ -537,13 +541,28 @@ namespace SubjectsSchedule
         }
         #endregion
 
+        /// <summary>
+        /// Ucitavanje DockPanel-a kao glavnog kontejnera je znak da su sve
+        /// unutrasnje komponente spremne da prime podatke.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DockPanelLoaded(object sender, RoutedEventArgs e)
         {
             DataLoading = true;
-            Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => InitializeClassroomsList()));
+            Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() =>
+                InitializeClassroomsList()
+            ));
+
+            //Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+                GlobalnaShema.PopulateResources();
+            //));
 
             RasporedUcionice.MainWindowParent = this;
-            GlobalnaShema.PopulateResources();
+
+            Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() =>
+                GlobalnaShema.LoadTerminsToGlobal()
+            ));
 
             if (TerminHandler.Instance.TerminsByIds.Count == 0)
                 SubjectHandler.Instance.ResetAllUncheduledTermins(); /// Reset svih rasporedjenih termina
@@ -573,7 +592,7 @@ namespace SubjectsSchedule
             ClassroomButtonList.Children.Add(classroomButton);
         }
 
-        private void RemoveClassroomButton(Classroom classroom)
+        public void RemoveClassroomButton(Classroom classroom)
         {
             Button cButton;
             for (int i = 0; i < ClassroomButtonList.Children.Count; i++)
@@ -595,17 +614,20 @@ namespace SubjectsSchedule
 
         public void PrikazRasporedaUcionice(Classroom c)
         {
-            if (RasporedUcionice.SelectedClassroom == c)
+            if (RasporedUcionice.SelectedScheduleClassroom == c)
                 return;
 
             Console.WriteLine("DATAloading = TRUE - PrikazRasporedaUcionice");
             DataLoading = true; // false-ovaće ga RasporedUcionice... ljepota jedna xD
 
             this.HideAllForms();
+            RasporedUcionice.SelectedScheduleClassroom = c;
             GlobalnaShema.Visibility = Visibility.Collapsed;
-
             Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() =>
                 RasporedUcionice.InitializeSubjectList(c)));
+
+            Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() =>
+                RasporedUcionice.LoadTermins()));
         }
 
         #region Prikaz poruke o učitavanju podataka
@@ -760,6 +782,14 @@ namespace SubjectsSchedule
         {
             // TODO maybe move this to separate thread?
             Serialize();
+        }
+
+        private void Podesavanja_ItemCheck(object sender, RoutedEventArgs e)
+        {
+            MenuItem source = (sender as MenuItem);
+            Console.WriteLine("promjena za {0}. Sad je {1}", source.Header.ToString(), Obavjestenja[source.Header as string]);
+            Obavjestenja[source.Header as string] = source.IsChecked;
+            Console.WriteLine("promjena za {0}. Sad je {1}", source.Header.ToString(), Obavjestenja[source.Header as string]);
         }
     }
 }

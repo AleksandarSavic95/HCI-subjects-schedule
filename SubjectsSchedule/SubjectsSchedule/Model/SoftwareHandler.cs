@@ -55,6 +55,7 @@ namespace SubjectsSchedule.Model
         private SoftwareHandler()
         {
             softwares = new Dictionary<string, Software>();
+            SelectedSoftware = null;
         }
 
         public void Serialize(string fileName)

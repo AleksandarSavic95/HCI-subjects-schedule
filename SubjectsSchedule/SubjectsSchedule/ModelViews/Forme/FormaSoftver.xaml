@@ -62,34 +62,13 @@
         <TextBlock Grid.Row="8" Grid.ColumnSpan="3" Text="{Binding ValidationError}" TextAlignment="Center" FontSize="14" Foreground="Red" />
 
         <!-- reset dugme, bez upisa u bazu? -->
-        <Button Grid.Column="0" Grid.Row="9" Name="Reset" Padding="10" Margin="10" 
-                    MaxWidth="330" HorizontalAlignment="Center">
-            <StackPanel>
-                <TextBlock FontSize="14">Isprazni polja</TextBlock>
-                <!-- <TextBlock FontSize="9" HorizontalAlignment="Center">bez potvrde unosa</TextBlock> -->
-                <TextBlock FontSize="10" HorizontalAlignment="Center">[ALT + ENTER]</TextBlock>
-            </StackPanel>
+
+        <Button Grid.Row="9" Grid.Column="0" Name="Nazad" Margin="10,5" Padding="10" Click="Back">
+            Nazad
         </Button>
-
-        <StackPanel Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <Button Name="Potvrda" Padding="10" Margin="10" 
-                    MaxWidth="330" HorizontalAlignment="Center"
-                    Click="Potvrda_Click">
-                <StackPanel>
-                    <TextBlock FontSize="14" HorizontalAlignment="Center">Potvrdi [ENTER]</TextBlock>
-
-                    <!-- <TextBlock FontSize="9" HorizontalAlignment="Center">[CTRL + ENTER] ili [CTRL + klik]</TextBlock>
-                        <TextBlock FontSize="9" HorizontalAlignment="Center">za potvrdu i nastavak unošenja</TextBlock> -->
-
-                    <TextBlock FontSize="10" HorizontalAlignment="Center">[CTRL] uz potvrdu unosa za</TextBlock>
-                    <TextBlock FontSize="10" HorizontalAlignment="Center">potvrdu i nastavak unošenja</TextBlock>
-                </StackPanel>
-            </Button>
-            <!-- <StackPanel Margin="0, 0, 0, 0" VerticalAlignment="Center">
-                    <TextBlock Text="Ctrl + ENTER/klik za" />
-                    <TextBlock Text="potvrdu i nastavak unošenja" />
-                </StackPanel> -->
-        </StackPanel>
+        <Button x:Name="Potvrda" Margin="10,5" Padding="10" Grid.Column="1" Grid.Row="9" Click="Potvrda_Click">
+            Potvrdi
+        </Button>
     </Grid>
 </UserControl>
 

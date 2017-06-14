@@ -153,10 +153,15 @@ namespace SubjectsSchedule.ModelViews.Forme
             if (!Validate())
                 return;
 
+            // Dodavanje novog softvera - novi softver
             if (string.IsNullOrEmpty(SelectedSubject.Id))
-                SubjectHandler.Instance.Add(Identifikator.Text, Naziv.Text, FieldOfStudyHanlder.Instance.FindById(SmjerComboBox.SelectedValue.ToString()), Opis.Text, Helper.ParseStringToInt(velicinaGrupeUpDown.Text),
+            {
+                Subject created = SubjectHandler.Instance.Add(Identifikator.Text, Naziv.Text, FieldOfStudyHanlder.Instance.FindById(SmjerComboBox.SelectedValue.ToString()), Opis.Text, Helper.ParseStringToInt(velicinaGrupeUpDown.Text),
                     Helper.ParseStringToInt(duzinaTerminaUpDown.Text), Helper.ParseStringToInt(brojTerminaUpDown.Text),
                     Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded), Helper.GetOSFromString(OSComboBox.Text), (MainWindow)Window.GetWindow(this));
+
+                TerminHandler.Instance.AddSubject(created.Id);
+            }
             else
                 SubjectHandler.Instance.Update(SelectedSubject.Id, Identifikator.Text, Naziv.Text, null, Opis.Text, Helper.ParseStringToInt(velicinaGrupeUpDown.Text),
                     Helper.ParseStringToInt(duzinaTerminaUpDown.Text), Helper.ParseStringToInt(brojTerminaUpDown.Text),
@@ -173,6 +178,11 @@ namespace SubjectsSchedule.ModelViews.Forme
             }
 
             ((MainWindow)Window.GetWindow(this)).Predmeti_Show();
+        }
+
+        private void Back(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Window.GetWindow(this)).Softveri_Show();
         }
     }
 }
