@@ -99,5 +99,14 @@ namespace SubjectsSchedule.ModelViews.Tabele
         {
             OnPropertyChanged("Classrooms");
         }
+
+        private void TabelaClassroom_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (IsVisible == true)
+                UserControl.Focus();
+            else
+                this.NovaUcionica_Btn.Focus();
+        }
+        
     }
 }

@@ -7,8 +7,9 @@
              mc:Ignorable="d"
              xmlns:cmd="clr-namespace:SubjectsSchedule.MyCommands"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             l:HelpProvider.HelpKey="Forma"
-             d:DesignHeight="300" d:DesignWidth="450">
+             d:DesignHeight="300" d:DesignWidth="450"
+             x:Name="UserControl"
+             l:HelpProvider.HelpKey="Forma">
     <Grid DockPanel.Dock="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -34,13 +35,13 @@
         <TextBlock Margin="5" Grid.Column="0" Grid.Row="4" Text="Instalirani softver" VerticalAlignment="Center"/>
         <TextBlock Margin="5" Grid.Column="0" Grid.Row="5" Text="Dodatni elementi"/>
 
-        <TextBox  Text="{Binding SelectedClassroom.Id, Mode=OneWay}"  Name="Identificator" Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True"/>
-        <TextBox  Text="{Binding SelectedClassroom.Description, Mode=OneWay}" Name="Description" Margin="10, 5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True"/>
+        <TextBox  Text="{Binding SelectedClassroom.Id, Mode=OneWay}"  Name="Identificator" Loaded="IdentificatorTextBox_Loaded" Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Forma" TextWrapping="Wrap" SpellCheck.IsEnabled="True"/>
+        <TextBox  Text="{Binding SelectedClassroom.Description, Mode=OneWay}" Name="Description" Margin="10, 5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Forma" TextWrapping="Wrap" SpellCheck.IsEnabled="True"/>
         <!-- AcceptsReturn="True" ? -->
-        <xctk:IntegerUpDown Margin="10, 5" Grid.Column="1" Grid.Row="2" Minimum="1" x:Name="brojMijestaUpDown" l:HelpProvider.HelpKey="Prezime" Value="{Binding SelectedClassroom.Seats}"/>
+        <xctk:IntegerUpDown Margin="10, 5" Grid.Column="1" Grid.Row="2" Minimum="1" x:Name="brojMijestaUpDown" l:HelpProvider.HelpKey="Forma" Value="{Binding SelectedClassroom.Seats}"/>
         <!-- ???? Margin="5" Grid.Column="1" Grid.Row="2" ... -->
         <!-- TODO: Map this to SelectedClassroom -->
-        <ComboBox Name="OperatingSystem" Margin="10, 5" Grid.Column="1" Grid.Row="3" SelectedIndex="0">
+        <ComboBox l:HelpProvider.HelpKey="Forma" Name="OperatingSystem" Margin="10, 5" Grid.Column="1" Grid.Row="3" SelectedIndex="0">
             <ComboBoxItem x:Name="classroomFormaWindows" Content="Windows"></ComboBoxItem>
             <ComboBoxItem Content="Linux"></ComboBoxItem>
             <ComboBoxItem Content="Oba"></ComboBoxItem>
@@ -62,7 +63,7 @@
             IMA U KODU S VJEŽBI: Move items between to ListBoxes: http://csharphelper.com/blog/2015/11/move-items-between-two-listboxes-in-c/
             -->
 
-        <ListBox x:Name="SoftwaresList"  Margin="10,5" Grid.Column="2" Grid.Row="2" Grid.RowSpan="4" Height="140"
+        <ListBox l:HelpProvider.HelpKey="Forma" x:Name="SoftwaresList"  Margin="10,5" Grid.Column="2" Grid.Row="2" Grid.RowSpan="4" Height="140"
                       SelectionMode="Multiple" VerticalAlignment="Top" ItemsSource="{Binding Softwares}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -76,7 +77,7 @@
         <!-- Stavljeno kao posljednje, jer se može preskočiti Enter-om -->
         <!-- TODO: da li ćemo praviti da se pamte posljednje selektovani CB-ovi i nakon zatvaranja forme -->
         <!-- Ne bih to stavljao, ostavio bih default, ne deluje mi kao nesto sta moze puno da pomogne, a kontam moze da smara -->
-        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+        <StackPanel l:HelpProvider.HelpKey="Forma" Orientation="Horizontal" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center">
             <CheckBox Name="TableNeeded" Margin="10, 5, 5, 5" Content="Tabla" IsChecked="{Binding SelectedClassroom.Board, Mode=OneWay}"/>
             <CheckBox Name="ProjectorNeeded" Margin="5" Content="Projektor" IsChecked="{Binding SelectedClassroom.Projector, Mode=OneWay}"/>
             <!-- pamtiti čekiranost u promjenljivoj? Binding? -->

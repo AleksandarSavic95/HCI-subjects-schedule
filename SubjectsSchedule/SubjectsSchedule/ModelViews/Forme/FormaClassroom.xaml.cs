@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using SubjectsSchedule.Model;
 using SubjectsSchedule.Utilities;
 using System.ComponentModel;
+using System.Windows.Automation.Peers;
 
 namespace SubjectsSchedule.ModelViews.Forme
 {
@@ -155,6 +156,15 @@ namespace SubjectsSchedule.ModelViews.Forme
         private void Back(object sender, RoutedEventArgs e)
         {
             ((MainWindow)Window.GetWindow(this)).Ucionice_Show();
+        }
+        
+        private void IdentificatorTextBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (IsVisible == true) { 
+                TextBoxAutomationPeer tbap = new TextBoxAutomationPeer(Identificator);
+               tbap.SetFocus(); }
+            else
+                this.Potvrda.Focus();
         }
     }
 }
