@@ -296,6 +296,9 @@
     <Resource Include="HelpSystem\HelpContent\images\graph2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Content Include="HelpSystem\HelpContent\RasporedJedneUcionice.htm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="HelpSystem\HelpContent\TabelaClassroom.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -318,16 +321,13 @@
     <Resource Include="HelpSystem\HelpContent\graph2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="HelpSystem\HelpContent\Ime.htm">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="HelpSystem\HelpContent\Indeks.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="HelpSystem\HelpContent\index.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="HelpSystem\HelpContent\Prezime.htm">
+    <Content Include="HelpSystem\HelpContent\CitavRaspored.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -61,6 +61,34 @@ namespace SubjectsSchedule.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///
+        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///    &lt;title&gt;&lt;/title&gt;
+        ///&lt;/head&gt;
+        ///    &lt;body&gt;
+        ///        &lt;h2&gt;Shema rasporeda&lt;/h2&gt;
+        ///        &lt;p&gt;
+        ///            Sada vidite tabelu koja prikazuje shemu rasporeda. Možete kliknuti na svaku učionicu ispod datuma
+        ///            da odete na pregled termina u toj učionici.
+        ///        &lt;/p&gt;
+        ///
+        ///        &lt;p&gt;
+        ///            Nazad na &lt;a href=&quot;Indeks.htm&quot;&gt;indeks&lt;/a&gt; pomoći.
+        ///        &lt;/p&gt;
+        ///
+        ///    &lt;/body&gt;
+        ///&lt;/html&gt;.
+        /// </summary>
+        public static string CitavRaspored {
+            get {
+                return ResourceManager.GetString("CitavRaspored", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
         ///&lt;html&gt;
         ///	&lt;head&gt;
@@ -90,13 +118,11 @@ namespace SubjectsSchedule.Properties {
         ///        Pomoć pri popunjavanju forme
         ///    &lt;/h2&gt;
         ///    &lt;p&gt;
+        ///        &lt;b&gt;Identifikator&lt;/b&gt; - niz karaktera koji jedinstveno identifikuje jedan entitet.
         ///        Identifikator ne smije imati više od 4 ni manje od 1 karaktera i mora biti jedinstven u cijelom sistemu.
         ///    &lt;/p&gt;
         ///    &lt;p&gt;
-        ///         ne smije imati više od 4 ni manje od 1 karaktera i mora biti jedinstven u cijelom sistemu.
-        ///    &lt;/p&gt;
-        ///    &lt;p&gt;
-        ///        Identifikator ne smije imati više [rest of string was truncated]&quot;;.
+        ///        &lt;b&gt;Opis&lt;/b&gt; - tekstualni opis jedne učionice. Ovdje možete uni [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Forma {
             get {
@@ -117,47 +143,6 @@ namespace SubjectsSchedule.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
         ///&lt;html&gt;
-        ///	&lt;head&gt;
-        ///		&lt;title&gt;Ime&lt;/title&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///	    &lt;h1&gt;Ime&lt;/h1&gt;
-        ///	&lt;/body&gt;
-        ///&lt;/html&gt;.
-        /// </summary>
-        public static string Ime {
-            get {
-                return ResourceManager.GetString("Ime", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
-        ///&lt;html&gt;
-        ///	&lt;head&gt;
-        ///		&lt;title&gt;Raspored v1.0 | Indeks&lt;/title&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///	    &lt;h2&gt;Indeks&lt;/h2&gt;
-        ///        &lt;p&gt;
-        ///            U nastavku su dati linkovi ka svim poglavljima sistema za pomoć.
-        ///            Molimo odaberite željeno poglavlje.
-        ///        &lt;/p&gt;
-        ///        &lt;a href=&quot;Prezime.htm&quot;&gt;prezime&lt;/a&gt; &lt;br /&gt;
-        ///        &lt;a href=&quot;Ime.htm&quot;&gt;ime&lt;/a&gt; &lt;br /&gt;
-        ///        &lt;a&gt;...&lt;/a&gt; &lt;br /&gt;
-        ///	&lt;/body&gt;
-        ///&lt;/html&gt;.
-        /// </summary>
-        public static string Indeks {
-            get {
-                return ResourceManager.GetString("Indeks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
-        ///&lt;html&gt;
         ///&lt;head&gt;
         ///    &lt;title&gt; Raspored v1.0 | Podrazumevana stranica pomoći &lt;/title&gt;
         ///&lt;/head&gt;
@@ -166,12 +151,14 @@ namespace SubjectsSchedule.Properties {
         ///    &lt;div&gt;
         ///        &lt;p&gt;
         ///            Ne postoji konkretan sadržaj pomoći za traženi dio aplikacije.
-        ///            Molimo pogledajte &lt;a href=&quot;Indeks.htm&quot;&gt;indeks&lt;/a&gt; pomoći, u kome
+        ///            Molimo pogledajte &lt;b&gt;Indeks&lt;/b&gt; pomoći, u kome
         ///            se nalaze linkovi ka svim pojmovima za koje pomoć postoji.
         ///        &lt;/p&gt;
         ///    &lt;/div&gt;
-        ///&lt;/body&gt;
-        ///&lt;/html&gt;.
+        ///
+        ///    &lt;h3&gt;Indeks&lt;/h3&gt;
+        ///    &lt;p&gt;
+        ///        U nas [rest of string was truncated]&quot;;.
         /// </summary>
         public static string index {
             get {
@@ -190,43 +177,45 @@ namespace SubjectsSchedule.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
-        ///&lt;!-- saved from url=(0016)http://localhost --&gt;
-        ///&lt;html&gt;
-        ///	&lt;head&gt;
-        ///		&lt;title&gt;Prezime&lt;/title&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///	    &lt;h1&gt;Prezime&lt;/h1&gt;
-        ///        &lt;p&gt;
-        ///            Test &lt;a href=&quot;Ime.htm&quot;&gt;link.&lt;/a&gt;
-        ///        &lt;/p&gt;
-        ///        &lt;p&gt;
-        ///            &lt;img src=&quot;images/graph2.png&quot; alt=&quot;graph2&quot;/&gt;
-        ///        &lt;/p&gt;
-        ///        &lt;p&gt;
-        ///            &lt;input type=&quot;text&quot; id=&quot;txtMessage&quot; /&gt;
-        ///            &lt;input type=&quot;button&quot; value=&quot;Press Me!&quot; onclick=&quot;javascript:window.external.RunFromJavascript(docum [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///
+        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///    &lt;title&gt;&lt;/title&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///    &lt;h2&gt;Raspored jedne učionice&lt;/h2&gt;
+        ///    &lt;p&gt;
+        ///        Sada vidite tabelu koja prikazuje raspored termina u jednoj učionici. Sa lijeve strane Vam se nalazi spisak
+        ///        predmeta (njihovih termina) koji mogu biti dodati u ovu učionicu.
+        ///    &lt;/p&gt;
+        ///    &lt;p&gt;
+        ///        Da dodate jedan termin nekog predmeta za neki dan u ovoj učionici, uradite sljedeće:
+        ///        &lt;o [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string Prezime {
+        public static string RasporedJedneUcionice {
             get {
-                return ResourceManager.GetString("Prezime", resourceCulture);
+                return ResourceManager.GetString("RasporedJedneUcionice", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
-        ///&lt;!-- saved from url=(0016)http://localhost --&gt;
-        ///&lt;html&gt;
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///
+        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
         ///&lt;head&gt;
-        ///    &lt;title&gt;Tabela učionica&lt;/title&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///    &lt;title&gt;&lt;/title&gt;
         ///&lt;/head&gt;
         ///&lt;body&gt;
         ///    &lt;h2&gt;Tabela učionica&lt;/h2&gt;
         ///    &lt;p&gt;
-        ///        Sada vidite tabelu koja prikazuje sve učionice koje su trenutno u sistemu. O svakoj učionici su prikazani 
-        ///        samo osnovni detalji koji pomažu u jedinstvenoj identifikaciji učionice. Ovdje možete dodavati nove učionice, 
-        ///        uklanjati postojeće ili pogledati detaljan opis  [rest of string was truncated]&quot;;.
+        ///        Sada vidite tabelu koja prikazuje sve učionice koje su trenutno u sistemu. O svakoj učionici su prikazani
+        ///        samo osnovni detalji koji pomažu u jedinstvenoj identifikaciji učionice. Ovdje možete dodavati nove učionice,
+        ///        uklanjati postojeće ili pogledati detaljan opis svake učionice.
+        ///    &lt;/p&gt;
+        ///    &lt;p [rest of string was truncated]&quot;;.
         /// </summary>
         public static string TabelaClassroom {
             get {

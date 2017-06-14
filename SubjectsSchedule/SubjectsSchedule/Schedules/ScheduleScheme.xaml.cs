@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -185,6 +186,12 @@ namespace SubjectsSchedule.Schedules
 
             // Samo ovdje se inicijalizuje! Je l' ovo dobar Trenutak?
             MainWindowParent = (MainWindow)Window.GetWindow(this);
+            
+            if (IsVisible == true) {
+                ButtonAutomationPeer bap = new ButtonAutomationPeer(ButtonZatvori);
+                bap.SetFocus();
+            }
+            else kalendar.Focus();
         }
 
         /// <summary>
@@ -394,6 +401,12 @@ namespace SubjectsSchedule.Schedules
         private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             Console.WriteLine("ScheduleScheme IsVisibleChanged + " + ((bool)e.NewValue));
+
+            if (IsVisible == true)
+                SubjectsList.Focus();
+            else
+                this.ButtonZatvori.Focus();
+
             //if ((bool)e.NewValue)
             //    MainWindowParent.DataLoading = true;
             //else
@@ -490,5 +503,6 @@ namespace SubjectsSchedule.Schedules
 
             Console.WriteLine("Loaded {0} termins for classroom {1}", kalendar.Schedule.Items.Count, SelectedScheduleClassroom.Id);
         }
+        
     }
 }
