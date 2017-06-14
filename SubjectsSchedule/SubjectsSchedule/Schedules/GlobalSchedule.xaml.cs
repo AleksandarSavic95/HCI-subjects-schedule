@@ -39,19 +39,6 @@ namespace SubjectsSchedule.Schedules
         private void GlobalSchedule_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             Console.WriteLine("GlobalSchedule_IsVisibleChanged!");
-            Console.WriteLine("sad da pozoves loadLermins!");
-            //UpdateGlobal();
-        }
-
-        /// <summary>
-        /// Azuriranje globalne seme rasporeda. Nema potrebe za ovom metodom,
-        /// jer se sema azurira prilikom azuriranja svakog pojedinacnog itema.
-        /// </summary>
-        public void UpdateGlobal()
-        {
-            foreach (var t in TerminHandler.Instance.TerminsByIds.Values)
-                if (!globalCalendar.Schedule.Items.Contains(t.Id))
-                    globalCalendar.Schedule.Items.Add(t);
         }
 
         private void globalCalendar_Loaded(object sender, RoutedEventArgs e)
@@ -93,13 +80,12 @@ namespace SubjectsSchedule.Schedules
             globalCalendar.Schedule.Items.Clear();
             foreach (var terminPair in TerminHandler.Instance.TerminsByIds)
             {
-                if (!terminPair.Value.Resources.Contains(globalCalendar.Schedule.Resources[terminPair.Key]))
-                    terminPair.Value.Resources.Add(globalCalendar.Schedule.Resources[terminPair.Key]);
+                if (!terminPair.Value.Resources.Contains(globalCalendar.Schedule.Resources[terminPair.Value.InClassroom.Id]))
+                    terminPair.Value.Resources.Add(globalCalendar.Schedule.Resources[terminPair.Value.InClassroom.Id]);
 
                 foreach (var r in terminPair.Value.Resources)
-                {
                     Console.WriteLine("Termin {0} ima resurs {1}", terminPair.Value.HeaderText, r.Id);
-                }
+
                 globalCalendar.Schedule.Items.Add(terminPair.Value);
             }
         }
@@ -122,6 +108,16 @@ namespace SubjectsSchedule.Schedules
             }
             /// Testiranje
             //CreateAppointments();
+        }
+
+        internal void AddResource(Classroom c)
+        {
+            Resource r = new Resource();
+            r.Name = c.Id;
+            r.Tag = c;
+            r.Id = c.Id;
+            globalCalendar.Schedule.Resources.Add(r);
+            globalCalendar.ItemResources.Add(r);
         }
 
         private void CreateAppointments()
@@ -241,7 +237,11 @@ namespace SubjectsSchedule.Schedules
                 Console.WriteLine( ((Classroom) (((MindFusion.Scheduling.Resource)res).Tag)).Id);
             }
             var text = grid.Children[0] as TextBlock;
-            MessageBox.Show("Prikaz rasporeda za ucionicu: " + text.Text);
+
+            if ((Window.GetWindow(this) as MainWindow).Obavjestenja[""])
+                MessageBox.Show("Prikaz rasporeda za ucionicu: " + text.Text +
+                    "\nOvo obavještenje možete sakriti u meniju \"Obavještenja\".");
+
             MainWindow parent = (MainWindow)Window.GetWindow(this);
             Classroom c = ClassroomHandler.Instance.FindById(text.Text);
 

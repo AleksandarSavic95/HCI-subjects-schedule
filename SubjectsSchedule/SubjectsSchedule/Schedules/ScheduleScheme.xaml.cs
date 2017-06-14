@@ -486,7 +486,7 @@ namespace SubjectsSchedule.Schedules
             this.Visibility = Visibility.Collapsed;
             SelectedScheduleClassroom = null;
 
-            MainWindowParent.DataLoading = true;
+            //MainWindowParent.DataLoading = true;
             MainWindowParent.GlobalnaShema.Visibility = Visibility.Visible;
         }
 

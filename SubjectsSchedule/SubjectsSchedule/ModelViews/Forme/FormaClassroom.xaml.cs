@@ -131,6 +131,8 @@ namespace SubjectsSchedule.ModelViews.Forme
 
                 TerminHandler.Instance.AddClassroom(created.Id);
 
+                ((MainWindow)Window.GetWindow(this)).GlobalnaShema.AddResource(created);
+
                 ((MainWindow)Window.GetWindow(this)).AddClassroomButton(created);
             }
             else
