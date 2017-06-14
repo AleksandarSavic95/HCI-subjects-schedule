@@ -34,8 +34,8 @@
         <TextBlock Margin="5" Grid.Column="0" Grid.Row="4" Text="Instalirani softver" VerticalAlignment="Center"/>
         <TextBlock Margin="5" Grid.Column="0" Grid.Row="5" Text="Dodatni elementi"/>
 
-        <TextBox  Text="{Binding SelectedClassroom.Id, Mode=OneWay}"  Name="Identificator" Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True"/>
-        <TextBox  Text="{Binding SelectedClassroom.Description, Mode=OneWay}" Name="Description" Margin="10, 5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True"/>
+        <TextBox  Text="{Binding SelectedClassroom.Id, Mode=OneWay}"  Name="Identificator" Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Prezime" TextWrapping="Wrap" SpellCheck.IsEnabled="True"/>
+        <TextBox  Text="{Binding SelectedClassroom.Description, Mode=OneWay}" Name="Description" Margin="10, 5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="TabelaClassroom" TextWrapping="Wrap" SpellCheck.IsEnabled="True"/>
         <!-- AcceptsReturn="True" ? -->
         <xctk:IntegerUpDown Margin="10, 5" Grid.Column="1" Grid.Row="2" Minimum="1" x:Name="brojMijestaUpDown" l:HelpProvider.HelpKey="Prezime" Value="{Binding SelectedClassroom.Seats}"/>
         <!-- ???? Margin="5" Grid.Column="1" Grid.Row="2" ... -->

@@ -25,6 +25,13 @@ namespace SubjectsSchedule
         public static void ShowHelp(string key, MainWindow originator)
         {
             HelpViewer hh = new HelpViewer(key, originator);
+            System.Console.WriteLine("KEY JE : "  + key);
+
+            if (key == "TabelaClassroom") { 
+                hh.Width = 570;
+                hh.Height = 400;
+            }
+
             hh.Show();
         }
     }

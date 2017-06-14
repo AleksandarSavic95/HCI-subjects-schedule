@@ -22,6 +22,8 @@ namespace SubjectsSchedule.ModelViews.Tabele
     /// </summary>
     public partial class TabelaClassroom : UserControl, INotifyPropertyChanged
     {
+        // brojac za ispis
+        int cwCounter;
 
         public List<Classroom> Classrooms
         {
@@ -36,7 +38,7 @@ namespace SubjectsSchedule.ModelViews.Tabele
             InitializeComponent();
 
             DataContext = this;
-
+            cwCounter = 0;
             // neće raditi ovdje, jer nisu sve komponente učitane
             //OnPropertyChanged("Classrooms");
         }
@@ -93,5 +95,14 @@ namespace SubjectsSchedule.ModelViews.Tabele
         {
             OnPropertyChanged("Classrooms");
         }
+
+        private void TabelaClassroom_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (IsVisible == true)
+                UserControl.Focus();
+            else
+                this.NovaUcionica_Btn.Focus();
+        }
+        
     }
 }
