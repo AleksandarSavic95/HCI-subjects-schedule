@@ -48,14 +48,7 @@
                 <MenuItem Header="_Učionice" Click="Ucionice_Click" ></MenuItem>
                 <MenuItem Header="_Softver" Click="Softveri_Click" ></MenuItem>
             </MenuItem>
-            <!-- <MenuItem Header="_Grafika">
-                <MenuItem Header="_Custom Renderer 2D Grafika" Click="MenuItem_Click"></MenuItem>
-                <MenuItem Header="3D Grafika" Click="MenuItem_Click_2"></MenuItem>
-            </MenuItem> -->
-            <MenuItem Header="_Staro">
-                <MenuItem Header="_Student forma" Click="MenuItem_Click_3"></MenuItem>
-            </MenuItem>
-        <MenuItem Header="_Obavještenja" ItemsSource="{Binding Obavjestenja}"
+            <MenuItem Header="_Obavještenja" ItemsSource="{Binding Obavjestenja}"
             ToolTip="Podešavanje dodatnih obavještenja o akcijama korisnika">
             <MenuItem.ItemContainerStyle>
                 <Style TargetType="{x:Type MenuItem}">
@@ -69,7 +62,7 @@
             <MenuItem>
                 <MenuItem.Header>_Pomoć [F1]</MenuItem.Header> <!-- dodavanje slike sa ?-->
                 <MenuItem Header="_Demonstracioni mod" Click="Demonstracioni_mod_Click"></MenuItem>
-                <MenuItem Header="_Toolbar, Tree, i Kontekstni Meniji" Click="MenuItem_Click_5"></MenuItem>
+                <MenuItem Header="_O aplikaciji" Click="O_Aplikaciiji_Click"></MenuItem>
             </MenuItem>
         </Menu>
 
@@ -100,7 +93,7 @@
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">Dodaj</TextBlock>
                     <TextBlock HorizontalAlignment="Center"><Bold>U</Bold>čionicu</TextBlock>
-                    <TextBlock HorizontalAlignment="Center" FontSize="9">[CTRL + <Bold>U</Bold>]</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="9">[ALT + SHIFT + <Bold>U</Bold>]</TextBlock>
                 </StackPanel>
             </Button>
 
@@ -108,7 +101,7 @@
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">Dodaj</TextBlock>
                     <TextBlock HorizontalAlignment="Center"><Bold>P</Bold>redmet</TextBlock>
-                    <TextBlock HorizontalAlignment="Center" FontSize="9">[CTRL + <Bold>P</Bold>]</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="9">[ALT + SHIFT + <Bold>P</Bold>]</TextBlock>
                 </StackPanel>
             </Button>
 
@@ -116,7 +109,7 @@
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">Dodaj</TextBlock>
                     <TextBlock HorizontalAlignment="Center"><Bold>S</Bold>mjer</TextBlock>
-                    <TextBlock HorizontalAlignment="Center" FontSize="9">[CTRL + <Bold>S</Bold>]</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="9">[ALT + SHIFT + <Bold>S</Bold>]</TextBlock>
                 </StackPanel>
             </Button>
 
@@ -124,7 +117,7 @@
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">Dodaj</TextBlock>
                     <TextBlock HorizontalAlignment="Center">S<Bold>o</Bold>ftver</TextBlock>
-                    <TextBlock HorizontalAlignment="Center" FontSize="9">[CTRL + <Bold>O</Bold>]</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="9">[ALT + SHIFT + <Bold>O</Bold>]</TextBlock>
                 </StackPanel>
             </Button>
 
@@ -132,7 +125,7 @@
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">Shema</TextBlock>
                     <TextBlock HorizontalAlignment="Center"><Bold>R</Bold>asporeda</TextBlock>
-                    <TextBlock HorizontalAlignment="Center" FontSize="9">[CTRL + <Bold>R</Bold>]</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="9">[ALT + SHIFT + <Bold>R</Bold>]</TextBlock>
                 </StackPanel>
             </Button>
         </StackPanel>

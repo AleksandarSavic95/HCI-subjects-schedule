@@ -91,7 +91,6 @@ namespace SubjectsSchedule.Model
         {
             Classroom added = Add(id, description, seats, projector, board, smartBoard, operatingSystem);
             context.NotifyAll("Classrooms");
-            TerminHandler.Instance.AddClassroom(id);
             return added;
         }
 

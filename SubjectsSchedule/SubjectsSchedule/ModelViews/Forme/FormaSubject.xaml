@@ -31,7 +31,7 @@
         <Grid.ColumnDefinitions>
             <!-- Auto, jer su nazivi u prvoj koloni -->
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="160" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <TextBlock Margin="5" Grid.Column="0" Grid.Row="0" Text="Identifikator"/>
@@ -40,10 +40,10 @@
         <TextBlock Margin="5" Grid.Column="0" Grid.Row="3" Text="Velicina grupe" />
         <TextBlock Margin="5" Grid.Column="0" Grid.Row="4" Text="Smjer"/>
         <TextBlock Margin="5" Grid.Column="0" Grid.Row="5" Text="Operativni sistem"/>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="6" Text="Dužina termina" ToolTip="U časovima od po 45 minuta"/>
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="6" Text="Dužina termina" ToolTip="Broj časova od po 45 minuta."/>
         <TextBlock Margin="5" Grid.Column="0" Grid.Row="7" Text="Broj termina" />
         <TextBlock Margin="5" Grid.Column="0" Grid.Row="8" Text="Neophodan softver"/>
-        <TextBlock Margin="5" Grid.Column="0" Grid.Row="9" Text="Dodatni elemenit" />
+        <TextBlock Margin="5" Grid.Column="0" Grid.Row="9" Text="Dodatni elementi" />
 
         <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Identifikator"  Text="{Binding SelectedSubject.Id}"/>
         <TextBox Margin="10, 5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" l:HelpProvider.HelpKey="Indeks" TextWrapping="Wrap" SpellCheck.IsEnabled="True" x:Name="Naziv"  Text="{Binding SelectedSubject.Name}"/>
@@ -58,11 +58,20 @@
             <ComboBoxItem Content="Svejedno"/>
         </ComboBox>
 
-        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="6" Minimum="1" Maximum="10" x:Name="duzinaTerminaUpDown" Watermark="U časovima od 45min" l:HelpProvider.HelpKey="Prezime" Text="{Binding SelectedSubject.ClassLength}" />
+        <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="6" Minimum="1" Maximum="10" x:Name="duzinaTerminaUpDown" Watermark="u časovima od 45 min" l:HelpProvider.HelpKey="DuzinaTermina" Text="{Binding SelectedSubject.ClassLength}" />
         <xctk:IntegerUpDown Margin="10,5" Grid.Column="1" Grid.Row="7" Minimum="1" Maximum="10" x:Name="brojTerminaUpDown" l:HelpProvider.HelpKey="Prezime" Text="{Binding SelectedSubject.TerminNumber}" />
-
-        <ListBox x:Name="SoftwaresList"  Margin="10,5" Grid.Column="2" Grid.Row="4" Grid.RowSpan="5" Height="140"
-                      SelectionMode="Multiple" VerticalAlignment="Top" ItemsSource="{Binding Softwares}">
+        
+        <!-- "Odaberite iz liste  =>" -->
+        <TextBlock Margin="10,5,0,5" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Left" Width="146" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="0, 0, 20, 0" VerticalAlignment="Center">
+                    Odaberite iz liste
+                </TextBlock>
+                <Image Margin="0" Source="/MyIcons/arrow_black.png" Width="10"/>
+            </StackPanel>
+        </TextBlock>
+        <ListBox x:Name="SoftwaresList"  Margin="10,5,10,0" Grid.Column="2" Grid.Row="4" Grid.RowSpan="5" Height="145" ScrollViewer.CanContentScroll="True"
+                      SelectionMode="Multiple" VerticalAlignment="Top" ItemsSource="{Binding Softwares}" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -72,7 +81,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="32,0,35,0" Width="248">
             <CheckBox Name="TableNeeded" Margin="10, 5, 5, 5" Content="Tabla" IsChecked="{Binding SelectedSubject.NeedsBoard}"/>
             <CheckBox Name="ProjectorNeeded" Margin="5" Content="Projektor" IsChecked="{Binding SelectedSubject.NeedsProjector}"/>
             <!-- pamtiti čekiranost u promjenljivoj? Binding? -->

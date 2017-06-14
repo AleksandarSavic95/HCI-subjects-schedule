@@ -42,6 +42,7 @@ namespace SubjectsSchedule.DemoMode
             currentDemoDescription.Text = "\n Prekid demonstracije \n"
                 + currentDemoDescription.Text + "\n";
 
+            MainWindow.demoModeThread = null;
             this.Close();
         }
 

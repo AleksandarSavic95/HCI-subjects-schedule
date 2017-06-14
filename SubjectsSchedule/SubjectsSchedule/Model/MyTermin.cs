@@ -112,15 +112,15 @@ namespace SubjectsSchedule.Model
         public override void SaveTo(XmlElement element, XmlSerializationContext context)
         {
             base.SaveTo(element, context);
-            context.WriteObject(_forSubject, "ForSubject", element);
-            context.WriteObject(_inClassroom, "InClassroom", element);
+            context.WriteString(_forSubject.Id, "ForSubject", element);
+            context.WriteString(_inClassroom.Id, "InClassroom", element);
         }
 
         public override void LoadFrom(XmlElement element, XmlSerializationContext context)
         {
             base.LoadFrom(element, context);
-            _forSubject = (Subject) context.ReadObject("ForSubject", element);
-            _inClassroom = (Classroom) context.ReadObject("InClassroom", element);
+            _forSubject = SubjectHandler.Instance.FindById(context.ReadString("ForSubject", element));
+            _inClassroom = ClassroomHandler.Instance.FindById(context.ReadString("InClassroom", element));
         }
 
         /// <summary>

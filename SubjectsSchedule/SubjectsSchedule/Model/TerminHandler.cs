@@ -1,10 +1,14 @@
-﻿using System;
+﻿using MindFusion.Scheduling;
+using MindFusion.Scheduling.Wpf;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace SubjectsSchedule.Model
 {
@@ -22,30 +26,59 @@ namespace SubjectsSchedule.Model
             }
         }
 
+        /// <summary>
+        /// Brojač svih ikada napravljenih Termina.
+        /// "Dobar" način za pravljenje jedinstvenog ID-a.
+        /// Pogledati: <see cref="NextId"/>.
+        /// </summary>
         private int _int_id;
 
+        // Mapiranje ID-a učionice na listu ID-jeva termina koji se održavaju u njoj.
         public Dictionary<string, List<string>> TerminsByClassrooms { get; set; }
 
+        // Mapiranje ID-a predmeta na listu ID-jeva termina koji postoje za njega.
         public Dictionary<string, List<string>> TerminsBySubjects { get; set; }
 
+        // Mapiranje ID-a termina na konkretnu instancu. Predstavlja osnovu Handler-a.
         public Dictionary<string, MyTermin> TerminsByIds { get; set; }
 
+        /// <summary>
+        /// Pomoćna instanca klase <see cref="Calendar"/> u kojoj ćemo čuvati sve termine.
+        /// </summary>
+        private Calendar calendarInstance;
+
+        /// <summary>
+        /// Prikuplja sve instance termina koji se odžavaju u ovoj učionici.
+        /// </summary>
+        /// <param name="classroomId">id učionice za koju se prikupljaju termini</param>
+        /// <returns>Lista termina koji se odžavaju u ovoj učionici</returns>
         public List<MyTermin> GetTerminsInClassroom(string classroomId)
         {
+            List<MyTermin> retList = new List<MyTermin>();
             if (!TerminsByClassrooms.ContainsKey(classroomId))
             {
                 AddClassroom(classroomId);
-                return new List<MyTermin>(); // nema rezultata - prazna lista
+                return retList; // nema rezultata - prazna lista
             }
-            List<MyTermin> retList = new List<MyTermin>();
+            List<string> invalidIds = new List<string>();
             foreach (var id in TerminsByClassrooms[classroomId])
-            {
-                //if (TerminsByIds.ContainsKey(id)) // caution!
-                retList.Add(TerminsByIds[id]);
-            }
+                // bagovito je.. ovo okalšava život..
+                if (TerminsByIds.ContainsKey(id))
+                    retList.Add(TerminsByIds[id]);
+                else
+                    invalidIds.Add(id);
+
+            foreach (var invalidId in invalidIds)
+                TerminsByClassrooms[classroomId].Remove(invalidId);
+
             return retList;
         }
 
+        /// <summary>
+        /// Prikuplja sve instance termina koji postoje za ovaj predmet.
+        /// </summary>
+        /// <param name="classroomId">id predmeta za koji se prikupljaju termini</param>
+        /// <returns>Lista termina koji postoje za ovaj predmet</returns>
         public List<MyTermin> GetTerminsOfSubject(string subjectId)
         {
             List<MyTermin> retList = new List<MyTermin>(TerminsBySubjects[subjectId].Count);
@@ -63,6 +96,8 @@ namespace SubjectsSchedule.Model
             TerminsByClassrooms = new Dictionary<string, List<string>>();
             TerminsBySubjects = new Dictionary<string, List<string>>();
             TerminsByIds = new Dictionary<string, MyTermin>();
+
+            calendarInstance = new Calendar();
         }
 
         /// <summary>
@@ -75,37 +110,21 @@ namespace SubjectsSchedule.Model
         /// <param name="fileName">početak naziva ciljnih datoteka</param>
         public void Serialize(string fileName)
         {
-            try // it's a trcky one..
-            {
-                using (Stream file = File.Open(fileName + "_ByID", FileMode.Create))
-                {
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    formatter.Serialize(file, TerminsByIds);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("SerialBrisemo podatke iz ByClassrooms i BySubjects i resetujemo _int_id.");
-                Console.WriteLine("Razlog {0}\n", e.Message);
+            XMLSerializeTermins(fileName);
 
-                TerminsByClassrooms.Clear();
-                TerminsBySubjects.Clear();
-                _int_id = 0;
-                //throw e;
-            }
-            using (Stream file = File.Open(fileName + "_ByC", FileMode.Create))
+            using (Stream file = File.Open(fileName + "_ByC.bin", FileMode.Create))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 formatter.Serialize(file, TerminsByClassrooms);
             }
-            using (Stream file = File.Open(fileName + "_ByS", FileMode.Create))
+            using (Stream file = File.Open(fileName + "_ByS.bin", FileMode.Create))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 formatter.Serialize(file, TerminsBySubjects);
             }
 
             // brojac ID-jeva uvijek nastavlja gdje je stao, da ne bi bilo preklapanja tokom brisanja i slicno..
-            using (Stream file = File.Open(fileName + "_int_ID", FileMode.Create))
+            using (Stream file = File.Open(fileName + "_int_ID.bin", FileMode.Create))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 formatter.Serialize(file, _int_id);
@@ -113,41 +132,70 @@ namespace SubjectsSchedule.Model
 
         }
 
+        private void XMLSerializeTermins(string fileName)
+        {
+            using (Stream file = File.Open(fileName + "_XML_ByID.xml", FileMode.Create))
+            {
+                var doc = new XmlDocument();
+                //var context = new XmlSerializationContext(calendarInstance.Schedule, doc);
+                var context = new XmlSerializationContext(new Schedule(), doc);
+
+                /// Već registrovana u konsturktoru <see cref="Schedules.ScheduleScheme.ScheduleScheme"/>.
+                //Schedule.RegisterItemClass(typeof(MyTermin), "mytermin", 1);
+
+                var rootElement = doc.CreateElement("root");
+                doc.AppendChild(rootElement);
+                
+                foreach (var item in TerminsByIds.Values)
+                {
+                    var itemElement = doc.CreateElement("item");
+                    rootElement.AppendChild(itemElement);
+                    item.SaveTo(itemElement, context);
+                }
+
+                doc.Save(file);
+            }
+        }
+
+        private void XMLDeSerializeTermins(string fileName)
+        {
+            using (Stream file = File.Open(fileName + "_XML_ByID.xml", FileMode.Open))
+            {
+                var doc = new XmlDocument();
+                doc.Load(file);
+
+                var context = new XmlSerializationContext(new Schedule(), doc);
+
+                foreach (var itemElement in doc.SelectNodes("root/item"))
+                {
+                    MyTermin item = new MyTermin();
+                    item.LoadFrom((XmlElement)itemElement, context);
+                    TerminsByIds.Add(item.Id, item);
+                    // smanjimo broj NEraspoređenih termina za odgovarajući predmet.
+                    SubjectHandler.Instance.ChangeUnscheduledTermins(item.ForSubject.Id);
+                }
+            }
+        }
+
         public void Deserialize(string fileName)
         {
-            using (Stream file = File.Open(fileName + "_ByC", FileMode.Open))
+            using (Stream file = File.Open(fileName + "_ByC.bin", FileMode.Open))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 TerminsByClassrooms = (Dictionary<string, List<string>>)formatter.Deserialize(file);
             }
-            using (Stream file = File.Open(fileName + "_ByS", FileMode.Open))
+            using (Stream file = File.Open(fileName + "_ByS.bin", FileMode.Open))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 TerminsBySubjects = (Dictionary<string, List<string>>)formatter.Deserialize(file);
             }
-            using (Stream file = File.Open(fileName + "_int_ID", FileMode.Open))
+            using (Stream file = File.Open(fileName + "_int_ID.bin", FileMode.Open))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 _int_id = (int)formatter.Deserialize(file);
             }
-            try
-            {
-                using (Stream file = File.Open(fileName + "_ByID", FileMode.Open))
-                {
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    TerminsByIds = (Dictionary<string, MyTermin>)formatter.Deserialize(file);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("DESer~Brisemo podatke iz ByClassrooms i BySubjects i resetujemo _int_id.");
-                Console.WriteLine("Razlog {0}\n", e.Message);
 
-                TerminsByClassrooms.Clear();
-                TerminsBySubjects.Clear();
-                _int_id = 0;
-                //throw;
-            }
+            XMLDeSerializeTermins(fileName);
         }
 
         private string NextId()

@@ -179,24 +179,33 @@ namespace SubjectsSchedule.Model
         /// <param name="dropped">true ako je broj NEraspoređenih temina opao.</param>
         public void ChangeUnscheduledTermins(string id, bool dropped = true)
         {
+            Subject toUpdate = null;
             try
             {
-                FindById(id); // već baca izuzetak jer koristimo [] operator
+                toUpdate = FindById(id); // već baca izuzetak jer koristimo [] operator
             }
             catch (Exception e)
             {
                 Console.WriteLine("Nema id-ja << " + id + " >> u bazi! Poruka:");
                 Console.WriteLine(e.Message);
+                // throw new Exception("Promjena UnschTermina za nepostojeci ID!");
             }
-            //    throw new Exception("Promjena UnschTermina za nepostojeci ID!");
-
             if (dropped)
-                FindById(id).UnscheduledTermins -= 1;
+                if (toUpdate.UnscheduledTermins > 0)
+                    toUpdate.UnscheduledTermins -= 1;
+                else
+                    Console.WriteLine("UNDERflow broja nerasp. za predmet " + toUpdate.Id);
             else
-                FindById(id).UnscheduledTermins += 1;
+                if (toUpdate.UnscheduledTermins < toUpdate.TerminNumber-1)
+                    toUpdate.UnscheduledTermins += 1;
+                else
+                    Console.WriteLine("OVERflow broja nerasp. za predmet " + toUpdate.Id);
         }
 
-        /// samo za testiranje <see cref="MainWindow.DockPanelLoaded"/>
+        /// <summary>
+        /// Brisanje svih RASporedjenih termina ako nema učitanih termina (zbog greške i slično).
+        /// Radi se u Hanlderu <see cref="MainWindow.DockPanelLoaded"/>.
+        /// </summary>
         public void ResetAllUncheduledTermins()
         {
             foreach (var s in subjects.Values)

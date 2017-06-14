@@ -31,7 +31,7 @@ namespace SubjectsSchedule
 
         private bool _enable;
 
-        public static Thread demoModeThread;
+        public static Thread demoModeThread = null;
         public DemoMode.DemoModeWindow demoModeWindow;
 
         public bool MenuEnabled
@@ -70,8 +70,8 @@ namespace SubjectsSchedule
 
             Obavjestenja = new Dictionary<string, bool>()
             {
-                { "TooEarlyOrTooLate", true}
-                // ostala obavjestenja..
+                { "Prekoračenje radnog vremena", true},
+                { "Najava prikaza rasporeda učionice", true }
             };
 
             // Omogućuje postavku naziva za dugmad u messageBox-ovima
@@ -109,7 +109,7 @@ namespace SubjectsSchedule
             SubjectHandler.Instance.Serialize("subjects.bin");
 
             // Pogledati dokumentaciju ove metode
-            TerminHandler.Instance.Serialize("termins.bin");
+            TerminHandler.Instance.Serialize("termins");
 
             Console.WriteLine("Serialization finished");
         }
@@ -123,7 +123,7 @@ namespace SubjectsSchedule
             SoftwareHandler.Instance.Deserialize("softwares.bin");
             SubjectHandler.Instance.Deserialize("subjects.bin");
 
-            TerminHandler.Instance.Deserialize("termins.bin");
+            TerminHandler.Instance.Deserialize("termins");
 
             // Testing
             // Console.WriteLine(FieldOfStudyHanlder.Instance.FieldsOfStudy[0]);
@@ -213,7 +213,7 @@ namespace SubjectsSchedule
 
         private void AbortDemo_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;
+            e.CanExecute = (demoModeThread != null);
         }
 
         private void AbortDemo_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -396,27 +396,15 @@ namespace SubjectsSchedule
             demoModeThread.Start();
         }
 
-        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        private void O_Aplikaciiji_Click(object sender, RoutedEventArgs e)
         {
-            //var w = new Grafika3D.Kocka();
-            //w.ShowDialog();
-        }
-
-        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
-        {
-            // prije bilo reakcija za Stilovi -> Stilovi i triggeri
-            //var w = new Stil.StilPrimer();
-            //w.ShowDialog();
-
-            // stara forma za unos studenta - radi Help
-            var w = new StudentHelpOld.StudentHelpOld();
-            w.ShowDialog();
-        }
-
-        private void MenuItem_Click_5(object sender, RoutedEventArgs e)
-        {
-            //var w = new DDrop.DragDropWindow();
-            //w.ShowDialog();
+            MessageBox.Show("Aplikacija je pravljena za predmetni projekat" +
+                " iz predmeta HCI (interakcija čovjek-računar).\nRezultat je"+
+                " rada Tima 13, čiji su članovi:\n"+
+                "\tAleksandar Savić - SW51/2014,\n" +
+                "\tFilip Savić - SW30/2014,\n" +
+                "\tAcko Spasić - SW24/2014.",
+                "O aplikaciji", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
         #endregion
 
@@ -537,7 +525,7 @@ namespace SubjectsSchedule
         {
             HideAllForms();
             Console.WriteLine("Ne treba ovo ili treba mijenjati!");
-            RasporedUcionice.Visibility = Visibility.Visible;
+            GlobalnaShema.Visibility = Visibility.Visible;
         }
         #endregion
 
@@ -553,10 +541,8 @@ namespace SubjectsSchedule
             Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() =>
                 InitializeClassroomsList()
             ));
-
-            //Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
-                GlobalnaShema.PopulateResources();
-            //));
+            
+            GlobalnaShema.PopulateResources();
 
             RasporedUcionice.MainWindowParent = this;
 
@@ -564,8 +550,9 @@ namespace SubjectsSchedule
                 GlobalnaShema.LoadTerminsToGlobal()
             ));
 
+            /// <see cref="SubjectHandler.Instance.ResetAllUncheduledTermins"/>.
             if (TerminHandler.Instance.TerminsByIds.Count == 0)
-                SubjectHandler.Instance.ResetAllUncheduledTermins(); /// Reset svih rasporedjenih termina
+                SubjectHandler.Instance.ResetAllUncheduledTermins();
         }
 
         private void InitializeClassroomsList()
@@ -582,6 +569,7 @@ namespace SubjectsSchedule
         public void AddClassroomButton(Classroom classroom)
         {
             Button classroomButton = new Button();
+            classroomButton.ToolTip = classroom.Description;
             classroomButton.Content = classroom.Id;
             classroomButton.Click += ClassroomButton_Click;
             classroomButton.Margin = new Thickness(0, 1, 0, 1);

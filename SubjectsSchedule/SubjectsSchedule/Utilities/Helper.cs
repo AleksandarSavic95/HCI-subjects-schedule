@@ -13,12 +13,32 @@ namespace SubjectsSchedule.Utilities
 
         public static int ParseStringToInt(string str)
         {
-            return int.Parse(str == null ? "0" : str);
+            int parsed;
+            try
+            {
+                parsed = int.Parse(str == null ? "0" : str);
+            }
+            catch (Exception)
+            {
+                parsed = 0;
+                //throw;
+            }
+            return parsed;
         }
 
         public static double ParseStringToDouble(string str)
         {
-            return double.Parse(str == null ? "0.0" : str);
+            double parsed;
+            try
+            {
+                parsed = double.Parse(str == null ? "0" : str);
+            }
+            catch (Exception)
+            {
+                parsed = 0.0;
+                //throw;
+            }
+            return parsed;
         }
 
         public static OS GetOSFromString(string os)
