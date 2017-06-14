@@ -296,6 +296,9 @@
     <Resource Include="HelpSystem\HelpContent\images\graph2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="HelpSystem\HelpContent\oneClassroom.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="HelpSystem\HelpContent\RasporedJedneUcionice.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

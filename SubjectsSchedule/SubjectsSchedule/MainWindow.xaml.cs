@@ -244,11 +244,23 @@ namespace SubjectsSchedule
 
         private void demoMode() // DemoMode.DemoModeWindow demoModeWindow
         {
+
             #region unos učionice
 
             Dispatcher.Invoke(() =>
-            { demoModeWindow.currentDemoDescription.Text = "I - Dodavanje učionice\n" 
-                + demoModeWindow.currentDemoDescription.Text; } );
+            {
+                demoModeWindow.currentDemoDescription.Text = "\nI - Dodavanje učionice\n"
+                  + demoModeWindow.currentDemoDescription.Text;
+            });
+
+            Thread.Sleep(3000);
+
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber +
+                ". Kliknemo na dugme Dodaj učionicu u gornjem desnom uglu ekrana\n"
+                  + demoModeWindow.currentDemoDescription.Text;
+            });
 
             Thread.Sleep(3000);
 
@@ -260,42 +272,74 @@ namespace SubjectsSchedule
 
                 peer.SetFocus();
                 invokeProv.Invoke();
-
-                // pomijeranje misa do komponente i klik na nju
-                //InputHelper.InputHelper.MoveMouse(Dispatcher, dodajUcionicuDugme);
             });
-            
             Thread.Sleep(3000);
 
             Dispatcher.Invoke(() =>
-            { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
-                + ". Kliknemo na polje opisa učionice\n" + demoModeWindow.currentDemoDescription.Text; });
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber
+                  + ". Kliknemo na polje identifikatora učionice\n\n" + demoModeWindow.currentDemoDescription.Text;
+            });
+
+            Thread.Sleep(3000);
+
+            Dispatcher.Invoke(() => {
+                TextBoxAutomationPeer peer = new TextBoxAutomationPeer(ClassroomForma.Identificator);
+                peer.SetFocus();
+            });
+
+            Thread.Sleep(2000);
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber
+                  + ". Unesemo identifikator nove učionice\n\n" + demoModeWindow.currentDemoDescription.Text;
+            });
+
+            Thread.Sleep(2000);
+            Dispatcher.Invoke(() => { ClassroomForma.Identificator.Text = "L-52"; });
+            Thread.Sleep(2000);
+
+            Thread.Sleep(3000);
+
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber
+                  + ". Kliknemo na polje opisa učionice\n\n" + demoModeWindow.currentDemoDescription.Text;
+            });
 
             Thread.Sleep(3000);
 
             Dispatcher.Invoke(() => {
                 TextBoxAutomationPeer peer = new TextBoxAutomationPeer(ClassroomForma.Description);
-                peer.SetFocus(); });
+                peer.SetFocus();
+            });
 
             Thread.Sleep(2000);
             Dispatcher.Invoke(() =>
-            { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
-                + ". Unesemo opis učionice" + demoModeWindow.currentDemoDescription.Text; });
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber
+                  + ". Unesemo opis učionice\n\n" + demoModeWindow.currentDemoDescription.Text;
+            });
 
+            Thread.Sleep(2000);
             Dispatcher.Invoke(() => { ClassroomForma.Description.Text = "Opis učionice"; });
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
 
             Dispatcher.Invoke(() =>
-            { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
-                + ". Unesemo broj radnika\n" + demoModeWindow.currentDemoDescription.Text; });
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber
+                  + ". Unesemo broj radnika\n\n" + demoModeWindow.currentDemoDescription.Text;
+            });
             Thread.Sleep(2500);
 
             Dispatcher.Invoke(() => { ClassroomForma.brojMijestaUpDown.Value = 3; });
             Thread.Sleep(2000);
 
             Dispatcher.Invoke(() =>
-            { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
-                + ". Odaberemo operativni sistem\n" + demoModeWindow.currentDemoDescription.Text; });
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber
+                  + ". Odaberemo operativni sistem\n\n" + demoModeWindow.currentDemoDescription.Text;
+            });
 
             Thread.Sleep(3000);
 
@@ -304,7 +348,8 @@ namespace SubjectsSchedule
                 peer.SetFocus();
                 IExpandCollapseProvider provider = (IExpandCollapseProvider)
                     peer.GetPattern(PatternInterface.ExpandCollapse);
-                provider.Expand(); });
+                provider.Expand();
+            });
 
             Thread.Sleep(2000);
 
@@ -319,36 +364,42 @@ namespace SubjectsSchedule
                     peer.GetPattern(PatternInterface.ExpandCollapse);
                 provider.Collapse();
             });
-            
+
             Thread.Sleep(3000);
             Dispatcher.Invoke(() =>
             {
                 demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber
-                  + ". Odaberemo instalirani softver iz liste.\n" + demoModeWindow.currentDemoDescription.Text;
+                  + ". Odaberemo instalirani softver iz liste\n\n" + demoModeWindow.currentDemoDescription.Text;
             });
             Thread.Sleep(5500);
 
             Dispatcher.Invoke(() => {
                 ListBoxAutomationPeer peer = new ListBoxAutomationPeer(ClassroomForma.SoftwaresList);
                 peer.SetFocus();
-                ClassroomForma.SoftwaresList.SelectedIndex = 2; });
+                ClassroomForma.SoftwaresList.SelectedIndex = 2;
+            });
             Thread.Sleep(2000);
             Dispatcher.Invoke(() => { ClassroomForma.SoftwaresList.SelectedIndex = 4; });
 
             Thread.Sleep(3000);
             Dispatcher.Invoke(() =>
-            { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
-                + ". Označimo opremu koja postoji. Tablu nemamo, ali imamo projektor.\n" + demoModeWindow.currentDemoDescription.Text; });
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber
+                  + ". Označimo opremu koja postoji. Tablu nemamo, ali imamo projektor\n\n" + demoModeWindow.currentDemoDescription.Text;
+            });
             Thread.Sleep(5500);
 
             Dispatcher.Invoke(() => {
                 ClassroomForma.TableNeeded.IsChecked = false;
-                ClassroomForma.ProjectorNeeded.IsChecked = true; });
+                ClassroomForma.ProjectorNeeded.IsChecked = true;
+            });
 
             Thread.Sleep(2000);
             Dispatcher.Invoke(() =>
-            { demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber 
-                + ". Potvrdimo unos.\n" + demoModeWindow.currentDemoDescription.Text; });
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber
+                  + ". Potvrdimo unos\n\n" + demoModeWindow.currentDemoDescription.Text;
+            });
             Thread.Sleep(3000);
             Dispatcher.Invoke(() =>
             {
@@ -356,10 +407,11 @@ namespace SubjectsSchedule
                 new ButtonAutomationPeer(ClassroomForma.Potvrda);
                 peer.SetFocus();
             });
-            
+
             Thread.Sleep(2000);
             Dispatcher.Invoke(() =>
-            {   ButtonAutomationPeer peer = new ButtonAutomationPeer(ClassroomForma.Potvrda);
+            {
+                ButtonAutomationPeer peer = new ButtonAutomationPeer(ClassroomForma.Potvrda);
                 IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
                 invokeProv.Invoke();
 
@@ -371,6 +423,194 @@ namespace SubjectsSchedule
 
             #endregion unos učionice
 
+            #region pregled učionica
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = "\nII Pregled učionica\n\n" +
+                    demoModeWindow.currentDemoDescription.Text;
+            });
+
+            Thread.Sleep(3000);
+
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber +
+                ". Odaberemo meni Tabele\n\n" + demoModeWindow.currentDemoDescription.Text;
+            });
+
+            Thread.Sleep(3000);
+
+
+            Dispatcher.Invoke(() =>
+            {
+                MenuItemAutomationPeer peer =
+                new MenuItemAutomationPeer(this.MeniTabele);
+
+                IExpandCollapseProvider provider = (IExpandCollapseProvider)
+                    peer.GetPattern(PatternInterface.ExpandCollapse);
+                provider.Expand();
+            });
+
+            Thread.Sleep(2000);
+
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber + ". Odaberemo stavku Učionice\n\n"
+                  + demoModeWindow.currentDemoDescription.Text;
+            });
+
+            Thread.Sleep(2000);
+
+            Dispatcher.Invoke(() =>
+            {
+                MenuItemAutomationPeer peer = new MenuItemAutomationPeer(this.MeniItemUcionice);
+                peer.SetFocus();
+            });
+
+            Thread.Sleep(2000);
+
+            Dispatcher.Invoke(() =>
+            {
+                MenuItemAutomationPeer peer = new MenuItemAutomationPeer(this.MeniItemUcionice);
+                IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke)
+                    as IInvokeProvider;
+
+                peer.SetFocus();
+                invokeProv.Invoke();
+            });
+
+            Thread.Sleep(2000);
+
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber + ". Sada vidimo tabelu sa učionicama" +
+                   " gdje možemo svaku od njih obrisati ili izmijeniti\n\n" + demoModeWindow.currentDemoDescription.Text;
+            });
+
+            #endregion
+
+            #region izmjena učionice
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = "\nIII Izmjena učionice\n\n" +
+                    demoModeWindow.currentDemoDescription.Text;
+            });
+            Thread.Sleep(4000);
+
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber +
+                ". Izmijenićemo jednu učionicu, klikom na dugme Izmijeni u prvom redu\n\n" +
+                demoModeWindow.currentDemoDescription.Text;
+            });
+
+            Thread.Sleep(4000);
+            Dispatcher.Invoke(() =>
+            {
+                this.ClassroomTabela.ClassroomsList.SelectedItem = 1;
+                ClassroomHandler.Instance.SetSelectedClassroom(ClassroomTabela.Classrooms[0], (MainWindow)Window.GetWindow(this));
+                ((MainWindow)Window.GetWindow(this)).NovaUcionica_Show();
+            });
+            Thread.Sleep(4000);
+
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber
+                  + ". Kliknemo na polje opisa učionice\n\n" + demoModeWindow.currentDemoDescription.Text;
+            });
+
+            Thread.Sleep(3000);
+
+            Dispatcher.Invoke(() => {
+                TextBoxAutomationPeer peer = new TextBoxAutomationPeer(ClassroomForma.Description);
+                peer.SetFocus();
+            });
+
+            Thread.Sleep(2000);
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber
+                  + ". Unesemo novi opis učionice\n\n" + demoModeWindow.currentDemoDescription.Text;
+            });
+
+            Thread.Sleep(2000);
+            Dispatcher.Invoke(() => { ClassroomForma.Description.Text = "Novi opis za L-42"; });
+
+            Thread.Sleep(3000);
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber
+                  + ". Izmijenimo postojeću opremu. Kupili smo pametnu tablu.\n\n" + demoModeWindow.currentDemoDescription.Text;
+            });
+            Thread.Sleep(5000);
+
+            Dispatcher.Invoke(() => {
+                ClassroomForma.SmartTableNeeded.IsChecked = true;
+            });
+
+            Thread.Sleep(2000);
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber
+                  + ". Potvrdimo unos.\n\n" + demoModeWindow.currentDemoDescription.Text;
+            });
+
+            Thread.Sleep(3000);
+            Dispatcher.Invoke(() =>
+            {
+                ButtonAutomationPeer peer =
+                new ButtonAutomationPeer(ClassroomForma.Potvrda);
+                peer.SetFocus();
+            });
+
+            Thread.Sleep(2000);
+            Dispatcher.Invoke(() =>
+            {
+                ButtonAutomationPeer peer = new ButtonAutomationPeer(ClassroomForma.Potvrda);
+                IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+                invokeProv.Invoke();
+            });
+
+            Thread.Sleep(3000);
+
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber +
+                  ". Nakon unosa ponovo vidimo prikaz svih učionica, te možemo vidjeti " +
+                  "da je njen identifikator izmijenjen.\n\n" + demoModeWindow.currentDemoDescription.Text;
+
+                demoModeWindow.demoNumber = 0;
+            });
+
+            Thread.Sleep(5000);
+            #endregion
+
+            #region brisanje učionice
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.demoNumber = 0;
+                demoModeWindow.currentDemoDescription.Text = "\nIV Brisanje učionice\n\n" +
+                    demoModeWindow.currentDemoDescription.Text;
+            });
+
+            Thread.Sleep(3000);
+
+            Dispatcher.Invoke(() =>
+            {
+                demoModeWindow.currentDemoDescription.Text = demoModeWindow.demoNumber +
+                ". Obrisaćemo jednu učionicu, recimo prvu, klikom na dugme Obriši u prvom redu\n\n" +
+                demoModeWindow.currentDemoDescription.Text;
+            });
+
+            Thread.Sleep(4000);
+            Dispatcher.Invoke(() =>
+            {
+                this.ClassroomTabela.ClassroomsList.SelectedItem = 1;
+                ClassroomHandler.Instance.SetSelectedClassroom(ClassroomTabela.Classrooms[0], (MainWindow)Window.GetWindow(this));
+                ClassroomHandler.Instance.Remove(ClassroomHandler.Instance.SelectedClassroom.Id, (MainWindow)Window.GetWindow(this));
+            });
+            Thread.Sleep(4000);
+            #endregion
 
         }
 

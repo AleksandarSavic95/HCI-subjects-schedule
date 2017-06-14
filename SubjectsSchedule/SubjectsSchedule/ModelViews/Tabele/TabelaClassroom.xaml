@@ -14,8 +14,10 @@
         <Grid.RowDefinitions >
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <DataGrid x:Name="ClassroomsList" Grid.Column="0" Grid.Row="0" Panel.ZIndex="5"
+        <TextBlock HorizontalAlignment="Center" FontSize="20" Margin="0,0,0,10">Tabela učionica</TextBlock>
+        <DataGrid x:Name="ClassroomsList" Grid.Column="0" Grid.Row="1" Panel.ZIndex="5"
                   l:HelpProvider.HelpKey="TabelaClassroom"
                   ItemsSource="{Binding Classrooms, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" SelectionUnit="FullRow"
@@ -76,6 +78,11 @@
             </DataGrid.Columns>
         </DataGrid>
         <!--<TextBox  Text="{Binding SelectedClassroom.Id, Mode=OneWay}"  Name="TextBox_TabelaClassroom" Margin="10, 5" Grid.Column="1" Grid.Row="2" Visibility="Hidden" l:HelpProvider.HelpKey="TabelaClassroom" TextWrapping="Wrap" />-->
-        <Button Grid.Row="1" Width="Auto"  Margin="0,30" Padding="10" x:Name="NovaUcionica_Btn" Click="NovaUcionica_Btn_Click">Dodaj novu ucionicu</Button>
+        <Button Grid.Row="2" Width="Auto"  Margin="0,30" Padding="10" x:Name="NovaUcionica_Btn" Click="NovaUcionica_Btn_Click">
+            <TextBlock>
+                Dodaj novu učionicu
+                [ALT + SHIFT + <Bold>U</Bold>]
+            </TextBlock>
+        </Button>
     </Grid>
 </UserControl>

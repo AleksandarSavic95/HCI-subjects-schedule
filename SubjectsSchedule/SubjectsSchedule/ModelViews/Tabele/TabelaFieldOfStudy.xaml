@@ -9,8 +9,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <DataGrid x:Name="FieldsOfStudyList" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"  Panel.ZIndex="5"
+        <TextBlock HorizontalAlignment="Center" FontSize="20" Margin="0,0,0,10">Tabela smjerova</TextBlock>
+        <DataGrid x:Name="FieldsOfStudyList" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"  Panel.ZIndex="5"
                   ItemsSource="{Binding FieldsOfStudy, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" SelectionUnit="FullRow"
                   ScrollViewer.CanContentScroll="True" IsReadOnly="True"
@@ -70,6 +72,11 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Grid.Row="1" Width="Auto"  Margin="0,30" Padding="10" x:Name="NoviSmer_Btn" Click="NoviSmer_Btn_Click">Dodaj novi smer</Button>
+        <Button Grid.Row="2" Width="Auto"  Margin="0,30" Padding="10" x:Name="NoviSmer_Btn" Click="NoviSmer_Btn_Click">
+            <TextBlock>
+                Dodaj novi smjer
+                [ALT + SHIFT + <Bold>S</Bold>]
+            </TextBlock>
+        </Button>
     </Grid>
 </UserControl>

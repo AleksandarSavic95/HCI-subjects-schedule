@@ -13,12 +13,12 @@
         xmlns:cmd="clr-namespace:SubjectsSchedule.MyCommands"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Closing="Window_Closing"
-        Title="MainWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized" ResizeMode="CanMinimize"
+        Title="Raspored nastave v1.0" WindowState="Maximized" ResizeMode="CanMinimize"
         l:HelpProvider.HelpKey="Indeks">
     <!-- Global commands: https://stackoverflow.com/a/4710197 -->
     <Window.CommandBindings>
-        <!--
         <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed"/>
+        <!--
         <CommandBinding Command="cmd:RoutedCommands.HelloWorld" CanExecute="HelloWorld_CanExecute" Executed="HelloWorld_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Enable" CanExecute="Enable_CanExecute" Executed="Enable_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Komanda" CanExecute="Komanda_CanExecute" Executed="Komanda_Executed"></CommandBinding>
@@ -35,22 +35,12 @@
     </Window.CommandBindings>
     <DockPanel Loaded="DockPanelLoaded">
         <Menu DockPanel.Dock ="Top" TextBlock.FontSize="14">
-            <!--
-            <MenuItem Header="Komande">
-                <MenuItem Header="_Hello World" Command="cmd:RoutedCommands.HelloWorld"></MenuItem>
-                <MenuItem Header="_Enable" IsCheckable="True" Command="cmd:RoutedCommands.Enable" IsChecked="{Binding Path=MenuEnabled}"></MenuItem>
-                <MenuItem Header="_Komanda" Command="cmd:RoutedCommands.Komanda"></MenuItem>
-                <Separator></Separator>
-                <MenuItem Header="_Custom komande" Command="cmd:CustomCommands.testKomanda"></MenuItem>
-                <MenuItem Header="_Ugradjene komande" Command="cmd:RoutedCommands.Ugradjene"></MenuItem>
-            </MenuItem>
-            -->
-            <MenuItem Header="_Tabele - pregled" ToolTip="Pregled svih entiteta aplikacije">
-                <MenuItem Header="_Predmeti" Click="Predmeti_Click" ></MenuItem>
+            <MenuItem x:Name="MeniTabele" Header="_Tabele - pregled" ToolTip="Pregled svih entiteta aplikacije">
+                <MenuItem Header="_Predmeti" Click="Predmeti_Click" />
                 <!--Click=""-->
-                <MenuItem Header="Smj_erovi" Click="Smerovi_Click" ></MenuItem>
-                <MenuItem Header="_Učionice" Click="Ucionice_Click" ></MenuItem>
-                <MenuItem Header="_Softver" Click="Softveri_Click" ></MenuItem>
+                <MenuItem Header="Smj_erovi" Click="Smerovi_Click" />
+                <MenuItem Header="_Učionice" Click="Ucionice_Click" x:Name="MeniItemUcionice" />
+                <MenuItem Header="_Softver" Click="Softveri_Click" />
             </MenuItem>
             <MenuItem Header="_Obavještenja" ItemsSource="{Binding Obavjestenja}"
             ToolTip="Podešavanje dodatnih obavještenja o akcijama korisnika">

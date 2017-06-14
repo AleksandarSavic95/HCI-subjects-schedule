@@ -16,7 +16,7 @@
     <!-- DataContext="{Binding RelativeSource={RelativeSource Self}}" -->
     <Grid Loaded="ScheduleSchemeLoaded" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="164"/>
+            <RowDefinition Height="194"/>
             <RowDefinition Height="Auto" MinHeight="300"/>
             <RowDefinition Height="*" MinHeight="36"/>
         </Grid.RowDefinitions>
