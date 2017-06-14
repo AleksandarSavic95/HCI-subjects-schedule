@@ -31,6 +31,11 @@ namespace SubjectsSchedule
                 hh.Width = 570;
                 hh.Height = 400;
             }
+            else if (key == "Forma")
+            {
+                hh.Width = 400;
+                hh.Height = 400;
+            }
 
             hh.Show();
         }

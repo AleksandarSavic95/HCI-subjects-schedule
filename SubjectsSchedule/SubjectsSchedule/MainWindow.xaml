@@ -152,7 +152,7 @@
         <p:PrikazFieldOfStudy DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="FieldOfStudyPrikaz" />
         <p:PrikazSoftver  DockPanel.Dock="Top" Visibility="Collapsed" HorizontalAlignment="Stretch" Padding="50,30" x:Name="SoftverPrikaz" />
 
-        <s:GlobalSchedule l:HelpProvider.HelpKey="Indeks" Panel.ZIndex="5" DockPanel.Dock="Top" Width="Auto" Visibility="Visible" x:Name="GlobalnaShema" HorizontalAlignment="Stretch">
+        <s:GlobalSchedule x:Name="GlobalnaShema" l:HelpProvider.HelpKey="Indeks" Panel.ZIndex="5" DockPanel.Dock="Top" Width="Auto" Visibility="Visible" HorizontalAlignment="Stretch">
         </s:GlobalSchedule>
         <s:ScheduleScheme Panel.ZIndex="5" DockPanel.Dock="Top" Width="Auto" Visibility="Collapsed" x:Name="RasporedUcionice" HorizontalAlignment="Stretch"/>
     </DockPanel>

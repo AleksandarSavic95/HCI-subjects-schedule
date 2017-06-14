@@ -86,14 +86,17 @@ namespace SubjectsSchedule.Properties {
         ///    &lt;title&gt;&lt;/title&gt;
         ///&lt;/head&gt;
         ///&lt;body&gt;
-        ///    &lt;h1&gt;
-        ///        FORMAAAAA
-        ///    &lt;/h1&gt;
-        ///    &lt;h1&gt;
-        ///        FORMAAAAA
-        ///    &lt;/h1&gt;
-        ///&lt;/body&gt;
-        ///&lt;/html&gt;.
+        ///    &lt;h2&gt;
+        ///        Pomoć pri popunjavanju forme
+        ///    &lt;/h2&gt;
+        ///    &lt;p&gt;
+        ///        Identifikator ne smije imati više od 4 ni manje od 1 karaktera i mora biti jedinstven u cijelom sistemu.
+        ///    &lt;/p&gt;
+        ///    &lt;p&gt;
+        ///         ne smije imati više od 4 ni manje od 1 karaktera i mora biti jedinstven u cijelom sistemu.
+        ///    &lt;/p&gt;
+        ///    &lt;p&gt;
+        ///        Identifikator ne smije imati više [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Forma {
             get {
@@ -219,11 +222,11 @@ namespace SubjectsSchedule.Properties {
         ///    &lt;title&gt;Tabela učionica&lt;/title&gt;
         ///&lt;/head&gt;
         ///&lt;body&gt;
-        ///    &lt;h1&gt;Pomoć&lt;/h1&gt;
+        ///    &lt;h2&gt;Tabela učionica&lt;/h2&gt;
         ///    &lt;p&gt;
         ///        Sada vidite tabelu koja prikazuje sve učionice koje su trenutno u sistemu. O svakoj učionici su prikazani 
         ///        samo osnovni detalji koji pomažu u jedinstvenoj identifikaciji učionice. Ovdje možete dodavati nove učionice, 
-        ///        uklanjati postojeće ili pogledati detaljan opis svake učio [rest of string was truncated]&quot;;.
+        ///        uklanjati postojeće ili pogledati detaljan opis  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string TabelaClassroom {
             get {
