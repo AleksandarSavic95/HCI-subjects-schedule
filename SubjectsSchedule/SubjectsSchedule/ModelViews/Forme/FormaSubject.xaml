@@ -8,7 +8,7 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="500">
+             d:DesignHeight="394.574" d:DesignWidth="500">
     <UserControl.Resources>
         <xcdg:TypeToVisibilityConverter x:Key="TypeToVisibilityConverter"/>
     </UserControl.Resources>

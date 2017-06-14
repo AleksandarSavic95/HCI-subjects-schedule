@@ -55,7 +55,19 @@
             <MenuItem Header="_Staro">
                 <MenuItem Header="_Student forma" Click="MenuItem_Click_3"></MenuItem>
             </MenuItem>
-            <MenuItem Header="_Pomoć [F1]">
+        <MenuItem Header="_Obavještenja" ItemsSource="{Binding Obavjestenja}"
+            ToolTip="Podešavanje dodatnih obavještenja o akcijama korisnika">
+            <MenuItem.ItemContainerStyle>
+                <Style TargetType="{x:Type MenuItem}">
+                    <Setter Property="IsCheckable" Value="true"/>
+                    <Setter Property="Header" Value="{Binding Key, Mode=OneWay}"/>
+                    <Setter Property="IsChecked" Value="{Binding Value, Mode=OneWay}"/>
+                    <EventSetter Event="Click" Handler="Podesavanja_ItemCheck"/>
+                </Style>
+            </MenuItem.ItemContainerStyle>
+        </MenuItem>
+            <MenuItem>
+                <MenuItem.Header>_Pomoć [F1]</MenuItem.Header> <!-- dodavanje slike sa ?-->
                 <MenuItem Header="_Demonstracioni mod" Click="Demonstracioni_mod_Click"></MenuItem>
                 <MenuItem Header="_Toolbar, Tree, i Kontekstni Meniji" Click="MenuItem_Click_5"></MenuItem>
             </MenuItem>
@@ -71,8 +83,8 @@
         </StackPanel>
 
         <!-- Poruka "Učitavanje podataka" -->
-        <!-- {Binding DataLoading, Converter={utils:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged} -->
-        <Canvas x:Name="messageDisplay" Visibility="Collapsed"
+        <!-- https://www.mindstick.com/Forum/1415/how-can-i-hide-the-popup-when-mouse-click-on-anywhere-outside-using-wpf -->
+        <Canvas x:Name="messageDisplay" Visibility="{Binding DataLoading, Converter={utils:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                     VerticalAlignment="Stretch" Panel.ZIndex="3" DockPanel.Dock="Top" HorizontalAlignment="Left">
             <TextBlock Text="Učitavanje podataka..." Panel.ZIndex="-2" TextAlignment="Center" Width="150" 
 					Canvas.Top="45" Canvas.Left="20"/>

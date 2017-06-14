@@ -112,7 +112,7 @@ namespace SubjectsSchedule.ModelViews.Forme
             return true;
         }
 
-        // Adding classroom
+        /// <summary>Adding classroom</summary>
         private void Potvrda_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Adding Classroom with data: {0}, {1}, {2}, {3}, {4}, {5}, {6}", Identificator.Text, Description.Text, Helper.ParseStringToInt(brojMijestaUpDown.Text),
@@ -123,10 +123,14 @@ namespace SubjectsSchedule.ModelViews.Forme
 
             if (string.IsNullOrEmpty(SelectedClassroom.Id))
             {
-                ClassroomHandler.Instance.Add(Identificator.Text, Description.Text, Helper.ParseStringToInt(brojMijestaUpDown.Text),
+                Classroom created = 
+                    ClassroomHandler.Instance.Add(Identificator.Text, Description.Text, Helper.ParseStringToInt(brojMijestaUpDown.Text),
                     Helper.CheckBoxToBool(ProjectorNeeded), Helper.CheckBoxToBool(TableNeeded), Helper.CheckBoxToBool(SmartTableNeeded),
                     Helper.GetOSFromString(OperatingSystem.Text), (MainWindow)Window.GetWindow(this));
-                
+
+                TerminHandler.Instance.AddClassroom(created.Id);
+
+                ((MainWindow)Window.GetWindow(this)).AddClassroomButton(created);
             }
             else
                 ClassroomHandler.Instance.Update(SelectedClassroom.Id, Identificator.Text, Description.Text, Helper.ParseStringToInt(brojMijestaUpDown.Text),

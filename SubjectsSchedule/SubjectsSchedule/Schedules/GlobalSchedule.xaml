@@ -23,7 +23,7 @@
                     EnableSnapping="True" SnapUnitCount="5" SnapUnit="Minute" TwelveHourFormat="False"
                     HeaderDateFormat="dddd" ShowAM="True" ShowMinutesInHourHeaders="True"
                     ShowPadding="False" EnableCollisions="False"
-                    EnableDayItems="False" ShowItemSpans="True"
+                    EnableDayItems="False" ShowItemSpans="True" LayoutUpdated="GlobalCalendar_LayoutUpdated"
                             ShowDayHeader="False">
                     <!-- SubHeaderSize="0" > -->
                     <!-- General view style - turn off surrounding border. -->

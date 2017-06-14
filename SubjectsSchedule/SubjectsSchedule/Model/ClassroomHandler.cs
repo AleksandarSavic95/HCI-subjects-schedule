@@ -75,6 +75,9 @@ namespace SubjectsSchedule.Model
                 BinaryFormatter formatter = new BinaryFormatter();
                 classrooms = ( Dictionary<string, Classroom> ) formatter.Deserialize(file);
             }
+
+            foreach (var croomId in classrooms.Keys)
+                TerminHandler.Instance.AddClassroom(croomId);
         }
 
         public Classroom Add(string id, string description, int seats, bool projector, bool board, bool smartBoard, OS operatingSystem)
@@ -88,6 +91,7 @@ namespace SubjectsSchedule.Model
         {
             Classroom added = Add(id, description, seats, projector, board, smartBoard, operatingSystem);
             context.NotifyAll("Classrooms");
+            TerminHandler.Instance.AddClassroom(id);
             return added;
         }
 

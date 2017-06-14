@@ -22,8 +22,6 @@ namespace SubjectsSchedule.ModelViews.Tabele
     /// </summary>
     public partial class TabelaClassroom : UserControl, INotifyPropertyChanged
     {
-        // brojac za ispis
-        int cwCounter;
 
         public List<Classroom> Classrooms
         {
@@ -38,7 +36,7 @@ namespace SubjectsSchedule.ModelViews.Tabele
             InitializeComponent();
 
             DataContext = this;
-            cwCounter = 0;
+
             // neće raditi ovdje, jer nisu sve komponente učitane
             //OnPropertyChanged("Classrooms");
         }
@@ -82,11 +80,17 @@ namespace SubjectsSchedule.ModelViews.Tabele
 
         private void DeleteClassroom(object sender, RoutedEventArgs e)
         {
+            Classroom c;
             for (var vis = sender as Visual; vis != null; vis = VisualTreeHelper.GetParent(vis) as Visual)
                 if (vis is DataGridRow)
                 {
                     var row = (DataGridRow)vis;
-                    ClassroomHandler.Instance.Remove((row.DataContext as Classroom).Id, (MainWindow)Window.GetWindow(this));
+                    c = row.DataContext as Classroom;
+
+                    (Window.GetWindow(this) as MainWindow).RemoveClassroomButton(c);
+                    ClassroomHandler.Instance.Remove(c.Id, (MainWindow)Window.GetWindow(this));
+                    TerminHandler.Instance.RemoveClassroom(c.Id);
+
                     break;
                 }
         }
