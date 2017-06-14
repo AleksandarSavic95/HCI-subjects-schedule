@@ -17,11 +17,13 @@
         l:HelpProvider.HelpKey="Indeks">
     <!-- Global commands: https://stackoverflow.com/a/4710197 -->
     <Window.CommandBindings>
+        <!--
         <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed"/>
         <CommandBinding Command="cmd:RoutedCommands.HelloWorld" CanExecute="HelloWorld_CanExecute" Executed="HelloWorld_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Enable" CanExecute="Enable_CanExecute" Executed="Enable_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Komanda" CanExecute="Komanda_CanExecute" Executed="Komanda_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Ugradjene" CanExecute="Ugradjene_CanExecute"  Executed="Ugradjene_Executed"></CommandBinding>
+        -->
 
         <CommandBinding Command="cmd:RoutedCommands.AbortDemo" CanExecute="AbortDemo_CanExecute" Executed="AbortDemo_Executed"></CommandBinding>
 
@@ -32,7 +34,8 @@
         <CommandBinding Command="cmd:RoutedCommands.PregledSheme" CanExecute="PregledSheme_CanExecute" Executed="PregledSheme_Executed"></CommandBinding>
     </Window.CommandBindings>
     <DockPanel Loaded="DockPanelLoaded">
-        <Menu DockPanel.Dock ="Top">
+        <Menu DockPanel.Dock ="Top" TextBlock.FontSize="14">
+            <!--
             <MenuItem Header="Komande">
                 <MenuItem Header="_Hello World" Command="cmd:RoutedCommands.HelloWorld"></MenuItem>
                 <MenuItem Header="_Enable" IsCheckable="True" Command="cmd:RoutedCommands.Enable" IsChecked="{Binding Path=MenuEnabled}"></MenuItem>
@@ -41,7 +44,8 @@
                 <MenuItem Header="_Custom komande" Command="cmd:CustomCommands.testKomanda"></MenuItem>
                 <MenuItem Header="_Ugradjene komande" Command="cmd:RoutedCommands.Ugradjene"></MenuItem>
             </MenuItem>
-            <MenuItem Header="_Tabele (ili Pregled?)" ToolTip="Pregled svih entiteta aplikacije">
+            -->
+            <MenuItem Header="_Tabele - pregled" ToolTip="Pregled svih entiteta aplikacije">
                 <MenuItem Header="_Predmeti" Click="Predmeti_Click" ></MenuItem>
                 <!--Click=""-->
                 <MenuItem Header="Smj_erovi" Click="Smerovi_Click" ></MenuItem>

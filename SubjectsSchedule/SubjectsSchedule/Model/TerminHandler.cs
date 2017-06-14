@@ -157,26 +157,6 @@ namespace SubjectsSchedule.Model
             }
         }
 
-        private void XMLDeSerializeTermins(string fileName)
-        {
-            using (Stream file = File.Open(fileName + "_XML_ByID.xml", FileMode.Open))
-            {
-                var doc = new XmlDocument();
-                doc.Load(file);
-
-                var context = new XmlSerializationContext(new Schedule(), doc);
-
-                foreach (var itemElement in doc.SelectNodes("root/item"))
-                {
-                    MyTermin item = new MyTermin();
-                    item.LoadFrom((XmlElement)itemElement, context);
-                    TerminsByIds.Add(item.Id, item);
-                    // smanjimo broj NEraspoređenih termina za odgovarajući predmet.
-                    SubjectHandler.Instance.ChangeUnscheduledTermins(item.ForSubject.Id);
-                }
-            }
-        }
-
         public void Deserialize(string fileName)
         {
             using (Stream file = File.Open(fileName + "_ByC.bin", FileMode.Open))
@@ -196,6 +176,28 @@ namespace SubjectsSchedule.Model
             }
 
             XMLDeSerializeTermins(fileName);
+        }
+
+        private void XMLDeSerializeTermins(string fileName)
+        {
+            using (Stream file = File.Open(fileName + "_XML_ByID.xml", FileMode.Open))
+            {
+                var doc = new XmlDocument();
+                doc.Load(file);
+
+                var context = new XmlSerializationContext(new Schedule(), doc);
+
+                SubjectHandler.Instance.ResetAllUncheduledTermins();
+
+                foreach (var itemElement in doc.SelectNodes("root/item"))
+                {
+                    MyTermin item = new MyTermin();
+                    item.LoadFrom((XmlElement)itemElement, context);
+                    TerminsByIds.Add(item.Id, item);
+                    // smanjimo broj NEraspoređenih termina za odgovarajući predmet.
+                    SubjectHandler.Instance.ChangeUnscheduledTermins(item.ForSubject.Id);
+                }
+            }
         }
 
         private string NextId()

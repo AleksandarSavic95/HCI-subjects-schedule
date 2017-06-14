@@ -26,6 +26,11 @@
         <!-- info box -->
         <StackPanel Grid.Column="0" Grid.Row="0" Margin="5" Panel.ZIndex="5"
                     TextBlock.FontSize="14" TextBlock.TextAlignment="Justify">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5" HorizontalAlignment="Center">
+                <TextBlock FontSize="16" VerticalAlignment="Center">
+                    Učionica: <Run Text="{Binding SelectedScheduleClassroom.Id}"></Run>
+                </TextBlock>
+            </StackPanel>
             <!-- ima i 48x48 -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                 <Image Source="/MyIcons/info icon 32x32.png" Margin="0" Width="28"/>

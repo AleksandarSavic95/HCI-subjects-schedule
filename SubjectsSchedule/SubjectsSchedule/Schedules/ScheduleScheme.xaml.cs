@@ -127,7 +127,7 @@ namespace SubjectsSchedule.Schedules
                     // ako je slobodno, samo poruka o izlasku iz opsega [7-22]
                     else
                         // prikazuje se ako je uključen prikaz obavještenja
-                        if (TooEarlyOrTooLate.Length > 22 && MainWindowParent.Obavjestenja["TooEarlyOrTooLate"])
+                        if (TooEarlyOrTooLate.Length > 22 && MainWindowParent.Obavjestenja["Prekoračenje radnog vremena"])
                             MessageBox.Show(TooEarlyOrTooLate + "\nOvo obavještenje možete isključiti u meniju \"Obavještenja\".");
 
                     if (!zauzeto)

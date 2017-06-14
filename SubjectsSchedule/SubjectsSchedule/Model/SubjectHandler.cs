@@ -75,8 +75,12 @@ namespace SubjectsSchedule.Model
                 subjects = ( Dictionary<string, Subject> ) formatter.Deserialize(file);
             }
 
-            foreach (var subjId in subjects.Keys)
-                TerminHandler.Instance.AddSubject(subjId);
+            foreach (var subjectPair in subjects)
+            {
+                if (subjectPair.Value.UnscheduledTermins < 0)
+                    subjectPair.Value.UnscheduledTermins = 0;
+                TerminHandler.Instance.AddSubject(subjectPair.Key);
+            }
         }
 
         public Subject Add(string id, string name, FieldOfStudy fieldOfStudy, string description, int groupSize, int classLength,

@@ -238,7 +238,7 @@ namespace SubjectsSchedule.Schedules
             }
             var text = grid.Children[0] as TextBlock;
 
-            if ((Window.GetWindow(this) as MainWindow).Obavjestenja[""])
+            if ((Window.GetWindow(this) as MainWindow).Obavjestenja["Najava prikaza rasporeda učionice"])
                 MessageBox.Show("Prikaz rasporeda za ucionicu: " + text.Text +
                     "\nOvo obavještenje možete sakriti u meniju \"Obavještenja\".");
 
